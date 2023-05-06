@@ -1,0 +1,14 @@
+Multiplier Test Log
+___________________
+Test#          1 run without incident.
+================
+Multiplier_A=00000020 Multiplier_B=00000100 Multiplier_Result=00002000 Expected_Result=00002000
+================
+Multiplier_A=00000002 Multiplier_B=0000000b Multiplier_Result=00000016 Expected_Result=00000016
+================
+Multiplier_A=00000004 Multiplier_B=0000000b Multiplier_Result=0000002c Expected_Result=0000002c
+================
+Multiplier_A=0000000c Multiplier_B=0000000c Multiplier_Result=00000090 Expected_Result=00000090
+================
+          5 tests run,           0 errors found
+--Tests Completed--

@@ -1,0 +1,14 @@
+addr_reg Test Log
+___________________
+AR_Bus_Alu=00000000 AR_Bus_PC=55555555 AR_Bus_PC_4=aaaaaaaa AR_Bus_Sel=00 AR_Output_Bus=xxxxxxxx
+================
+AR_Bus_Alu=ffffffff AR_Bus_PC=55555555 AR_Bus_PC_4=aaaaaaaa AR_Bus_Sel=01 AR_Output_Bus=00000000
+================
+AR_Bus_Alu=ffffffff AR_Bus_PC=11111111 AR_Bus_PC_4=33333333 AR_Bus_Sel=10 AR_Output_Bus=55555555
+================
+AR_Bus_Alu=ffffffff AR_Bus_PC=11111111 AR_Bus_PC_4=ffffffff AR_Bus_Sel=00 AR_Output_Bus=33333333
+================
+AR_Bus_Alu=ffffffff AR_Bus_PC=11111111 AR_Bus_PC_4=ffffffff AR_Bus_Sel=00 AR_Output_Bus=ffffffff
+================
+          5 tests run
+--Tests Completed--

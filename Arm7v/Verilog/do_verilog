@@ -1,0 +1,10 @@
+#!/bin/csh
+cp ../bitg/$1.imem arm7.imem
+cp ../bitg/$1.dmem arm7.dmem
+cp ../bitg/$1.dmemr arm7.dmemr
+cp ../bitg/$1.regsr arm7.regsr
+verilog testbench_arm7.v
+echo register comparison
+diff arm7.regout arm7.regsr
+echo data memory comparison
+diff arm7.dmemout arm7.dmemr

@@ -1,0 +1,120 @@
+barrel Test Log
+___________________
+Input_Bus=00000000 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000000 Cout=0
+================
+Input_Bus=00000001 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000001 Cout=0
+================
+Input_Bus=00000002 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000002 Cout=0
+================
+Input_Bus=00000003 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000003 Cout=0
+================
+Input_Bus=00000004 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000004 Cout=0
+================
+Input_Bus=00000005 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000005 Cout=0
+================
+Input_Bus=00000006 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000006 Cout=0
+================
+Input_Bus=00000007 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000007 Cout=0
+================
+Input_Bus=00000008 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000008 Cout=0
+================
+Input_Bus=00000009 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000009 Cout=0
+================
+Input_Bus=0000000a Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000000a Cout=0
+================
+Input_Bus=0000000b Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000000b Cout=0
+================
+Input_Bus=0000000c Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000000c Cout=0
+================
+Input_Bus=0000000d Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000000d Cout=0
+================
+Input_Bus=0000000e Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000000e Cout=0
+================
+Input_Bus=0000000f Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000000f Cout=0
+================
+Input_Bus=00000010 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000010 Cout=0
+================
+Input_Bus=00000011 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000011 Cout=0
+================
+Input_Bus=00000012 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000012 Cout=0
+================
+Input_Bus=00000013 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000013 Cout=0
+================
+Input_Bus=00000014 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000014 Cout=0
+================
+Input_Bus=00000015 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000015 Cout=0
+================
+Input_Bus=00000016 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000016 Cout=0
+================
+Input_Bus=00000017 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000017 Cout=0
+================
+Input_Bus=00000018 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000018 Cout=0
+================
+Input_Bus=00000019 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000019 Cout=0
+================
+Input_Bus=0000001a Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000001a Cout=0
+================
+Input_Bus=0000001b Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000001b Cout=0
+================
+Input_Bus=0000001c Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000001c Cout=0
+================
+Input_Bus=0000001d Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000001d Cout=0
+================
+Input_Bus=0000001e Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000001e Cout=0
+================
+Input_Bus=0000001f Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=0000001f Cout=0
+================
+Input_Bus=00000020 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=0 Output_Bus=00000020 Cout=0
+================
+Input_Bus=00000001 Shift_Type=00 Shift_Amt=00 Cin=0 Enable=1 Output_Bus=00000001 Cout=0
+================
+Input_Bus=00000001 Shift_Type=00 Shift_Amt=01 Cin=0 Enable=1 Output_Bus=00000002 Cout=0
+================
+Input_Bus=00000001 Shift_Type=00 Shift_Amt=02 Cin=0 Enable=1 Output_Bus=00000004 Cout=0
+================
+Input_Bus=00000001 Shift_Type=00 Shift_Amt=03 Cin=0 Enable=1 Output_Bus=00000008 Cout=0
+================
+Input_Bus=00000001 Shift_Type=00 Shift_Amt=04 Cin=0 Enable=1 Output_Bus=00000010 Cout=0
+================
+Input_Bus=00000001 Shift_Type=00 Shift_Amt=05 Cin=0 Enable=1 Output_Bus=00000020 Cout=0
+================
+Input_Bus=00000020 Shift_Type=01 Shift_Amt=00 Cin=0 Enable=1 Output_Bus=00000000 Cout=0
+================
+Input_Bus=00000020 Shift_Type=01 Shift_Amt=01 Cin=0 Enable=1 Output_Bus=00000010 Cout=0
+================
+Input_Bus=00000020 Shift_Type=01 Shift_Amt=02 Cin=0 Enable=1 Output_Bus=00000008 Cout=0
+================
+Input_Bus=00000020 Shift_Type=01 Shift_Amt=03 Cin=0 Enable=1 Output_Bus=00000004 Cout=0
+================
+Input_Bus=00000020 Shift_Type=01 Shift_Amt=04 Cin=0 Enable=1 Output_Bus=00000002 Cout=0
+================
+Input_Bus=00000020 Shift_Type=01 Shift_Amt=05 Cin=0 Enable=1 Output_Bus=00000001 Cout=0
+================
+Input_Bus=80000000 Shift_Type=10 Shift_Amt=00 Cin=0 Enable=1 Output_Bus=ffffffff Cout=1
+================
+Input_Bus=80000000 Shift_Type=10 Shift_Amt=01 Cin=0 Enable=1 Output_Bus=c0000000 Cout=0
+================
+Input_Bus=80000000 Shift_Type=10 Shift_Amt=02 Cin=0 Enable=1 Output_Bus=e0000000 Cout=0
+================
+Input_Bus=80000000 Shift_Type=10 Shift_Amt=03 Cin=0 Enable=1 Output_Bus=f0000000 Cout=0
+================
+Input_Bus=80000000 Shift_Type=10 Shift_Amt=04 Cin=0 Enable=1 Output_Bus=f8000000 Cout=0
+================
+Input_Bus=80000000 Shift_Type=10 Shift_Amt=05 Cin=0 Enable=1 Output_Bus=fc000000 Cout=0
+================
+Input_Bus=00000000 Shift_Type=10 Shift_Amt=00 Cin=0 Enable=1 Output_Bus=00000000 Cout=0
+================
+Input_Bus=00000002 Shift_Type=11 Shift_Amt=00 Cin=1 Enable=1 Output_Bus=80000001 Cout=0
+================
+Input_Bus=00000002 Shift_Type=11 Shift_Amt=01 Cin=1 Enable=1 Output_Bus=00000001 Cout=0
+================
+Input_Bus=00000002 Shift_Type=11 Shift_Amt=02 Cin=1 Enable=1 Output_Bus=80000000 Cout=1
+================
+Input_Bus=00000002 Shift_Type=11 Shift_Amt=03 Cin=1 Enable=1 Output_Bus=40000000 Cout=0
+================
+Input_Bus=00000002 Shift_Type=11 Shift_Amt=04 Cin=1 Enable=1 Output_Bus=20000000 Cout=0
+================
+Input_Bus=00000002 Shift_Type=11 Shift_Amt=05 Cin=1 Enable=1 Output_Bus=10000000 Cout=0
+================
+         58 tests run
+--Tests Completed--

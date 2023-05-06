@@ -1,0 +1,28 @@
+Register File Test Log
+___________________
+                  25 Addr_A:0 Addr_B:0 Addr_C:1
+Addr_Write:0 Bus_Write:000000ff Load_Write:1
+PC_Write:00000004 Flags_Write:010 Load_Flags:0
+PSR_R_Sel:0 PSR_W_Sel:0
+Bus_A:000000ff Bus_B:000000ff Bus_C:xxxxxxxx PC_Read:00000004 PSR_Read:00000010
+================
+                  35 Addr_A:0 Addr_B:0 Addr_C:1
+Addr_Write:1 Bus_Write:0000ffff Load_Write:1
+PC_Write:00000008 Flags_Write:010 Load_Flags:0
+PSR_R_Sel:0 PSR_W_Sel:0
+Bus_A:000000ff Bus_B:000000ff Bus_C:0000ffff PC_Read:00000008 PSR_Read:00000010
+================
+                  45 Addr_A:0 Addr_B:1 Addr_C:1
+Addr_Write:2 Bus_Write:00000fff Load_Write:1
+PC_Write:0000000c Flags_Write:010 Load_Flags:0
+PSR_R_Sel:0 PSR_W_Sel:0
+Bus_A:000000ff Bus_B:0000ffff Bus_C:0000ffff PC_Read:0000000c PSR_Read:00000010
+================
+                  55 Addr_A:0 Addr_B:1 Addr_C:2
+Addr_Write:3 Bus_Write:00000020 Load_Write:1
+PC_Write:00000010 Flags_Write:010 Load_Flags:0
+PSR_R_Sel:0 PSR_W_Sel:0
+Bus_A:000000ff Bus_B:0000ffff Bus_C:00000fff PC_Read:00000010 PSR_Read:00000010
+================
+          4 tests run
+--Tests Completed--

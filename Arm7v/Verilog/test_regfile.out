@@ -1,0 +1,104 @@
+regfile Test Log
+___________________
+Load_Write=0 Addr_Write=x Bus_Write=xxxxxxxx
+Addr_A=x Addr_B=x Addr_C=x Bus_A=xxxxxxxx Bus_B=xxxxxxxx Bus_C=xxxxxxxx
+RF_PC_Write=xxxxxxxx RF_Load_Flags=1 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=x Bus_Write=xxxxxxxx
+Addr_A=x Addr_B=x Addr_C=x Bus_A=xxxxxxxx Bus_B=xxxxxxxx Bus_C=xxxxxxxx
+RF_PC_Write=xxxxxxxx RF_Load_Flags=1 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=1 Addr_Write=0 Bus_Write=0000000a
+Addr_A=0 Addr_B=1 Addr_C=2 Bus_A=0000000a Bus_B=xxxxxxxx Bus_C=xxxxxxxx
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=1 Addr_Write=1 Bus_Write=0000000b
+Addr_A=0 Addr_B=1 Addr_C=2 Bus_A=0000000a Bus_B=0000000b Bus_C=xxxxxxxx
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=1 Addr_Write=2 Bus_Write=0000000c
+Addr_A=0 Addr_B=1 Addr_C=2 Bus_A=0000000a Bus_B=0000000b Bus_C=0000000c
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=00000000
+Addr_A=0 Addr_B=1 Addr_C=2 Bus_A=0000000a Bus_B=0000000b Bus_C=0000000c
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=00000000
+Addr_A=0 Addr_B=0 Addr_C=0 Bus_A=0000000a Bus_B=0000000a Bus_C=0000000a
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=00000000
+Addr_A=1 Addr_B=1 Addr_C=1 Bus_A=0000000b Bus_B=0000000b Bus_C=0000000b
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=00000000
+Addr_A=2 Addr_B=2 Addr_C=2 Bus_A=0000000c Bus_B=0000000c Bus_C=0000000c
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=00000000
+Addr_A=0 Addr_B=0 Addr_C=0 Bus_A=0000000a Bus_B=0000000a Bus_C=0000000a
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=00000000
+Addr_A=2 Addr_B=1 Addr_C=0 Bus_A=0000000c Bus_B=0000000b Bus_C=0000000a
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=00000000
+Addr_A=2 Addr_B=1 Addr_C=0 Bus_A=0000000c Bus_B=0000000b Bus_C=0000000a
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=2 Addr_B=1 Addr_C=0 Bus_A=0000000c Bus_B=0000000b Bus_C=0000000a
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=1 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=2 Addr_B=1 Addr_C=0 Bus_A=0000000c Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010000 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000010
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=1 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=1 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=1 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=1 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+Load_Write=0 Addr_Write=0 Bus_Write=ffffffff
+Addr_A=0 Addr_B=1 Addr_C=0 Bus_A=ffffffff Bus_B=0000000b Bus_C=ffffffff
+RF_PC_Write=xxxxxxxx RF_Load_Flags=0 RF_PSR_R_Sel=0 RF_PSR_W_Sel=0 RF_Flags_Write=00000010001 RF_PC_Read=xxxxxxxx RF_PSR_Read=00000011
+================
+         25 tests run
+--Tests Completed--

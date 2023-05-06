@@ -1,0 +1,50 @@
+ALU Test Log
+___________________
+Test#          1 ran without incident.
+================
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00000 Alu_Result=00000007 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00001 Alu_Result=00000002 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00010 Alu_Result=00000009 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00011 Alu_Result=00000009 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00100 Alu_Result=00000005 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00101 Alu_Result=00000004 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00110 Alu_Result=fffffffb Alu_Signals=1000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=00111 Alu_Result=fffffffa Alu_Signals=1000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=01000 Alu_Result=00000002 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=01001 Alu_Result=00000005 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=01010 Alu_Result=00000007 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=01011 Alu_Result=00000005 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=0 Alu_Cntrl=01100 Alu_Result=fffffffd Alu_Signals=1000
+================
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00000 Alu_Result=00000007 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00001 Alu_Result=00000002 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00010 Alu_Result=00000009 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00011 Alu_Result=0000000a Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00100 Alu_Result=00000005 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00101 Alu_Result=00000005 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00110 Alu_Result=fffffffb Alu_Signals=1000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=00111 Alu_Result=fffffffb Alu_Signals=1000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=01000 Alu_Result=00000002 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=01001 Alu_Result=00000005 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=01010 Alu_Result=00000007 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=01011 Alu_Result=00000005 Alu_Signals=0000
+Alu_A=00000007 Alu_B=00000002 Alu_C=1 Alu_Cntrl=01100 Alu_Result=fffffffd Alu_Signals=1000
+================
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00000 Alu_Result=00000080 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00001 Alu_Result=00000040 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00010 Alu_Result=000000c0 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00011 Alu_Result=000000c1 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00100 Alu_Result=00000040 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00101 Alu_Result=00000040 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00110 Alu_Result=ffffffc0 Alu_Signals=1000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=00111 Alu_Result=ffffffc0 Alu_Signals=1000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=01000 Alu_Result=00000000 Alu_Signals=0100
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=01001 Alu_Result=000000c0 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=01010 Alu_Result=000000c0 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=01011 Alu_Result=00000080 Alu_Signals=0000
+Alu_A=00000080 Alu_B=00000040 Alu_C=1 Alu_Cntrl=01100 Alu_Result=ffffffbf Alu_Signals=1000
+================
+Test#         41 ran without incident.
+================
+         41 tests ran,           0 errors found
+--Tests Completed--

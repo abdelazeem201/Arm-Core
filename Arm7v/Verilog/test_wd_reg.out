@@ -1,0 +1,24 @@
+wd_reg Test Log
+___________________
+WD_Bus_Write=00000000 WD_DBE=1 WD_Load=1 WD_DOUT=xxxxxxxx
+================
+WD_Bus_Write=55555555 WD_DBE=0 WD_Load=0 WD_DOUT=zzzzzzzz
+================
+WD_Bus_Write=aaaaaaaa WD_DBE=0 WD_Load=0 WD_DOUT=zzzzzzzz
+================
+WD_Bus_Write=aaaaaaaa WD_DBE=1 WD_Load=0 WD_DOUT=00000000
+================
+WD_Bus_Write=12121212 WD_DBE=1 WD_Load=1 WD_DOUT=00000000
+================
+WD_Bus_Write=12121212 WD_DBE=1 WD_Load=1 WD_DOUT=00000000
+================
+WD_Bus_Write=55555555 WD_DBE=0 WD_Load=1 WD_DOUT=zzzzzzzz
+================
+WD_Bus_Write=00000000 WD_DBE=0 WD_Load=1 WD_DOUT=zzzzzzzz
+================
+WD_Bus_Write=00000000 WD_DBE=1 WD_Load=1 WD_DOUT=00000000
+================
+WD_Bus_Write=00000000 WD_DBE=1 WD_Load=1 WD_DOUT=00000000
+================
+         10 tests run
+--Tests Completed--
