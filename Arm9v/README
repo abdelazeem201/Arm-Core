@@ -1,0 +1,128 @@
+This is the fpga implementation of the ARM processor.  The memory
+configuration is the main change.  The cache sizes had to be altered
+to fit into the standard Xilinx Virtex FPGA.  This is designed to be
+run on a STARFIRE board from Annapolis Microsystems.  The VHDL models
+represent the necessary interfaces to fit the ARM into the STARFIRE 
+system.
+
+Verilog File    Description:
+==================================================================
+align.v         Data Aligner for Byte/Halfword/Word Access
+alu.v           ALU
+arm9.v          ARM Processor Top Level Module
+comp42_2.v      4-2 Compressor used in Multiplier
+comp42_n40.v    Level 0 Bank of Compressors (40 of comp42_2)
+comp42_n64.v    Level 1 Bank of Compressors (64 of comp42_2)
+counters.v      Performance Counters (IMISS, DMISS, ...)
+control.v       Instantiates the ifetch, interlock, and counters blocks
+dcache.v        Data Cache Controller
+decode.v	A 4:16 Decoder
+dtag.v		Simulation Model for Data Tags
+dtag_synth.v	Synthesis Model for the Data Tags
+ex.v            Execute Stage of Pipeline
+icache.v        Instruction Cache Controller
+id.v            Instruction Decode Stage of Pipeline
+idt71v546s100.v ZBT SRAM model
+ifetch.v        Instruction Fetch and Branch Prediciton Unit
+interlock.v     Stall Controller
+itag.v		Simulation Model for Instruction Tags
+itag_synth.v	Sythesis Model for Instruction Tags
+lec25dscc25.v   LEDA Library for synthesis
+mainmem.v       Instantiates the SRAM 
+mapreg.v        Maps Register Indexes by Mode
+mapspsr.v       Maps SPSR Indexes by Mode
+me.v            Memory Stage of PIpeline
+miniram.v       Lock Down Cache (ROM) used for Decompression
+mmu_new.v       Memory Management Unit and Decompression Controller
+mult.v          Multiplier top-level module
+multacc.v       32x8 multiplier
+pardef.*        Parameters and Define Statements
+pipe.v          Instantiates the Execute, Decode, and Memory Stages
+ppselect.v      Partial Product Select for Booth Recoding
+ram1p.v         Simulation RAM model for Instruction Cache
+ram1p_synth.v   Synthesis RAM model for Instruction Cache
+ram2p.v 	Simulation RAM model for Data Cache
+ram2p_synth.v   Synthesis RAM model for Data Cache
+regfile.v       Register File
+shifter.v       Shift Unit
+tag.v           TAG model for caches
+
+VHDL File       		Description:
+==================================================================
+clock_if_entarch.vhd		Standard Interface to Clocks
+clock_io_entarch.vhd		Clock Pads
+host.vhd			Simulates testarm.vhx
+host_dcomp.vhd			Simulates Program with D/I Comp
+host_icomp.vhd			Simulates Program with I Comp 
+io_conn_if_entarch.vhd		Standard Interface to I/O Card
+lad_bus_if_entarch.vhd		Standard Interface to LAD Bus
+lad_bus_io_entarch.vhd		LAD Bus Pads
+led_if_entarch.vhd		Standard Interface to LED's
+led_io_entarch.vhd		LED Pads
+mem_if_entarch.vhd		Standard Interface to Memory
+mem_io_entarch.vhd		Memory Pads
+mezz_mem_card_cfg.vhd		Mezz Card Config for Simulation
+pe0_bus_if_entarch.vhd		Standard Interface to PE0-PEX Bus
+pe0_bus_io_entarch.vhd		PE0-PEX Pads
+pe_arm2mem_if_entarch.vhd	User Defined Interface from ARM to Memory
+pe_lad2mem_if_entarch.vhd	Standard Interface from LAD to Memory
+pe_mezz_mem_pkg.vhd		Mezzanine Package used in Synthesis
+pe_pkg.vhd			Processing Element Package used in Synthesis
+pex.vhd				User Defined Processing Element
+				Contains the ARM and all necessary I/F's
+pex_synth.vhd			Modified Library Use Clause for Synthesis
+pex_ent.vhd			Entity Definition (I/O) for PEX
+pex_mezz_mem_if_entarch.vhd	Standard Interface to Mezzanine Memory
+pex_mezz_mem_io_entarch.vhd	Mezzanine Memory Pads
+system_cfg.vhd			System Configuration for Simulation
+systolic_if_entarch.vhd		Standard Interface to Systolic Bus
+systolic_io_entarch.vhd		Systolic Bus Pads
+xilinx_pkg.vhd			Xilinx Package used in Synthesis
+				Contains Definitions of User Defined Data Types
+
+Script File		Description:
+==================================================================
+project_vcom.do		Compile Script for ModelSim (Run First)
+project_vsim.do		Simulation Script for ModelSim (Run Second)
+wave.do			Waveform Script for ModelSim (Load in Wave Window)
+pex.fes			FPGA Express Synthesis Script
+
+/*************************************************************************
+Below is the FPGA heirarchy -- Synthesis Heirarchy
+*************************************************************************/
+
+pex_synth.vhd
+  pe_arm2mem_if_entarch.vhd
+  pe_lad2mem_if_entarch.vhd
+  arm9.v
+     regfile.v
+     mmu.v 
+        counters.v
+     icache.v
+        ram1p_synth.v
+        itag_synth.v 
+        miniram.v
+     dcache.v
+        ram2p_synth.v 
+        dtag_synth.v   
+     control.v
+        ifetch.v
+        interlock.v
+     pipe.v
+        me.v
+           align.v
+        id.v
+           mapreg.v
+           decode.v
+        ex.v
+           alu.v
+           shifter.v
+           mapspsr.v
+           mult.v
+              multacc.v
+                 ppselect.v
+                 comp42_n40.v
+                    comp42_2.v
+                 comp42_n64.v
+                    comp42_2.v
+

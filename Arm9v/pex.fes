@@ -1,0 +1,72 @@
+create_project FPGA
+create_library system
+create_library pex_lib
+create_library arm
+
+add_file -library system -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/xilinx_pkg.vhd
+
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pe_pkg.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/systolic_io_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/lad_bus_io_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/led_io_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/mem_io_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pe0_bus_io_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/clock_io_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/clock_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/io_conn_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/lad_bus_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/led_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/mem_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pe0_bus_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/systolic_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pe_mezz_mem_pkg.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pex_mezz_mem_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pex_mezz_mem_io_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pe_lad2mem_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pe_arm2mem_if_entarch.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pex_ent.vhd
+add_file -library pex_lib -format VHDL F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pex_synth.vhd
+
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/shifter.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/alu.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/arm9.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/comp42_2.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/comp42_n40.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/comp42_n64.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/control.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/counters.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/dcache.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/decode.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/dtag_synth.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/icache.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/id.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/ifetch.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/interlock.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/itag_synth.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/mapreg.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/mapspsr.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/me.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/miniram.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/mmu_new.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/mult.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/multacc.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pardef.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/ppselect.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/ram1p_synth.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/ram2p_synth.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/regfile.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/align.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/pipe.v
+add_file -library arm -format Verilog F:/arm/isc/hardware/ARM10/behavioral/pipelined/fpga2/ex.v
+
+
+analyze_file -progress
+
+create_chip -progress -name PEX -target VIRTEX -device V1000BG560 -speed -6 -frequency 5 -module -area_only -quick_mode PEX
+current_chip PEX
+
+optimize_chip -name PEX-Optimized -progress
+
+export_chip -dir D:\kohler\FPGA
+
+list_message
