@@ -4,7 +4,6 @@ $Revision: 1.7 $
 $Author: kohlere $
 $Date: 2000/04/10 18:17:59 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/icache.v,v $
 
 Description:  I-Cache Controller Unit for the ARM Microprocessor.  This
 	provides the next 3 instruction to the ARM fetch unit.  When a 
