@@ -1,3 +1,6 @@
+/*
+Ahmed Abdelazeem @ ahmed-abdelazeem@outlook.com
+*/
 `timescale 1ns/100ps
 module tb_dhrystone;
 
