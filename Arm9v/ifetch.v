@@ -6,7 +6,6 @@ $Revision: 1.8 $
 $Author: kohlere $
 $Date: 2000/05/10 20:35:48 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/ifetch.v,v $
 
 Description: Currently, this is the first stage of the pipeline.  This
 		stage handles the PC and fetches the next instruction.  It 
