@@ -5,7 +5,6 @@ $Revision: 1.1 $
 $Author: kohlere $
 $Date: 2000/03/24 01:52:17 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/shifter.v,v $
 
 Description: 32-bit Barrel Shifter used by ARM9
 
