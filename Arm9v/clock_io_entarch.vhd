@@ -17,7 +17,7 @@
 --
 --  Description   : Model provides basic interface from PEX clock pads
 --                  using Xilinx buffer primitives.
---
+--  https://www.micro-semiconductor.sg/datasheet/07-PEX8311RDK.pdf
 ------------------------------------------------------------------------
 
 -------------------------- Library Declarations ------------------------
