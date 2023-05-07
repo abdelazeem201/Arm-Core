@@ -5,7 +5,6 @@ $Revision: 1.8 $
 $Author: kohlere $
 $Date: 2000/05/11 01:07:57 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/counters.v,v $
 
 Description:  This block keeps track of instruction count, when
 		instructions are done, how many cycles have passed, etc...
