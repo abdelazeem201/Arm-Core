@@ -16,7 +16,7 @@
 --  Date          : 9/3/99
 --
 --  Description   : Models an interface to the PEX systolic bus.
---
+--  https://www.micro-semiconductor.sg/datasheet/07-PEX8311RDK.pdf
 ------------------------------------------------------------------------
 
 ------------------------------- Glossary -------------------------------
