@@ -2,7 +2,6 @@
 /*-----------------------------------------------------------------------------
 Project:        High Speed Floating Point Unit
 File:           $RCSfile: comp42_n40.v,v $
-Repository:     $Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/comp42_n40.v,v $
 Author:         $Author: kohlere $
 Version:        $Revision: 1.1 $
 Modified:       $Date: 2000/03/24 01:52:16 $
