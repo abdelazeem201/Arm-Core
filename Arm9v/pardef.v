@@ -5,7 +5,6 @@ $Revision: 1.3 $
 $Author: kohlere $
 $Date: 2000/03/28 04:39:17 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/pardef.v,v $
 
 Description: This is a list of parameters and define statments used in 
 		the ARM.
