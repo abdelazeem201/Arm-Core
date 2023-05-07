@@ -5,7 +5,7 @@ $Revision: 1.4 $
 $Author: kohlere $       
 $Date: 2000/04/10 00:26:33 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/mult.v,v $
+
 
 Description:  This is the multiplication unit.  It is capable of performing
 		32*32=32, 32*32=64, Signed and Unsigned, and accumulate.
