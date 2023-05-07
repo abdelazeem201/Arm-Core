@@ -6,7 +6,7 @@ $Revision: 1.1 $
 $Author: kohlere $
 $Date: 2000/03/24 01:52:16 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/mapspsr.v,v $
+
 
 Description:  Based on the processor mode, this unit creates the SPSR index.
 	
