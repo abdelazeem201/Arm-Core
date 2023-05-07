@@ -6,7 +6,6 @@ $Revision: 1.5 $
 $Author: kohlere $
 $Date: 2000/04/17 18:12:50 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/me.v,v $
 
 Description: This is the Memory Stage.  It controls all accesses to
 		and from memory and passes on the results to the WB
