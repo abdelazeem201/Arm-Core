@@ -5,7 +5,7 @@ $Revision: 1.3 $
 $Author: kohlere $
 $Date: 2000/03/30 01:10:49 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/regfile.v,v $
+
 
 Description: Register File, 31, 32-bit registers (ff's).  Would like
 		to use SRAM, but we still don't have the damn memory
