@@ -6,7 +6,6 @@ $Revision: 1.6 $
 $Author: kohlere $
 $Date: 2000/04/17 18:12:48 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/ex.v,v $
 
 Description:  This is the Execution Stage of the Pipeline.  It 
 		contains the Shifter, ALU, and PSR's.  
