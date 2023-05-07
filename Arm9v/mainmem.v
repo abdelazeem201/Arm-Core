@@ -5,7 +5,6 @@ $Revision: 1.1 $
 $Author: kohlere $
 $Date: 2000/03/24 01:52:16 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/mainmem.v,v $
 
 Description:  This module simulate main memory using a ZBT Sram mode
 		obtained from the IDT web page.
