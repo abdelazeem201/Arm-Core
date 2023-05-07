@@ -17,7 +17,7 @@
 --
 --  Description   : Models a standard interface to the clock resources
 --                  of the PEX.
---
+--  https://www.micro-semiconductor.sg/datasheet/07-PEX8311RDK.pdf
 ------------------------------------------------------------------------
 
 ------------------------------- Glossary -------------------------------
