@@ -5,7 +5,7 @@ $Revision: 1.1 $
 $Author: kohlere $
 $Date: 2000/04/10 18:17:59 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/decode.v,v $
+
 
 Description: 4->16 decoder
 
