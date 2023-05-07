@@ -6,7 +6,6 @@ $Revision: 1.5 $
 $Author: kohlere $
 $Date: 2000/04/13 21:55:18 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/interlock.v,v $
 
 Description:  This contains the control logic which interlocks the 
 		pipeline for these reasons:
