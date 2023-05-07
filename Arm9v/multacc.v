@@ -5,7 +5,6 @@ $Revision: 1.1 $
 $Author: kohlere $
 $Date: 2000/03/24 01:52:16 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/multacc.v,v $
 
 Description:  This is a 32x8 mac unit using a 4-2 (5-3) compressor tree.
 		It is actually performing a 32x32 in 4 8-bit chunks.  
