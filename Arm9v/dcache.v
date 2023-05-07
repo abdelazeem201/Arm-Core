@@ -6,7 +6,7 @@ $Revision: 1.15 $
 $Author: kohlere $
 $Date: 2000/05/04 16:31:08 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/dcache.v,v $
+
 
 Description:  D-Cache Controller Unit for the ARM Microprocessor.  The
 		cache is line addressable, so data writes use a read-
