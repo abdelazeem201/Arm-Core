@@ -17,7 +17,7 @@
 --
 --  Description   : Models a standard user interface to the PEX 
 --                  systolic bus pads.
---
+--  https://www.micro-semiconductor.sg/datasheet/07-PEX8311RDK.pdf
 ------------------------------------------------------------------------
 
 ------------------------------- Glossary -------------------------------
