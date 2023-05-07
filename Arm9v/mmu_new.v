@@ -6,7 +6,6 @@ $Revision: 1.15 $
 $Author: kohlere $
 $Date: 2000/05/11 01:07:57 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/mmu_new.v,v $
 
 Description:  Memory Management Unit for the ARM Microprocessor.
 	Notes:	DMAS 	11 => double word
