@@ -17,7 +17,7 @@
 --
 --  Description   : Configures a system model made up of a host device
 --                  and one or more STARFIRE(tm) devices.
---
+--  https://www.micro-semiconductor.sg/datasheet/07-PEX8311RDK.pdf
 ------------------------------------------------------------------------
 
 library SYSTEM, PEX_Lib;
