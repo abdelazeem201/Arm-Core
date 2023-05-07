@@ -6,7 +6,6 @@ $Revision: 1.1 $
 $Author: kohlere $
 $Date: 2000/03/24 01:52:16 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/mapreg.v,v $
 
 Description: Turn the 4-bit Register Field into a 5-bit Address,
 		based on the processor mode bits.
