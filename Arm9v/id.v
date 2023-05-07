@@ -6,7 +6,6 @@ $Revision: 1.10 $
 $Author: kohlere $
 $Date: 2000/04/17 18:12:50 $
 $State: Exp $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/id.v,v $
 
 Description:  This is the Instruction Decode Stage.  It controls the
 		reads of the Register File, as well as setting up some
