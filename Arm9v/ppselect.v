@@ -1,7 +1,6 @@
 `timescale 1ns/10ps
 /*-----------------------------------------------------------------------------
 $RCSfile: ppselect.v,v $
-$Source: /home/lefurgy/tmp/ISC-repository/isc/hardware/ARM10/behavioral/pipelined/fpga2/ppselect.v,v $
 $Author: kohlere $
 $Revision: 1.1 $
 $Date: 2000/03/24 01:52:17 $
