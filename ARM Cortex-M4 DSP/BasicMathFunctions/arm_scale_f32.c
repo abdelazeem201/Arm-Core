@@ -5,9 +5,9 @@
 * $Revision: 	V1.0.10  
 *   
 * Project: 	    CMSIS DSP Library   
-* Title:		arm_abs_f32.c   
+* Title:		arm_scale_f32.c   
 *   
-* Description:	Vector absolute value.   
+* Description:	Multiplies a floating-point vector by a scalar.   
 *   
 * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
 *  
@@ -24,47 +24,60 @@
 *    Production release and review comments incorporated.   
 *   
 * Version 1.0.0 2010/09/20    
-*    Production release and review comments incorporated.   
+*    Production release and review comments incorporated   
 *   
 * Version 0.0.7  2010/06/10    
 *    Misra-C changes done   
 * ---------------------------------------------------------------------------- */
 
 #include "arm_math.h"
-#include <math.h>
 
 /**   
  * @ingroup groupMath   
  */
 
 /**   
- * @defgroup BasicAbs Vector Absolute Value   
+ * @defgroup scale Vector Scale   
  *   
- * Computes the absolute value of a vector on an element-by-element basis.   
+ * Multiply a vector by a scalar value.  For floating-point data, the algorithm used is:   
  *   
  * <pre>   
- *     pDst[n] = abs(pSrcA[n]),   0 <= n < blockSize.   
+ *     pDst[n] = pSrc[n] * scale,   0 <= n < blockSize.   
  * </pre>   
  *   
- * The operation can be done in-place by setting the input and output pointers to the same buffer.   
- * There are separate functions for floating-point, Q7, Q15, and Q31 data types.   
+ * In the fixed-point Q7, Q15, and Q31 functions, <code>scale</code> is represented by   
+ * a fractional multiplication <code>scaleFract</code> and an arithmetic shift <code>shift</code>.   
+ * The shift allows the gain of the scaling operation to exceed 1.0.   
+ * The algorithm used with fixed-point data is:   
+ *   
+ * <pre>   
+ *     pDst[n] = (pSrc[n] * scaleFract) << shift,   0 <= n < blockSize.   
+ * </pre>   
+ *   
+ * The overall scale factor applied to the fixed-point data is   
+ * <pre>   
+ *     scale = scaleFract * 2^shift.   
+ * </pre>   
  */
 
 /**   
- * @addtogroup BasicAbs   
+ * @addtogroup scale   
  * @{   
  */
 
 /**   
- * @brief Floating-point vector absolute value.   
- * @param[in]       *pSrc points to the input buffer   
- * @param[out]      *pDst points to the output buffer   
- * @param[in]       blockSize number of samples in each vector   
+ * @brief Multiplies a floating-point vector by a scalar.   
+ * @param[in]       *pSrc points to the input vector   
+ * @param[in]       scale scale factor to be applied   
+ * @param[out]      *pDst points to the output vector   
+ * @param[in]       blockSize number of samples in the vector   
  * @return none.   
  */
 
-void arm_abs_f32(
+
+void arm_scale_f32(
   float32_t * pSrc,
+  float32_t scale,
   float32_t * pDst,
   uint32_t blockSize)
 {
@@ -72,8 +85,7 @@ void arm_abs_f32(
 
 #ifndef ARM_MATH_CM0
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
-
+/* Run the below code for Cortex-M4 and Cortex-M3 */
   /*loop Unrolling */
   blkCnt = blockSize >> 2u;
 
@@ -81,12 +93,12 @@ void arm_abs_f32(
    ** a second loop below computes the remaining 1 to 3 samples. */
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
+    /* C = A * scale */
+    /* Scale the input and then store the results in the destination buffer. */
+    *pDst++ = (*pSrc++) * scale;
+    *pDst++ = (*pSrc++) * scale;
+    *pDst++ = (*pSrc++) * scale;
+    *pDst++ = (*pSrc++) * scale;
 
     /* Decrement the loop counter */
     blkCnt--;
@@ -103,20 +115,19 @@ void arm_abs_f32(
   /* Initialize blkCnt with number of samples */
   blkCnt = blockSize;
 
-#endif /*   #ifndef ARM_MATH_CM0   */
+#endif /* #ifndef ARM_MATH_CM0 */
 
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
+    /* C = A * scale */
+    /* Scale the input and then store the result in the destination buffer. */
+    *pDst++ = (*pSrc++) * scale;
 
     /* Decrement the loop counter */
     blkCnt--;
   }
-
 }
 
 /**   
- * @} end of BasicAbs group   
+ * @} end of scale group   
  */

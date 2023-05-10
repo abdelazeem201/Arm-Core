@@ -5,9 +5,9 @@
 * $Revision: 	V1.0.10  
 *   
 * Project: 	    CMSIS DSP Library   
-* Title:		arm_abs_f32.c   
+* Title:		arm_dot_prod_f32.c   
 *   
-* Description:	Vector absolute value.   
+* Description:	Floating-point dot product.   
 *   
 * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
 *  
@@ -31,49 +31,47 @@
 * ---------------------------------------------------------------------------- */
 
 #include "arm_math.h"
-#include <math.h>
 
 /**   
  * @ingroup groupMath   
  */
 
 /**   
- * @defgroup BasicAbs Vector Absolute Value   
+ * @defgroup dot_prod Vector Dot Product   
  *   
- * Computes the absolute value of a vector on an element-by-element basis.   
- *   
- * <pre>   
- *     pDst[n] = abs(pSrcA[n]),   0 <= n < blockSize.   
- * </pre>   
- *   
- * The operation can be done in-place by setting the input and output pointers to the same buffer.   
+ * Computes the dot product of two vectors.   
+ * The vectors are multiplied element-by-element and then summed.   
  * There are separate functions for floating-point, Q7, Q15, and Q31 data types.   
  */
 
 /**   
- * @addtogroup BasicAbs   
+ * @addtogroup dot_prod   
  * @{   
  */
 
 /**   
- * @brief Floating-point vector absolute value.   
- * @param[in]       *pSrc points to the input buffer   
- * @param[out]      *pDst points to the output buffer   
+ * @brief Dot product of floating-point vectors.   
+ * @param[in]       *pSrcA points to the first input vector   
+ * @param[in]       *pSrcB points to the second input vector   
  * @param[in]       blockSize number of samples in each vector   
+ * @param[out]      *result output result returned here   
  * @return none.   
  */
 
-void arm_abs_f32(
-  float32_t * pSrc,
-  float32_t * pDst,
-  uint32_t blockSize)
+
+void arm_dot_prod_f32(
+  float32_t * pSrcA,
+  float32_t * pSrcB,
+  uint32_t blockSize,
+  float32_t * result)
 {
+  float32_t sum = 0.0f;                          /* Temporary result storage */
   uint32_t blkCnt;                               /* loop counter */
+
 
 #ifndef ARM_MATH_CM0
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
-
+/* Run the below code for Cortex-M4 and Cortex-M3 */
   /*loop Unrolling */
   blkCnt = blockSize >> 2u;
 
@@ -81,12 +79,12 @@ void arm_abs_f32(
    ** a second loop below computes the remaining 1 to 3 samples. */
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
+    /* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
+    /* Calculate dot product and then store the result in a temporary buffer */
+    sum += (*pSrcA++) * (*pSrcB++);
+    sum += (*pSrcA++) * (*pSrcB++);
+    sum += (*pSrcA++) * (*pSrcB++);
+    sum += (*pSrcA++) * (*pSrcB++);
 
     /* Decrement the loop counter */
     blkCnt--;
@@ -103,20 +101,22 @@ void arm_abs_f32(
   /* Initialize blkCnt with number of samples */
   blkCnt = blockSize;
 
-#endif /*   #ifndef ARM_MATH_CM0   */
+#endif /* #ifndef ARM_MATH_CM0 */
+
 
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
+    /* C = A[0]* B[0] + A[1]* B[1] + A[2]* B[2] + .....+ A[blockSize-1]* B[blockSize-1] */
+    /* Calculate dot product and then store the result in a temporary buffer. */
+    sum += (*pSrcA++) * (*pSrcB++);
 
     /* Decrement the loop counter */
     blkCnt--;
   }
-
+  /* Store the result back in the destination buffer */
+  *result = sum;
 }
 
 /**   
- * @} end of BasicAbs group   
+ * @} end of dot_prod group   
  */

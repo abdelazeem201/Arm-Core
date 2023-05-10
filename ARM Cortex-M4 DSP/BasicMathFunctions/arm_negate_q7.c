@@ -5,9 +5,9 @@
 * $Revision: 	V1.0.10  
 *   
 * Project: 	    CMSIS DSP Library   
-* Title:		arm_abs_f32.c   
+* Title:		arm_negate_q7.c   
 *   
-* Description:	Vector absolute value.   
+* Description:	Negates Q7 vectors.   
 *   
 * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
 *  
@@ -28,51 +28,47 @@
 *   
 * Version 0.0.7  2010/06/10    
 *    Misra-C changes done   
-* ---------------------------------------------------------------------------- */
+* -------------------------------------------------------------------- */
 
 #include "arm_math.h"
-#include <math.h>
 
 /**   
  * @ingroup groupMath   
  */
 
 /**   
- * @defgroup BasicAbs Vector Absolute Value   
- *   
- * Computes the absolute value of a vector on an element-by-element basis.   
- *   
- * <pre>   
- *     pDst[n] = abs(pSrcA[n]),   0 <= n < blockSize.   
- * </pre>   
- *   
- * The operation can be done in-place by setting the input and output pointers to the same buffer.   
- * There are separate functions for floating-point, Q7, Q15, and Q31 data types.   
- */
-
-/**   
- * @addtogroup BasicAbs   
+ * @addtogroup negate   
  * @{   
  */
 
 /**   
- * @brief Floating-point vector absolute value.   
- * @param[in]       *pSrc points to the input buffer   
- * @param[out]      *pDst points to the output buffer   
- * @param[in]       blockSize number of samples in each vector   
+ * @brief  Negates the elements of a Q7 vector.   
+ * @param[in]  *pSrc points to the input vector   
+ * @param[out]  *pDst points to the output vector   
+ * @param[in]  blockSize number of samples in the vector   
  * @return none.   
+ *   
+ * <b>Scaling and Overflow Behavior:</b>   
+ * \par   
+ * The function uses saturating arithmetic.   
+ * The Q7 value -1 (0x80) will be saturated to the maximum allowable positive value 0x7F.   
  */
 
-void arm_abs_f32(
-  float32_t * pSrc,
-  float32_t * pDst,
+void arm_negate_q7(
+  q7_t * pSrc,
+  q7_t * pDst,
   uint32_t blockSize)
 {
   uint32_t blkCnt;                               /* loop counter */
 
 #ifndef ARM_MATH_CM0
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
+/* Run the below code for Cortex-M4 and Cortex-M3 */
+  q7_t in1;                                      /* Input value1 */
+  q7_t in2;                                      /* Input value2 */
+  q7_t in3;                                      /* Input value3 */
+  q7_t in4;                                      /* Input value4 */
+
 
   /*loop Unrolling */
   blkCnt = blockSize >> 2u;
@@ -81,12 +77,17 @@ void arm_abs_f32(
    ** a second loop below computes the remaining 1 to 3 samples. */
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
+    /* C = -A */
+    /* Read four inputs */
+    in1 = *pSrc++;
+    in2 = *pSrc++;
+    in3 = *pSrc++;
+    in4 = *pSrc++;
+
+    /* Store the Negated results in the destination buffer in a single cycle by packing the results */
+    *__SIMD32(pDst)++ =
+      __PACKq7(__SSAT(-in1, 8), __SSAT(-in2, 8), __SSAT(-in3, 8),
+               __SSAT(-in4, 8));
 
     /* Decrement the loop counter */
     blkCnt--;
@@ -103,20 +104,19 @@ void arm_abs_f32(
   /* Initialize blkCnt with number of samples */
   blkCnt = blockSize;
 
-#endif /*   #ifndef ARM_MATH_CM0   */
+#endif /* #ifndef ARM_MATH_CM0 */
 
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
+    /* C = -A */
+    /* Negate and then store the results in the destination buffer. */
+    *pDst++ = __SSAT(-*pSrc++, 8);
 
     /* Decrement the loop counter */
     blkCnt--;
   }
-
 }
 
 /**   
- * @} end of BasicAbs group   
+ * @} end of negate group   
  */

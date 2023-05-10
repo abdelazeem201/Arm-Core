@@ -5,9 +5,9 @@
 * $Revision: 	V1.0.10  
 *   
 * Project: 	    CMSIS DSP Library   
-* Title:		arm_abs_f32.c   
+* Title:	    arm_mult_f32.c   
 *   
-* Description:	Vector absolute value.   
+* Description:	Floating-point vector multiplication.   
 *   
 * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
 *  
@@ -26,69 +26,72 @@
 * Version 1.0.0 2010/09/20    
 *    Production release and review comments incorporated.   
 *   
-* Version 0.0.7  2010/06/10    
-*    Misra-C changes done   
-* ---------------------------------------------------------------------------- */
+* Version 0.0.5  2010/04/26    
+*    incorporated review comments and updated with latest CMSIS layer   
+*   
+* Version 0.0.3  2010/03/10    
+*    Initial version   
+* -------------------------------------------------------------------- */
 
 #include "arm_math.h"
-#include <math.h>
 
 /**   
  * @ingroup groupMath   
  */
 
 /**   
- * @defgroup BasicAbs Vector Absolute Value   
+ * @defgroup BasicMult Vector Multiplication   
  *   
- * Computes the absolute value of a vector on an element-by-element basis.   
+ * Element-by-element multiplication of two vectors.   
  *   
  * <pre>   
- *     pDst[n] = abs(pSrcA[n]),   0 <= n < blockSize.   
+ *     pDst[n] = pSrcA[n] * pSrcB[n],   0 <= n < blockSize.   
  * </pre>   
  *   
- * The operation can be done in-place by setting the input and output pointers to the same buffer.   
  * There are separate functions for floating-point, Q7, Q15, and Q31 data types.   
  */
 
 /**   
- * @addtogroup BasicAbs   
+ * @addtogroup BasicMult   
  * @{   
  */
 
 /**   
- * @brief Floating-point vector absolute value.   
- * @param[in]       *pSrc points to the input buffer   
- * @param[out]      *pDst points to the output buffer   
+ * @brief Floating-point vector multiplication.   
+ * @param[in]       *pSrcA points to the first input vector   
+ * @param[in]       *pSrcB points to the second input vector   
+ * @param[out]      *pDst points to the output vector   
  * @param[in]       blockSize number of samples in each vector   
  * @return none.   
  */
 
-void arm_abs_f32(
-  float32_t * pSrc,
+void arm_mult_f32(
+  float32_t * pSrcA,
+  float32_t * pSrcB,
   float32_t * pDst,
   uint32_t blockSize)
 {
-  uint32_t blkCnt;                               /* loop counter */
+  uint32_t blkCnt;                               /* loop counters */
 
 #ifndef ARM_MATH_CM0
 
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
+/* Run the below code for Cortex-M4 and Cortex-M3 */
 
-  /*loop Unrolling */
+  /* loop Unrolling */
   blkCnt = blockSize >> 2u;
 
   /* First part of the processing with loop unrolling.  Compute 4 outputs at a time.   
    ** a second loop below computes the remaining 1 to 3 samples. */
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
+    /* C = A * B */
+    /* Multiply the inputs and store the results in output buffer */
+    *pDst++ = (*pSrcA++) * (*pSrcB++);
+    *pDst++ = (*pSrcA++) * (*pSrcB++);
+    *pDst++ = (*pSrcA++) * (*pSrcB++);
+    *pDst++ = (*pSrcA++) * (*pSrcB++);
 
-    /* Decrement the loop counter */
+    /* Decrement the blockSize loop counter */
     blkCnt--;
   }
 
@@ -103,20 +106,21 @@ void arm_abs_f32(
   /* Initialize blkCnt with number of samples */
   blkCnt = blockSize;
 
-#endif /*   #ifndef ARM_MATH_CM0   */
+#endif /* #ifndef ARM_MATH_CM0 */
+
 
   while(blkCnt > 0u)
   {
-    /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
+    /* C = A * B */
+    /* Multiply the inputs and store the results in output buffer */
+    *pDst++ = (*pSrcA++) * (*pSrcB++);
 
-    /* Decrement the loop counter */
+    /* Decrement the blockSize loop counter */
     blkCnt--;
   }
 
 }
 
 /**   
- * @} end of BasicAbs group   
+ * @} end of BasicMult group   
  */

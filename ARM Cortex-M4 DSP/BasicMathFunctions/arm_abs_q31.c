@@ -5,9 +5,9 @@
 * $Revision: 	V1.0.10  
 *   
 * Project: 	    CMSIS DSP Library   
-* Title:		arm_abs_f32.c   
+* Title:		arm_abs_q31.c   
 *   
-* Description:	Vector absolute value.   
+* Description:	Q31 vector absolute value.   
 *   
 * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
 *  
@@ -28,26 +28,12 @@
 *   
 * Version 0.0.7  2010/06/10    
 *    Misra-C changes done   
-* ---------------------------------------------------------------------------- */
+* -------------------------------------------------------------------- */
 
 #include "arm_math.h"
-#include <math.h>
 
 /**   
  * @ingroup groupMath   
- */
-
-/**   
- * @defgroup BasicAbs Vector Absolute Value   
- *   
- * Computes the absolute value of a vector on an element-by-element basis.   
- *   
- * <pre>   
- *     pDst[n] = abs(pSrcA[n]),   0 <= n < blockSize.   
- * </pre>   
- *   
- * The operation can be done in-place by setting the input and output pointers to the same buffer.   
- * There are separate functions for floating-point, Q7, Q15, and Q31 data types.   
  */
 
 /**   
@@ -55,20 +41,27 @@
  * @{   
  */
 
+
 /**   
- * @brief Floating-point vector absolute value.   
+ * @brief Q31 vector absolute value.   
  * @param[in]       *pSrc points to the input buffer   
  * @param[out]      *pDst points to the output buffer   
  * @param[in]       blockSize number of samples in each vector   
  * @return none.   
+ *   
+ * <b>Scaling and Overflow Behavior:</b>   
+ * \par   
+ * The function uses saturating arithmetic.   
+ * The Q31 value -1 (0x80000000) will be saturated to the maximum allowable positive value 0x7FFFFFFF.   
  */
 
-void arm_abs_f32(
-  float32_t * pSrc,
-  float32_t * pDst,
+void arm_abs_q31(
+  q31_t * pSrc,
+  q31_t * pDst,
   uint32_t blockSize)
 {
   uint32_t blkCnt;                               /* loop counter */
+  q31_t in;                                      /* Input value */
 
 #ifndef ARM_MATH_CM0
 
@@ -82,11 +75,15 @@ void arm_abs_f32(
   while(blkCnt > 0u)
   {
     /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
-    *pDst++ = fabsf(*pSrc++);
+    /* Calculate absolute of input (if -1 then saturated to 0x7fffffff) and then store the results in the destination buffer. */
+    in = *pSrc++;
+    *pDst++ = (in > 0) ? in : ((in == 0x80000000) ? 0x7fffffff : -in);
+    in = *pSrc++;
+    *pDst++ = (in > 0) ? in : ((in == 0x80000000) ? 0x7fffffff : -in);
+    in = *pSrc++;
+    *pDst++ = (in > 0) ? in : ((in == 0x80000000) ? 0x7fffffff : -in);
+    in = *pSrc++;
+    *pDst++ = (in > 0) ? in : ((in == 0x80000000) ? 0x7fffffff : -in);
 
     /* Decrement the loop counter */
     blkCnt--;
@@ -108,8 +105,9 @@ void arm_abs_f32(
   while(blkCnt > 0u)
   {
     /* C = |A| */
-    /* Calculate absolute and then store the results in the destination buffer. */
-    *pDst++ = fabsf(*pSrc++);
+    /* Calculate absolute value of the input (if -1 then saturated to 0x7fffffff) and then store the results in the destination buffer. */
+    in = *pSrc++;
+    *pDst++ = (in > 0) ? in : ((in == 0x80000000) ? 0x7fffffff : -in);
 
     /* Decrement the loop counter */
     blkCnt--;
