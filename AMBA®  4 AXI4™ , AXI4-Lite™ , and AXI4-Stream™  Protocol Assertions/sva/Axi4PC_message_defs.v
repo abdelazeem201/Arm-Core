@@ -1,4 +1,4 @@
-//=============================================================================
+//  ========================================================================--
 //  The confidential and proprietary information contained in this file may
 //  only be used by a person authorised under and to the extent permitted
 //  by a subsisting licensing agreement from ARM Limited.
@@ -11,26 +11,172 @@
 //  permitted to do so under the terms of a subsisting license agreement
 //  from ARM Limited.
 //  
-//-----------------------------------------------------------------------------
+//  ----------------------------------------------------------------------------
 //  Version and Release Control Information:
 //  
-//  File Revision       : 88733
-//  
-//  Date                :  2010-03-26 12:27:41 +0000 (Fri, 26 Mar 2010)
+//  File Revision       : 88728
 //
+//  Date                :  2010-03-26 12:12:07 +0000 (Fri, 26 Mar 2010)
+//  
 //  Release Information : BP063-VL-70004-r0p0-00rel0
 //  
-//-----------------------------------------------------------------------------
-//  Purpose             : AXI4-Lite SV Protocol Assertions message `defines
-//=============================================================================
+//  ----------------------------------------------------------------------------
+//  Purpose             : AXI4 SV Protocol Assertions message `defines
+//  ========================================================================--
 
 
-`include "Axi4PC_message_defs.v"
-`ifndef AXI4LITEPC_MESSAGES
-        `define AXI4LITEPC_MESSAGES
-        `define ERRS_AXI4LITE_BRESP_EXOKAY   "AXI4LITE_ERRS_BRESP_EXOKAY. A slave must not give an EXOKAY response on an Axi4Lite interface. Spec: section 14.2.2 on page 14-3."
-        `define ERRS_AXI4LITE_RRESP_EXOKAY   "AXI4LITE_ERRS_RRESP_EXOKAY. A slave must not give an EXOKAY response on an Axi4Lite interface. Spec: section 14.2.2 on page 14-3."
-        `define AUXM_AXI4LITE_DATA_WIDTH     "AXI4LITE_AUXM_DATA_WIDTH. Parameter DATA_WIDTH must be either 32 or 64."
+`ifndef AXI4PC_MESSAGES
+        `define AXI4PC_MESSAGES
+        `define ERRM_AWADDR_BOUNDARY      "AXI4_ERRM_AWADDR_BOUNDARY. A write burst cannot cross a 4kbyte boundary. Spec: section 4.1 on page 4-2."
+        `define ERRM_AWADDR_WRAP_ALIGN    "AXI4_ERRM_AWADDR_WRAP_ALIGN. A write transaction with burst type WRAP must have an aligned address. Spec: section 4.4.3 on page 4-6."
+        `define ERRM_AWBURST              "AXI4_ERRM_AWBURST. When AWVALID is high, a value of 2'b11 on AWBURST is not permitted. Spec: table 4-3 on page 4-5."
+        `define ERRM_AWCACHE              "AXI4_ERRM_AWCACHE. A reserved value on AWCACHE is not allowed. Spec: table 5-1 on page 5-3."
+        `define ERRM_ARCACHE              "AXI4_ERRM_ARCACHE. A reserved value on ARCACHE is not allowed. Spec: table 5-1 on page 5-3."
+        `define ERRM_AWLEN_WRAP           "AXI4_ERRM_AWLEN_WRAP. A write transaction with burst type WRAP must have length 2, 4, 8 or 16. Spec: section 4.4.3 on page 4-6."
+        `define ERRM_AWSIZE               "AXI4_ERRM_AWSIZE. The size of a write transfer must not exceed the width of the data port. Spec: section 4.3 on page 4-4."
+        `define ERRM_AWVALID_RESET        "AXI4_ERRM_AWVALID_RESET. AWVALID must be low for the first clock edge that ARESETn goes high. Spec: section 11.1.2 on page 11-2."
+        `define ERRM_AWADDR_STABLE        "AXI4_ERRM_AWADDR_STABLE. AWADDR must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWBURST_STABLE       "AXI4_ERRM_AWBURST_STABLE. AWBURST must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWCACHE_STABLE       "AXI4_ERRM_AWCACHE_STABLE. AWCACHE must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWID_STABLE          "AXI4_ERRM_AWID_STABLE. AWID must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWLEN_STABLE         "AXI4_ERRM_AWLEN_STABLE. AWLEN must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWLOCK_STABLE        "AXI4_ERRM_AWLOCK_STABLE. AWLOCK must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWPROT_STABLE        "AXI4_ERRM_AWPROT_STABLE. AWPROT must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWSIZE_STABLE        "AXI4_ERRM_AWSIZE_STABLE. AWSIZE must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWQOS_STABLE         "AXI4_ERRM_AWQOS_STABLE. AWQOS must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWREGION_STABLE      "AXI4_ERRM_AWREGION_STABLE. AWREGION must remain stable when ARVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWVALID_STABLE       "AXI4_ERRM_AWVALID_STABLE. Once AWVALID is asserted, it must remain asserted until AWREADY is high. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWADDR_X             "AXI4_ERRM_AWADDR_X. When AWVALID is high, a value of X on AWADDR is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWBURST_X            "AXI4_ERRM_AWBURST_X. When AWVALID is high, a value of X on AWBURST is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWCACHE_X            "AXI4_ERRM_AWCACHE_X. When AWVALID is high, a value of X on AWCACHE is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWID_X               "AXI4_ERRM_AWID_X. When AWVALID is high, a value of X on AWID is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWLEN_X              "AXI4_ERRM_AWLEN_X. When AWVALID is high, a value of X on AWLEN is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWLOCK_X             "AXI4_ERRM_AWLOCK_X. When AWVALID is high, a value of X on AWLOCK is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWPROT_X             "AXI4_ERRM_AWPROT_X. When AWVALID is high, a value of X on AWPROT is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWSIZE_X             "AXI4_ERRM_AWSIZE_X. When AWVALID is high, a value of X on AWSIZE is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWQOS_X              "AXI4_ERRM_AWQOS_X. When AWVALID is high, a value of X on AWQOS is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWREGION_X           "AXI4_ERRM_AWREGION_X. When AWVALID is high, a value of X on AWREGION is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_AWVALID_X            "AXI4_ERRM_AWVALID_X. When not in reset, a value of X on AWVALID is not permitted."
+        `define ERRS_AWREADY_X            "AXI4_ERRS_AWREADY_X. When not in reset, a value of X on AWREADY is not permitted."
+        `define ERRM_WDATA_NUM            "AXI4_ERRM_WDATA_NUM. The number of write data items must match AWLEN for the corresponding address. Spec: table 4-1 on page 4-3."
+        `define ERRM_WSTRB                "AXI4_ERRM_WSTRB. Write strobes must only be asserted for the correct byte lanes as determined from start address, transfer size and beat number. Spec: section 9.2 on page 9-3."
+        `define ERRM_WVALID_RESET         "AXI4_ERRM_WVALID_RESET. WVALID must be low for the first clock edge that ARESETn goes high. Spec: section 11.1.2 on page 11-2."
+        `define ERRM_WDATA_STABLE         "AXI4_ERRM_WDATA_STABLE. WDATA must remain stable when WVALID is asserted and WREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_WLAST_STABLE         "AXI4_ERRM_WLAST_STABLE. WLAST must remain stable when WVALID is asserted and WREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_WSTRB_STABLE         "AXI4_ERRM_WSTRB_STABLE. WSTRB must remain stable when WVALID is asserted and WREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_WVALID_STABLE        "AXI4_ERRM_WVALID_STABLE. Once WVALID is asserted, it must remain asserted until WREADY is high. Spec: section 3.1.2 on page 3-3."
+        `define ERRM_WDATA_X              "AXI4_ERRM_WDATA_X. When WVALID is high, a value of X on active byte lanes of WDATA is not permitted."
+        `define ERRM_WLAST_X              "AXI4_ERRM_WLAST_X. When WVALID is high, a value of X on WLAST is not permitted."
+        `define ERRM_WSTRB_X              "AXI4_ERRM_WSTRB_X. When WVALID is high, a value of X on WSTRB is not permitted."
+        `define ERRM_WVALID_X             "AXI4_ERRM_WVALID_X. When not in reset, a value of X on WVALID is not permitted."
+        `define ERRS_WREADY_X             "AXI4_ERRS_WREADY_X. When not in reset, a value of X on WREADY is not permitted."
+        `define ERRS_BRESP_WLAST          "AXI4_ERRS_BRESP_WLAST. A slave must only give a write response after the last write data item is transferred. Spec: section 3.3 on page 3-6, and figure 3-5 on page 3-8."
+        `define ERRS_BRESP_ALL_DONE_EOS   "AXI4_ERRS_BRESP_ALL_DONE_EOS. All write transaction addresses must have been matched with corresponding write response."
+        `define ERRS_BRESP_EXOKAY         "AXI4_ERRS_BRESP_EXOKAY. An EXOKAY write response can only be given to an exclusive write access. Spec: section 6.2.3 on page 6-4."
+        `define ERRS_BVALID_RESET         "AXI4_ERRS_BVALID_RESET. BVALID must be low for the first clock edge that ARESETn goes high. Spec: section 11.1.2 on page 11-2."
+        `define ERRS_BRESP_AW             "AXI4_ERRS_BRESP_AW. A slave must not give a write response before the write address. Spec: section 13.4.1 on page 13-6, and figure 13-1 on page 13-6."
+        `define ERRS_BID_STABLE           "AXI4_ERRS_BID_STABLE. BID must remain stable when BVALID is asserted and BREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_BRESP_STABLE         "AXI4_ERRS_BRESP_STABLE. BRESP must remain stable when BVALID is asserted and BREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_BVALID_STABLE        "AXI4_ERRS_BVALID_STABLE. Once BVALID is asserted, it must remain asserted until BREADY is high. Spec: section 3.1.3 on page 3-3."
+        `define ERRM_BREADY_X             "AXI4_ERRM_BREADY_X. When not in reset, a value of X on BREADY is not permitted."
+        `define ERRS_BID_X                "AXI4_ERRS_BID_X. When BVALID is high, a value of X on BID is not permitted."
+        `define ERRS_BRESP_X              "AXI4_ERRS_BRESP_X. When BVALID is high, a value of X on BRESP is not permitted.  Spec: section 3.1.3 on page 3-4."
+        `define ERRS_BVALID_X             "AXI4_ERRS_BVALID_X. When not in reset, a value of X on BVALID is not permitted."
+        `define ERRM_ARADDR_BOUNDARY      "AXI4_ERRM_ARADDR_BOUNDARY. A read burst cannot cross a 4kbyte boundary. Spec: section 4.1 on page 4-2."
+        `define ERRM_ARADDR_WRAP_ALIGN    "AXI4_ERRM_ARADDR_WRAP_ALIGN. A read transaction with burst type WRAP must have an aligned address. Spec: section 4.4.3 on page 4-6."
+        `define ERRM_ARBURST              "AXI4_ERRM_ARBURST. When ARVALID is high, a value of 2'b11 on ARBURST is not permitted. Spec: table 4-3 on page 4-5."
+        `define ERRM_ARLEN_FIXED          "AXI4_ERRM_ARLEN_FIXED. Transactions of burst type FIXED cannot have a length greater than 16 beats. Spec: section 13.1.2 on page 13-2."
+        `define ERRM_AWLEN_FIXED          "AXI4_ERRM_AWLEN_FIXED. Transactions of burst type FIXED cannot have a length greater than 16 beats. Spec: section 13.1.2 on page 13-2."
+        `define ERRM_AWLEN_LOCK           "AXI4_ERRM_AWLEN_LOCK. Exclusive access transactions cannot have a length greater than 16 beats. Spec: section 13.1.2 on page 13-2."
+        `define ERRM_ARLEN_LOCK           "AXI4_ERRM_ARLEN_LOCK. Exclusive access transactions cannot have a length greater than 16 beats. Spec: section 13.1.2 on page 13-2."
+        `define ERRM_ARLEN_WRAP           "AXI4_ERRM_ARLEN_WRAP. A read transaction with burst type WRAP must have length 2, 4, 8 or 16. Spec: section 4.4.3 on page 4-6."
+        `define ERRM_ARSIZE               "AXI4_ERRM_ARSIZE. The size of a read transfer must not exceed the width of the data port. Spec: section 4.3 on page 4-4."
+        `define ERRM_ARVALID_RESET        "AXI4_ERRM_ARVALID_RESET. ARVALID must be low for the first clock edge that ARESETn goes high. Spec: section 11.1.2 on page 11-2."
+        `define ERRM_ARADDR_STABLE        "AXI4_ERRM_ARADDR_STABLE. ARADDR must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARBURST_STABLE       "AXI4_ERRM_ARBURST_STABLE. ARBURST must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARCACHE_STABLE       "AXI4_ERRM_ARCACHE_STABLE. ARCACHE must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARID_STABLE          "AXI4_ERRM_ARID_STABLE. ARID must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARLEN_STABLE         "AXI4_ERRM_ARLEN_STABLE. ARLEN must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARLOCK_STABLE        "AXI4_ERRM_ARLOCK_STABLE. ARLOCK must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARPROT_STABLE        "AXI4_ERRM_ARPROT_STABLE. ARPROT must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARSIZE_STABLE        "AXI4_ERRM_ARSIZE_STABLE. ARSIZE must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARQOS_STABLE         "AXI4_ERRM_ARQOS_STABLE. ARQOS must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARREGION_STABLE      "AXI4_ERRM_ARREGION_STABLE. ARREGION must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARVALID_STABLE       "AXI4_ERRM_ARVALID_STABLE. Once ARVALID is asserted, it must remain asserted until ARREADY is high. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARADDR_X             "AXI4_ERRM_ARADDR_X. When ARVALID is high, a value of X on ARADDR is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARBURST_X            "AXI4_ERRM_ARBURST_X. When ARVALID is high, a value of X on ARBURST is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARCACHE_X            "AXI4_ERRM_ARCACHE_X. When ARVALID is high, a value of X on ARCACHE is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARID_X               "AXI4_ERRM_ARID_X. When ARVALID is high, a value of X on ARID is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARLEN_X              "AXI4_ERRM_ARLEN_X. When ARVALID is high, a value of X on ARLEN is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARLOCK_X             "AXI4_ERRM_ARLOCK_X. When ARVALID is high, a value of X on ARLOCK is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARPROT_X             "AXI4_ERRM_ARPROT_X. When ARVALID is high, a value of X on ARPROT is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARSIZE_X             "AXI4_ERRM_ARSIZE_X. When ARVALID is high, a value of X on ARSIZE is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARQOS_X              "AXI4_ERRM_ARQOS_X. When ARVALID is high, a value of X on ARQOS is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARREGION_X           "AXI4_ERRM_ARREGION_X. When ARVALID is high, a value of X on ARREGION is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRM_ARVALID_X            "AXI4_ERRM_ARVALID_X. When not in reset, a value of X on ARVALID is not permitted."
+        `define ERRS_ARREADY_X            "AXI4_ERRS_ARREADY_X. When not in reset, a value of X on ARREADY is not permitted."
+        `define ERRS_RDATA_NUM            "AXI4_ERRS_RDATA_NUM. The number of read data items must match the corresponding ARLEN. Spec: table 4-1 on page 4-3."
+        `define ERRS_RLAST_ALL_DONE_EOS   "AXI4_ERRS_RLAST_ALL_DONE_EOS. All outstanding read bursts must have completed."
+        `define ERRS_RID                  "AXI4_ERRS_RID. A slave can only give read data with an ID to match an outstanding read transaction. Spec: section 8.3 on page 8-4."
+        `define ERRS_RRESP_EXOKAY         "AXI4_ERRS_RRESP_EXOKAY. An EXOKAY read response can only be given to an exclusive read access. Spec: section 6.2.3 on page 6-4."
+        `define ERRS_RVALID_RESET         "AXI4_ERRS_RVALID_RESET. RVALID must be low for the first clock edge that ARESETn goes high. Spec: section 11.1.2 on page 11-2."
+        `define ERRS_RDATA_STABLE         "AXI4_ERRS_RDATA_STABLE. RDATA must remain stable when RVALID is asserted and RREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_RID_STABLE           "AXI4_ERRS_RID_STABLE. RID must remain stable when RVALID is asserted and RREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_RLAST_STABLE         "AXI4_ERRS_RLAST_STABLE. RLAST must remain stable when RVALID is asserted and RREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_RRESP_STABLE         "AXI4_ERRS_RRESP_STABLE. RRESP must remain stable when RVALID is asserted and RREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_RVALID_STABLE        "AXI4_ERRS_RVALID_STABLE. Once RVALID is asserted, it must remain asserted until RREADY is high. Spec: section 3.1.5 on page 3-4."
+        `define ERRS_RDATA_X              "AXI4_ERRS_RDATA_X. When RVALID is high, a value of X on RDATA valid byte lanes is not permitted."
+        `define ERRM_RREADY_X             "AXI4_ERRM_RREADY_X. When not in reset, a value of X on RREADY is not permitted."
+        `define ERRS_RID_X                "AXI4_ERRS_RID_X. When RVALID is high, a value of X on RID is not permitted."
+        `define ERRS_RLAST_X              "AXI4_ERRS_RLAST_X. When RVALID is high, a value of X on RLAST is not permitted."
+        `define ERRS_RRESP_X              "AXI4_ERRS_RRESP_X. When RVALID is high, a value of X on RRESP is not permitted."
+        `define ERRS_RVALID_X             "AXI4_ERRS_RVALID_X. When not in reset, a value of X on RVALID is not permitted."
+        `define ERRL_CSYSACK_FALL         "AXI4_ERRL_CSYSACK_FALL. When CSYSACK transitions from high to low, CSYSREQ must be low. Spec: figure 12-1 on page 12-3."
+        `define ERRL_CSYSACK_RISE         "AXI4_ERRL_CSYSACK_RISE. When CSYSACK transitions from low to high, CSYSREQ must be high. Spec: figure 12-1 on page 12-3."
+        `define ERRL_CSYSREQ_FALL         "AXI4_ERRL_CSYSREQ_FALL. When CSYSREQ transitions from high to low, CSYSACK must be high. Spec: figure 12-1 on page 12-3."
+        `define ERRL_CSYSREQ_RISE         "AXI4_ERRL_CSYSREQ_RISE. When CSYSREQ transitions from low to high, CSYSACK must be low. Spec: figure 12-1 on page 12-3."
+        `define ERRL_CACTIVE_X            "AXI4_ERRL_CACTIVE_X. When not in reset, a value of X on CACTIVE is not permitted."
+        `define ERRL_CSYSACK_X            "AXI4_ERRL_CSYSACK_X. When not in reset, a value of X on CSYSACK is not permitted."
+        `define ERRL_CSYSREQ_X            "AXI4_ERRL_CSYSREQ_X. When not in reset, a value of X on CSYSREQ is not permitted."
+        `define ERRM_EXCL_ALIGN           "AXI4_ERRM_EXCL_ALIGN. The address of an exclusive access must be aligned to the total number of bytes in the transaction. Spec: section 6.2.4 on page 6-4."
+        `define ERRM_EXCL_LEN             "AXI4_ERRM_EXCL_LEN. The number of bytes to be transferred in an exclusive access burst must be a power of 2. Spec: section 6.2.4 on page 6-4."
+        `define ERRM_EXCL_MAX             "AXI4_ERRM_EXCL_MAX. The maximum number of bytes that can be transferred in an exclusive burst is 128. Spec: section 6.2.4 on page 6-4."
+        `define ERRM_AWUSER_STABLE        "AXI4_ERRM_AWUSER_STABLE. AWUSER must remain stable when AWVALID is asserted and AWREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_WUSER_STABLE         "AXI4_ERRM_WUSER_STABLE. WUSER must remain stable when WVALID is asserted and WREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_BUSER_STABLE         "AXI4_ERRS_BUSER_STABLE. BUSER must remain stable when BVALID is asserted and BREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_ARUSER_STABLE        "AXI4_ERRM_ARUSER_STABLE. ARUSER must remain stable when ARVALID is asserted and ARREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRS_RUSER_STABLE         "AXI4_ERRS_RUSER_STABLE. RUSER must remain stable when RVALID is asserted and RREADY low. Spec: section 3.1, and figure 3-1, on page 3-2."
+        `define ERRM_AWUSER_X             "AXI4_ERRM_AWUSER_X. When AWVALID is high, a value of X on AWUSER is not permitted. Spec: section 3.1.1 on page 3-3."
+        `define ERRM_WUSER_X              "AXI4_ERRM_WUSER_X. When WVALID is high, a value of X on WUSER is not permitted."
+        `define ERRS_BUSER_X              "AXI4_ERRS_BUSER_X. When BVALID is high, a value of X on BUSER is not permitted."
+        `define ERRM_ARUSER_X             "AXI4_ERRM_ARUSER_X. When ARVALID is high, a value of X on ARUSER is not permitted. Spec: section 3.1.4 on page 3-4."
+        `define ERRS_RUSER_X              "AXI4_ERRS_RUSER_X. When RVALID is high, a value of X on RUSER is not permitted."
+        `define ERRM_AWUSER_TIEOFF        "AXI4_ERRM_AWUSER_TIEOFF. AWUSER must be stable when AWUSER_WIDTH is set to 0" 
+        `define ERRM_WUSER_TIEOFF         "AXI4_ERRM_WUSER_TIEOFF. WUSER must be stable when WUSER_WIDTH is set to 0" 
+        `define ERRS_BUSER_TIEOFF         "AXI4_ERRS_BUSER_TIEOFF. BUSER must be stable when BUSER_WIDTH is set to 0" 
+        `define ERRM_ARUSER_TIEOFF        "AXI4_ERRM_ARUSER_TIEOFF. ARUSER must be stable when ARUSER_WIDTH is set to 0" 
+        `define ERRS_RUSER_TIEOFF         "AXI4_ERRS_RUSER_TIEOFF. RUSER must be stable when RUSER_WIDTH is set to 0" 
+        `define ERRM_AWID_TIEOFF          "AXI4_ERRM_AWID_TIEOFF. AWID must be stable when ID_WIDTH is set to 0" 
+        `define ERRS_BID_TIEOFF           "AXI4_ERRS_BID_TIEOFF. BID must be stable when ID_WIDTH is set to 0" 
+        `define ERRM_ARID_TIEOFF          "AXI4_ERRM_ARID_TIEOFF. ARID must be stable when ID_WIDTH is set to 0" 
+        `define ERRS_RID_TIEOFF           "AXI4_ERRS_RID_TIEOFF. RID must be stable when ID_WIDTH is set to 0" 
+        `define AUXM_DATA_WIDTH           "AXI4_AUXM_DATA_WIDTH. Parameter DATA_WIDTH must be 32, 64, 128, 256, 512 or 1024"
+        `define AUXM_ADDR_WIDTH           "AXI4_AUXM_ADDR_WIDTH. Parameter ADDR_WIDTH must be between 32 and 64 bits inclusive"
+        `define AUXM_EXMON_WIDTH          "AXI4_AUXM_EXMON_WIDTH. Parameter EXMON_WIDTH must be greater than or equal to 1"
+        `define AUXM_MAXRBURSTS           "AXI4_AUXM_MAXRBURSTS. Parameter MAXRBURSTS must be greater than or equal to 1"
+        `define AUXM_MAXWBURSTS           "AXI4_AUXM_MAXWBURSTS. Parameter MAXWBURSTS must be greater than or equal to 1"
+        `define AUXM_RCAM_OVERFLOW        "AXI4_AUXM_RCAM_OVERFLOW. Read CAM overflow, increase MAXRBURSTS parameter."
+        `define AUXM_RCAM_UNDERFLOW       "AXI4_AUXM_RCAM_UNDERFLOW. Read CAM underflow."
+        `define AUXM_WCAM_OVERFLOW        "AXI4_AUXM_WCAM_OVERFLOW. Write CAM overflow, increase MAXWBURSTS parameter."
+        `define AUXM_WCAM_UNDERFLOW       "AXI4_AUXM_WCAM_UNDERFLOW. Write CAM underflow"
+        `define AUXM_EXCL_OVERFLOW        "AXI4_AUXM_EXCL_OVERFLOW. Exclusive access monitor overflow, increase EXMON_WIDTH parameter."
+        `define RECM_EXCL_PAIR            "AXI4_RECM_EXCL_PAIR. An exclusive write should have an earlier outstanding completed exclusive read with the same ID. Spec: section 6.2.2 on page 6-3."
+        `define RECS_AWREADY_MAX_WAIT     "AXI4_RECS_AWREADY_MAX_WAIT. AWREADY should be asserted within MAXWAITS cycles of AWVALID being asserted."
+        `define RECS_WREADY_MAX_WAIT      "AXI4_RECS_WREADY_MAX_WAIT. WREADY should be asserted within MAXWAITS cycles of WVALID being asserted."
+        `define RECM_BREADY_MAX_WAIT      "AXI4_RECM_BREADY_MAX_WAIT. BREADY should be asserted within MAXWAITS cycles of BVALID being asserted."
+        `define RECS_ARREADY_MAX_WAIT     "AXI4_RECS_ARREADY_MAX_WAIT. ARREADY should be asserted within MAXWAITS cycles of ARVALID being asserted."
+        `define RECM_RREADY_MAX_WAIT      "AXI4_RECM_RREADY_MAX_WAIT. RREADY should be asserted within MAXWAITS cycles of RVALID being asserted."
+        `define RECM_EXCL_MATCH           "AXI4_RECM_EXCL_MATCH. The address, size and length of an exclusive write should be the same as the preceding exclusive read with the same ID. Spec: section 6.2.4 on page 6-4."
 `endif
 
 // --========================= End ===========================================--
