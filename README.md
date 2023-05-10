@@ -1,2 +1,2 @@
 # Arm-Core
-ARM processors
+ARM IP
