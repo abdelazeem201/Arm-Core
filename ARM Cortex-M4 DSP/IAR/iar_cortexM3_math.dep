@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>3869978872</fileChecksum>
+  <configuration>
+    <name>Debug BE</name>
+    <outputs/>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>IARCHIVE</tool>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>Debug LE</name>
+    <outputs>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_sub_f32.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_sub_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_sub_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_sub_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_offset_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_offset_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_offset_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_scale_f32.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_scale_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_scale_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_scale_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_shift_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_shift_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_shift_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_dot_prod_f32.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_abs_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_abs_f32.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_add_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_dot_prod_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_mult_f32.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_mult_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_mult_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_negate_f32.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_mult_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_negate_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_negate_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_negate_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_offset_f32.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_add_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_add_q7.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_dot_prod_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_dot_prod_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_abs_q31.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_abs_q15.c</file>
+      <file>$PROJ_DIR$\..\BasicMathFunctions\arm_add_f32.c</file>
+    </outputs>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>IARCHIVE</tool>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>Release BE</name>
+    <outputs/>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>IARCHIVE</tool>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>Release LE</name>
+    <outputs/>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>IARCHIVE</tool>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+
