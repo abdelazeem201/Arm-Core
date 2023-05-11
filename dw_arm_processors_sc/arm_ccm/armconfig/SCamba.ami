@@ -1,0 +1,32 @@
+;; ARMulator configuration file type 3
+PAGETAB=No_Pagetables
+CCM_DEBUG=False
+
+;; Validation requires Tracer to be started. Enable on startup so that
+;; reset does not remove it from the chain.
+RDI_LOG=0x48
+
+
+{ PeripheralSets
+  { Processors_Common_ACS
+    {Flatmem=SCamba
+       { Peripherals=Peripherals_Common_ACS
+       }
+    }
+    { Tracer=Default_Tracer
+      Disassemble=True
+      StartOn=False
+      OpcodeFetch=True
+      TraceBus=True
+      TraceIdle=True
+      TraceInstructions=True
+      TraceEvents=False
+      TraceMemory=True
+      TraceNonAccounted=False
+      TraceRegisters=True
+      TraceWaits=False
+      Unbuffered=True
+    }
+  }
+}
+

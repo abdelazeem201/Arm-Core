@@ -1,0 +1,176 @@
+;; ARMulator configuration file type 3
+;; Copyright (c) 1998-2001 ARM Limited. All Rights Reserved.
+
+;; This is a user-editable configuration file for the ARM Advanced Core
+;; Simulator.
+
+;; RCS $Revision: 1.1.4.13.2.2 $
+;; Checkin $Date: 2002/10/17 16:53:44 $
+;; Revising $Author: acollier $
+
+;This is the default divisor ratio for external busses.
+;Except in FastBus mode, external bus speed is CPUSPEED/MCCFG.
+MCCFG=1
+
+FPU=NO_FPU
+PAGETAB=No_Pagetables
+; Used (for FCLK) if CPUSPEED is zero or not specified.
+DEFAULT_CPUSPEED=20MHz
+;; Whether to have the "verbose" $statistics
+Counters=False
+;; When the CCM will produce (verbose) debug output
+CCM_DEBUG=False
+
+;; To enable faster watchpoints, set "WatchpointsEnabled"
+WatchpointsEnabled=False
+
+{ Processors
+  { AMBA7TDMIr1=ASB7TDMI_rev4
+  }
+  { ASB7TDMI_rev1=ASB7TDMI_rev4
+  }
+  { ARM7TDMI_Sr1=A7S_rev4
+  }
+  { A7S_rev1=A7S_rev4
+  }
+  { ARM720Tr2=ARM720T_rev3
+  }
+  { ARM720T_rev2=ARM720T_rev3
+  }
+  { ARM720Tr4=ARM720T_rev4
+  }
+  { ARM7TDMIr1=ARM7TDMI_rev4
+  }
+  { ARM7TDMI_rev1=ARM7TDMI_rev4
+  }
+  { ARM920Tr1=ARM920T_rev1
+  }
+  { ARM922Tr0=ARM922T_rev0
+  }
+  { ARM940Tr1=ARM940T_rev1
+  }
+  { ARM946E_Sr1=ARM946ES_rev1
+  }
+  { ARM966E_SDPRr1=ARM966ESDPR_rev1
+  }
+  { ARM966E_Sr1=ARM966ES_rev1
+  }
+  { ARM966E_Sr2=ARM966ES_rev2
+  }
+  { ARM9EJ_Sr1=ARM9EJS_rev1
+  }
+  { ARM9ES_r1=ARM9ES_rev1
+  }
+  { ARM9ES_r2=ARM9ES_rev2
+  }
+  { ARM9TDMIr1=ARM9TDMI_rev1
+  }
+  { ARM9TDMIr2=ARM9TDMI_rev3
+  }
+  { ARM9TDMI_rev2=ARM9TDMI_rev3
+  }
+}
+
+#if MEMORY_ACI_ARMul
+{ PeripheralSets
+  { Processors_Common_No_Peripherals_ACS
+    ;; This section includes the peripherals which will be loaded into
+    ;; every processor-model.
+
+    { RDIMSVR=RDIMSVR
+      target_controller_type=armulate
+    }
+  }
+
+  { Peripherals_Common_ACS
+    ;; This section includes the peripherals which will be loaded 
+    ;; by the leaf memory system (e.g. cycleflat, cycletricks)
+
+    { Pagetables=$PAGETAB
+    }
+
+    ; Stackuse. The stack tracker is disabled by default because it's
+    ; expensive when turned on.
+    { StackUse=No_StackUse
+    }
+
+    { Codeseq=Default_Codeseq
+    }
+
+    ; Profiler is cheap when off.
+    { Profiler=No_Profiler
+    }
+
+    ; Tracer is cheap when not used too.
+    { Tracer=No_Tracer
+    }
+
+    { SemiHost=No_Semihost
+#if FPE && FPE==True
+      { meta_moduleserver_component=FPE
+        base=0x7aa0
+      }
+      Demon=True
+#else
+      Demon=False
+#endif
+    }
+
+  }
+}
+#else
+{ PeripheralSets
+  { Processors_Common_No_Peripherals_ACS
+    ;; This section includes the peripherals which will be loaded into
+    ;; every processor-model.
+
+    { RDIMSVR=RDIMSVR
+      target_controller_type=armulate
+    }
+  }
+
+  { Peripherals_Common_ACS
+    ;; This section includes the peripherals which will be loaded 
+    ;; by the leaf memory system (e.g. cycleflat, cycletricks)
+
+    { Pagetables=$PAGETAB
+    }
+
+    ; Stackuse. The stack tracker is disabled by default because it's
+    ; expensive when turned on.
+    { StackUse=No_StackUse
+    }
+
+    { Codeseq=Default_Codeseq
+    }
+
+    ; Profiler is cheap when off.
+    { Profiler=No_Profiler
+    }
+
+    ; Tracer is cheap when not used too.
+    { Tracer=No_Tracer
+    }
+
+    { SemiHost=No_Semihost
+#if FPE && FPE==True
+      { meta_moduleserver_component=FPE
+        base=0x7aa0
+      }
+      Demon=True
+#else
+      Demon=False
+#endif
+    }
+
+  }
+}
+#endif
+
+{ Peripherals
+  { Default_DebugCommsNoInterrupt=DebugCommsNoInterrupt
+    IRQOnCommsChannel=False
+  }
+}
+
+;; EOF coveracs.ami

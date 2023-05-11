@@ -1,0 +1,306 @@
+;; ARMulator configuration file type 3
+;; - peripherals.ami -
+;; Copyright (c) 1996-2001 ARM Limited. All Rights Reserved.
+
+;; RCS $Revision: 1.19.2.19.8.2 $
+;; Checkin $Date: 2002/02/15 16:45:24 $
+;; Revising $Author: jconnell $
+
+{ Peripherals
+  ;; Entries in Peripherals do not immediately load models.
+  ;; They describe models which may be used in Processors or PeripheralSets.
+  ;; They may be used as named-instances or prototypes.
+
+  ;; **********************************************************************
+  ;; 
+  ;; Tracer allows memory access to be traced 
+  ;; See Debug Target Guide Chapter 2.3
+  ;;
+  ;; **********************************************************************
+
+  { Default_Tracer=Tracer
+    ;; Output options - can be plaintext to file, binary to file or to RDI log
+    ;; window. (Checked in the order RDILog, File, BinFile.)
+    ;VERBOSE=True
+    ;RDILog=True
+    RDILog=False
+    File=armul.trc
+    BinFile=armul.trc
+    Unbuffered=False
+
+    ;; Tracer options - what to trace
+    Architectural=False
+    TraceInstructions=True
+    TraceRegisters=True
+    OpcodeFetch=True
+
+    ;; Normally True is useful, but sometimes it's too expensive.
+    TraceMemory=True
+    ;TraceMemory=False
+
+    TraceIdle=False
+    TraceWaits=False
+    TraceNonAccounted=False
+    TraceEvents=False
+    ;; If there is a non-core bus, do we trace it (as well).
+    TraceBus=True
+    ;TraceBus=False
+    ;; Flags - disassemble instructions; start up with tracing enabled;
+    Disassemble=True
+    ; Set to True to output instuctions and memory-accesses in "ARMEIS" format.
+    TraceEIS=False
+
+    StartOn=False
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Profiling is controlled by the debugger
+  ;; See Debug Target Guide Chapter 2.4
+  ;;
+  ;; **********************************************************************
+
+  ;Profiler's main job is to accept a map of regions from the debugger
+  ; and write out a list of counts for those regions 
+  ; (sampled every microsecond, or every instruction).
+  ;The debugger also starts and stops profiling over the RDI.
+
+  { Default_Profiler=Profiler
+    ;VERBOSE=False
+    ;; For example - to profile the PC value when cache misses happen, set:
+    ;Type=Cycle
+    ;Event=0x00010001
+    ;EventWord=pc
+    Type=MICROSECOND
+
+    ;; Alternatives for Type are
+    ;;  Event, Cycle, Microsecond.
+    ;; If type is Event then alternatives for EventWord are
+    ;;  Word1,Word2,PC.
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Pagetables - used to configure the MMU and PU - Not all processors
+  ;; have all properties. Please check TRMs first.
+  ;; See Debug Target Guide Chapter 2.5
+  ;;
+  ;; **********************************************************************
+
+  { Default_Pagetables=PageTables
+    ; (bit 0)
+    MMU=Yes
+    ; (bit 1) NB our endian regression tests assume this is False.
+    AlignFaults=No
+    ;; If setting cache=yes the mmu must be enabled.
+    ; (bit 2)
+    Cache=Yes
+    WriteBuffer=Yes
+    Prog32=Yes
+    Data32=Yes
+    LateAbort=Yes
+    ;; We don't define BigEnd here, to allow the debugger its preference.
+    ;; (i.e. to allow the WinRDI Configuration dialog to work.)
+    ;BigEnd=No
+    BranchPredict=Yes
+    ICache=Yes
+    HighExceptionVectors=No
+
+    PageTableBase=0xa0000000
+    DAC=0x00000001
+
+    ;; Used by the 940 to control the clock mode. Use this flag
+    ;; to configure the clock mode for the processor. If FastBus is enabled
+    ;; fast bus mode will be used otherwise synchronous mode is used.
+    FastBus=No
+    ; Don't turn these on until you have read an ARM966 or ARM926 manual,
+    ; to avoid confusion.
+    ; Normally you need code to initialise the contents of IRAM and DRAM.
+    IRAM=No
+    DRAM=No
+   
+   { Region[0]
+     VirtualBase=0
+     PhysicalBase=0
+     Size=4GB
+     Cacheable=No
+     Bufferable=No
+     Updateable=Yes
+     Domain=0
+     AccessPermissions=3
+     Translate=Yes
+   }
+   
+   { Region[1]
+     VirtualBase=0
+     PhysicalBase=0
+     Size=128Mb
+     Cacheable=Yes
+     Bufferable=Yes
+     Updateable=Yes
+     Domain=0
+     AccessPermissions=3
+     Translate=Yes
+   }
+   
+   ; End Default_Pagetables
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Semihosting model - controls the semihosting interface
+  ;; See Debug Target Guide Chapter 5
+  ;;
+  ;; **********************************************************************
+
+ { Default_Semihost=Semihost
+   ; Demon is only needed for validation.
+   DEMON=False
+   ANGEL=TRUE
+   AngelSWIARM=0x123456
+   AngelSWIThumb=0xab
+   ; And the default memory map
+   HeapBase=0x00000000
+   HeapLimit=0x07000000
+   StackBase=0x08000000
+   StackLimit=0x07000000
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Millisec model provides a 32 bit counter 
+  ;; 
+  ;; **********************************************************************
+
+  { Default_Millisec=Millisec
+    Range:Base=0x0bfffff0
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Memory mapped register - when a printable character is written to it
+  ;; that character appears on the console.
+  ;; Range can be altered - see Debug Target Guide Chapter 2.8.7
+  ;;
+  ;; **********************************************************************
+
+  { Default_Tube=Tube
+    Range:Base=0x0d800020
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Use Watchdog to prevent a failure in your program locking up your system.
+  ;; Watchdog resets ARMulator if your program fails to access it before 
+  ;; a predetermined time - NB there is no hardware watchdog timer
+  ;; See Debug Target Guide Section 2.8.5
+  ;;
+  ;; **********************************************************************
+
+  { Default_WatchDog=WatchDog
+    Waits=0
+    Range:Base=0xb0000000
+    KeyValue=0x12345678
+    WatchPeriod=0x80000
+    IRQPeriod=3000
+    IntNumber=16
+    StartOnReset=True
+    RunAfterBark=True
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Interrupt Controller -  can alter range and wait states -
+  ;; See Debug Target Guide Section 2.8.3
+  ;;
+  ;; **********************************************************************
+
+  { Default_Intctrl=Intctrl
+    Waits=0
+    Range:Base=0x0a000000
+  }
+
+  ;; **********************************************************************
+  ;;
+  ;; Timer -  can alter range and wait states -
+  ;; See Debug Target Guide Section 2.8.4
+  ;;
+  ;; **********************************************************************
+
+  { Default_Timer=Timer
+    Waits=0
+    Range:Base=0x0a800000
+    ;Frequency of clock to controller.
+    CLK=20000000
+    ;; Interrupt controller source bits - 4 and 5 as standard
+    IntOne=4
+    IntTwo=5
+  }
+   
+  ;; **************************************************************************
+  ;;
+  ;; Debug Comms channel
+  ;;
+  ;; **************************************************************************
+
+  ;; This is instantiated inside processors which include this
+  ;; coprocessor, e.g. ARM7TDMI, in armulate.dsc.
+  { Default_DebugComms=DebugComms
+    Rate=76
+    ReadDelay=38
+    WriteDelay=108
+    MCCfg=15
+    ; Whether RX and TX are wired up to IRQ/interrupt controller
+    IRQOnCommsChannel=True
+    ; Interrupt priorities when using an interrupt controller
+    CommRXIRQNo=2
+    CommTXIRQNo=3
+  }
+
+  ;; **************************************************************************
+  ;;
+  ;; Mapfile - used to model the memory map 
+  ;; See Debug Target Guide Chapter 2.7
+  ;;
+  ;; **************************************************************************
+
+  { Default_Mapfile=Mapfile
+    AMBABusCounts=False
+    ;SpotISCycles=True|False
+    SpotISCycles=True
+    ;ISTiming=Late|Early|Speculative
+    ISTiming=Late
+  }
+
+  ;; **************************************************************************
+  ;;
+  ;; Used by RDI module Server to access coprocessor registers.
+  ;;
+  ;; **************************************************************************
+  
+  { Default_Codeseq=Codeseq
+  }
+
+  ;; **************************************************************************
+  ;;
+  ;; Memory model for validation
+  ;;
+  ;; **************************************************************************
+  
+  { Default_Trickbox=Trickbox
+  }
+
+  ; Stackuse. The stack tracker is disabled by default in default.ami because
+  ; it's expensive when turned on.
+  { Default_StackUse=Stackuse
+   ; The base and limit addresses set here tell StackUse where valid values
+   ; of R13 are.  They have no effect on stack location in memory:
+   ; this is instead defined in Semihost (or the image, if that initializes R13).
+    StackBase=0x08000000
+    StackLimit=0x07000000
+  }
+
+  ; End Peripherals
+}
+
+; EOF peripherals.ami
