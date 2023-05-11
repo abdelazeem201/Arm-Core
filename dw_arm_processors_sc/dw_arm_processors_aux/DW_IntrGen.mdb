@@ -1,0 +1,1617 @@
+Start Snps Version Data
+CSgfxDisplay
+2
+CSgfxInstShape
+2
+CSgfxSymbolShape
+6
+CSgfxSheet
+3
+CSheAddPrimCircleOp
+2
+CSheAddPrimRectOp
+2
+CSheAddPrimPolylineOp
+2
+CSheDesign
+6
+CSheSheet
+3
+CSheSheetGroup
+2
+CSheCell
+2
+CSheState
+2
+CSheNet
+2
+CSheTransArcRelText
+2
+CSheTextInstSpecData
+2
+CShePin
+2
+CSheSymbolEditPin
+2
+CSheSymbol
+4
+CSheIntf
+3
+CShePrimCircle
+2
+CShePrimRect
+2
+CShePrimPolyline
+2
+CSheSCPin
+2
+CSheSCPortPin
+2
+CSheSCSymbolEditPin
+2
+CSheSCIntfPin
+2
+CSgfxKDTreeLayer
+5
+EgDBCell
+2
+EgDBCsdf
+3
+EgDBHierSystemC
+2
+EgDBImpl
+6
+EgDBInstInfo
+4
+EgDBIntfPort
+5
+EgDBModel
+7
+EgDBPage
+2
+EgDBParameter
+2
+EgDBPlainSystemC
+2
+EgDBPort
+2
+EgDBPrimImpl
+2
+EgDBPrimModel
+2
+EgDBPrimSystemC
+3
+EgDBSds
+2
+EgDBSymbol
+2
+End Snps Version Data
+<MODEL>
+2147483655
+1
+<type>
+10
+</type>
+<ver>
+
+</ver>
+<ts>
+1057684063
+1057683677
+1057684432
+</ts>
+<desc>
+\
+The memory is a slave module that stores data values. This
+model can be used as RAM or ROM. An arbitrary number of wait states
+can be specified for read and write data transactions by the parameters
+ReadWaitStates, and WriteWaitStates, with a default value of zero.
+This module implements the slave interface and the debug interface.
+The memory module can be accessed by bus modules with a data bus
+bus width higher than 32.
+
+The memory module has two constructors. The first constructor specifies
+one memory region that is the same for the boot and the normal address modes.
+The first constructor has the following arguments:
+
+- sc_module_name, instance name of the module
+
+- ahb_addr_t, start address of the memory
+
+- ahb_addr_t, end address of the memory
+
+- const sc_string& = "", file name to read initial values
+
+- bool = true, memory encoding (little-endian default)
+
+A second constructor can be used to specify multiple memory regions
+for boot and normal mode. The address ranges are given by the start
+and end addresses for the normal mode followed by the start and end
+addresses for the boot mode. A memory region is disabled by specifying
+zero values for the start and end addresses. The second constructor has
+the following arguments:
+
+- sc_module_name, instance name of the module
+
+- const sc_string& = "", file name to read initial values
+
+- bool = false, memory encoding (little-endian default)
+
+- ahb_addr_t = 0, start address of the memory in normal mode, first region
+
+- ahb_addr_t = 0x3FF, end address of the memory in normal mode, first region
+
+- ahb_addr_t = 0, start address of the memory in boot mode, first region
+
+- ahb_addr_t = 0x3FF, end address of the memory in boot mode, first region
+
+- ahb_addr_t = 0, remapped start address of the memory in normal mode, second region
+
+- ahb_addr_t = 0, remapped end address of the memory in normal mode, second region
+
+- ahb_addr_t = 0, start address of the memory in boot mode, second region
+
+- ahb_addr_t = 0, end address of the memory in boot mode, second region
+
+etc.
+
+The start and end addresses define a memory segment. The start_address, 
+the end_address+1, and the memory size, have to be alligned to the
+1k address boundary. The start_address must also be less than the
+end_address.
+
+The memory is initialized with zero values at reset time. Optionally,
+initialization values can be read from a file. If the constructor argument
+file_name is not empty, values are read from this file until all the memory
+space is written to, or the end of the file is reached.
+
+The values given by the initialization file must be given in hexadecimal
+byte format. The values must be sepatated by blank, tab, or newline characters.
+For example, the following file data:
+
+a1 1f d8
+c7 27 3a
+
+will initialize the memory with the byte values 0xa1, 0x1f, 0xd8, 0xc7,
+0x27, 0x3a starting at the base address of the memory.
+
+The contents of the memory can be monitored. If monitor update is enabled
+by the DoTrace parameter, the simulation performance decreases.
+
+\
+</desc>
+<s_desc>
+An External Memory Slave Module 
+</s_desc>
+<header>
+
+</header>
+<source>
+
+</source>
+<class>
+<STR_ARRAY>
+0
+1
+AMBA
+</STR_ARRAY>
+</class>
+<base>
+0
+
+
+</base>
+<params>
+7
+<PARAM>
+2147483650
+2
+<name>
+SIF
+</name>
+<data_type>
+class
+</data_type>
+<desc>
+\
+The slave interface class template argument. Allowed 
+template arguments are:
+
+ahb_slave_if
+ahb11ext_slave_if
+\
+</desc>
+<type>
+6
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+ahb_slave_if
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+2 </PARAM>
+<PARAM>
+2147483650
+3
+<name>
+SlaveID
+</name>
+<data_type>
+int
+</data_type>
+<desc>
+\
+This identifier for the slave is used by the Inter
+Connection Matrix (ICM) to identify the slave. 
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+1 
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+3 </PARAM>
+<PARAM>
+2147483650
+4
+<name>
+ReadWaitStates
+</name>
+<data_type>
+int
+</data_type>
+<desc>
+\
+This parameter specifies the number of data cycle wait
+states to complete a data transfer. 
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+0 
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+4 </PARAM>
+<PARAM>
+2147483650
+5
+<name>
+WriteWaitStates
+</name>
+<data_type>
+int
+</data_type>
+<desc>
+\
+This parameter specifies the number of data cycle wait
+states to complete a data transfer. 
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+0 
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+5 </PARAM>
+<PARAM>
+2147483650
+6
+<name>
+ReadOnly
+</name>
+<data_type>
+bool
+</data_type>
+<desc>
+Parameter to enable the read only mode (Read Only Memory) 
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+false
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+6 </PARAM>
+<PARAM>
+2147483650
+7
+<name>
+DisableMonitor
+</name>
+<data_type>
+bool
+</data_type>
+<desc>
+\
+This flag allows the user to disable the creation of the memory
+table monitor object. 
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+false
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+7 </PARAM>
+<PARAM>
+2147483650
+8
+<name>
+DoTrace
+</name>
+<data_type>
+bool
+</data_type>
+<desc>
+\
+This flag enables monitoring features if the simulation was
+started with the DisableMonitor flag set to false. 
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+false
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+8 </PARAM>
+<MAP_S2O>
+0
+7
+DisableMonitor
+#7
+WriteWaitStates
+#5
+ReadOnly
+#6
+DoTrace
+#8
+ReadWaitStates
+#4
+SlaveID
+#3
+SIF
+#2
+</MAP_S2O>
+</params>
+<constructor>
+<STR_ARRAY>
+0
+2
+DW_IntrGen(sc_module_name name_, ahb_addr_t start_address, ahb_addr_t end_address, const sc_string& file_name = , bool big_endian = false)
+DW_IntrGen(sc_module_name name_, const sc_string& file_name = , bool big_endian = false, ahb_addr_t normal_start_addr1 = 0, ahb_addr_t normal_end_addr1 = 0x3FF, ahb_addr_t boot_start_addr1 = 0, ahb_addr_t boot_end_addr1 = 0, ahb_addr_t normal_start_addr2 = 0, ahb_addr_t normal_end_addr2 = 0, ahb_addr_t boot_start_addr2 = 0, ahb_addr_t boot_end_addr2 = 0, ahb_addr_t normal_start_addr3 = 0, ahb_addr_t normal_end_addr3 = 0, ahb_addr_t boot_start_addr3 = 0, ahb_addr_t boot_end_addr3 = 0, ahb_addr_t normal_start_addr4 = 0, ahb_addr_t normal_end_addr4 = 0, ahb_addr_t boot_start_addr4 = 0, ahb_addr_t boot_end_addr4 = 0, ahb_addr_t normal_start_addr5 = 0, ahb_addr_t normal_end_addr5 = 0, ahb_addr_t boot_start_addr5 = 0, ahb_addr_t boot_end_addr5 = 0, ahb_addr_t normal_start_addr6 = 0, ahb_addr_t normal_end_addr6 = 0, ahb_addr_t boot_start_addr6 = 0, ahb_addr_t boot_end_addr6 = 0, ahb_addr_t normal_start_addr7 = 0, ahb_addr_t normal_end_addr7 = 0, ahb_addr_t boot_start_addr7 = 0, ahb_addr_t boot_end_addr7 = 0, ahb_addr_t normal_start_addr8 = 0, ahb_addr_t normal_end_addr8 = 0, ahb_addr_t boot_start_addr8 = 0, ahb_addr_t boot_end_addr8 = 0)
+</STR_ARRAY>
+</constructor>
+<protected_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</protected_constructor>
+<private_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</private_constructor>
+<intfgate>
+0
+</intfgate>
+<syms>
+<CSheDesign>
+2147483654
+9
+1
+0
+1
+1
+1
+1
+1
+1
+1
+1
+
+3
+1
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+
+0
+
+0
+
+0
+
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+<CSheIntf>
+2147483651
+10
+
+
+
+0
+0
+1
+0
+SHE INTERFACE TIMESTAMP 07/08/2003 17:07:43 GMT
+<OB_ARRAY>
+0
+7
+<INTF_PORT>
+2147483653
+11
+sc_out<bool>
+2
+nFIQ
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+0
+<desc>
+Active low output pin for fast interrupt signal to processor
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+11 </INTF_PORT>
+<INTF_PORT>
+2147483653
+12
+sc_out<bool>
+2
+nIRQ
+1
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+0
+<desc>
+Active low output pin for interrupt request signal to processor
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+12 </INTF_PORT>
+<INTF_PORT>
+2147483653
+13
+sc_out<bool>
+2
+nRESET
+2
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+0
+<desc>
+Active low output pin for reset signal to processor
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+13 </INTF_PORT>
+<INTF_PORT>
+2147483653
+14
+sc_out<bool>
+2
+VINITHI
+3
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+0
+<desc>
+Active high output pin for initializing processor to high vectors.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+14 </INTF_PORT>
+<INTF_PORT>
+2147483653
+15
+sc_in_clk
+1
+clk
+4
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+0
+<desc>
+Clock input
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Left
+</STR_ARRAY>
+</attrs>
+15 </INTF_PORT>
+<INTF_PORT>
+2147483653
+16
+sc_out<bool>
+2
+INITRAM
+5
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+0
+<desc>
+Active high output for turning TCM functionality on in processor.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+16 </INTF_PORT>
+<INTF_PORT>
+2147483653
+17
+
+2
+__InterfaceGate
+6
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+2
+<desc>
+
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Top
+</STR_ARRAY>
+</attrs>
+17 </INTF_PORT>
+</OB_ARRAY>
+#0
+#9
+<OB_LIST>
+0
+2
+<SYMBOL>
+2147483650
+18
+
+__df_sym__
+
+1
+SHE SYMBOL TIMESTAMP 07/08/2003 17:07:43 GMT
+
+0
+
+1
+700000000
+0
+1
+0
+0
+0
+0
+0
+0
+0
+-9216 -10240 -3072 2048
+0
+0
+1
+0
+0
+0
+0
+1
+5
+-9216 2048
+-9216 -10240
+-3072 -10240
+-3072 2048
+-9216 2048
+<OB_ARRAY>
+0
+7
+<CSheSymbolPin>
+1
+19
+2
+-3072 -6144
+nFIQ
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+19 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+20
+2
+-3072 -8192
+nIRQ
+1
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+20 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+21
+2
+-3072 -4096
+nRESET
+2
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+21 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+22
+2
+-3072 -2048
+VINITHI
+3
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+22 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+23
+1
+-9216 0
+clk
+4
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+23 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+24
+2
+-3072 0
+INITRAM
+5
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+24 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+25
+1
+-9216 -4096
+__InterfaceGate
+6
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+25 </CSheSymbolPin>
+</OB_ARRAY>
+#0
+1
+0
+0
+#9
+<ts>
+989849486
+</ts>
+0
+1
+18 </SYMBOL>
+<SYMBOL>
+2147483650
+26
+
+__fsm_sym__
+
+1
+
+
+0
+
+1
+100000000
+0
+1
+0
+0
+0
+1
+0 0 10240 10240
+0
+0
+0
+0 0 10240 10240
+0
+0
+1
+0
+0
+0
+0
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#0
+1
+0
+0
+#9
+<ts>
+989849486
+</ts>
+1
+0
+26 </SYMBOL>
+</OB_LIST>
+10 </CSheIntf>
+#0
+#0
+#0
+#0
+9 </CSheDesign>
+__df_sym__
+__fsm_sym__
+</syms>
+<attrs>
+0
+</attrs>
+<impl>
+<SCPRIMITIVE_MODEL>
+2147483651
+27
+<desc>
+
+</desc>
+<model>
+#1
+</model>
+<lib_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r>
+<lib_r_d>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r_d>
+<src_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</src_r>
+<locals>
+<MAP_S2O>
+0
+0
+</MAP_S2O>
+</locals>
+<locals_idx>
+0
+</locals_idx>
+<attr>
+0
+</attr>
+<cflags_keys>
+<STR_ARRAY>
+0
+12
+gccsparcOS5|customized
+hp32|customized
+hp32|optimized
+gccsparcOS5|debug
+linux|customized
+sparcOS5|debug
+linux|optimized
+hp32|debug
+sparcOS5|optimized
+linux|debug
+gccsparcOS5|optimized
+sparcOS5|customized
+</STR_ARRAY>
+</cflags_keys>
+<cflags_values>
+<STR_ARRAY>
+0
+12
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+-I${dw_amba_ahb_path}
+</STR_ARRAY>
+</cflags_values>
+<lflags_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lflags_keys>
+<lflags_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lflags_values>
+<cmode>
+0
+</cmode>
+<headermmt_keys>
+<STR_ARRAY>
+0
+114
+168
+157
+146
+135
+124
+66
+22
+55
+88
+99
+102
+113
+158
+147
+136
+125
+67
+23
+114
+103
+159
+148
+137
+126
+68
+57
+115
+104
+149
+138
+105
+127
+69
+25
+58
+47
+116
+139
+128
+26
+48
+106
+117
+129
+38
+16
+107
+118
+108
+17
+119
+29
+18
+109
+19
+90
+160
+161
+70
+92
+150
+162
+140
+93
+71
+151
+163
+141
+130
+61
+72
+94
+152
+164
+153
+142
+131
+95
+84
+120
+51
+73
+165
+154
+143
+132
+121
+110
+52
+63
+74
+96
+166
+155
+144
+133
+97
+122
+64
+20
+111
+100
+167
+156
+145
+134
+123
+65
+32
+21
+54
+112
+98
+101
+</STR_ARRAY>
+</headermmt_keys>
+<headermmt_values>
+<STR_ARRAY>
+0
+114
+interface /DoTrace
+interface /SlaveID
+interface /WriteWaitStates
+interface /ReadWaitStates
+interface /DisableMonitor
+interface /reset
+interface /clk
+interface /WriteWaitStates
+interface /ReadWaitStates
+interface /ReadOnly
+interface /DoTrace
+interface /ReadWaitStates
+interface /SlaveID
+interface /VINITHI
+interface /hresetn
+interface /ReadOnly
+interface /SlaveID
+interface /INITRAM
+interface /SlaveID
+interface /hresetn
+interface /ReadWaitStates
+interface /ReadOnly
+interface /hresetn
+interface /DisableMonitor
+interface /ReadWaitStates
+interface /DoTrace
+interface /ReadWaitStates
+interface /SlaveID
+interface /ReadOnly
+interface /nFIQ
+interface /ReadWaitStates
+interface /DisableMonitor
+interface /WriteWaitStates
+interface /DoTrace
+interface /ReadOnly
+interface /SlaveID
+interface /ReadWaitStates
+interface /hresetn
+interface /DoTrace
+interface /ReadOnly
+interface /ReadWaitStates
+interface /SlaveID
+interface /WriteWaitStates
+interface /DisableMonitor
+interface /LittleEndian
+interface /WaitStates
+interface /SlaveID
+interface /ReadWaitStates
+interface /SlaveID
+interface /hresetn
+interface /WriteWaitStates
+interface /DoTrace
+interface /nFIQ
+interface /SlaveID
+interface /nIRQ
+interface /SlaveID
+interface /ReadWaitStates
+interface /WriteWaitStates
+interface /SlaveID
+interface /WriteWaitStates
+interface /clk
+interface /WriteWaitStates
+interface /hresetn
+interface /SlaveID
+interface /ReadWaitStates
+interface /DisableMonitor
+interface /ReadOnly
+interface /nIRQ
+interface /DoTrace
+interface /DoTrace
+interface /WriteWaitStates
+interface /ReadWaitStates
+interface /DoTrace
+interface /ReadOnly
+interface /INITRAM
+interface /SlaveID
+interface /DoTrace
+interface /ReadOnly
+interface /SlaveID
+interface /ReadOnly
+interface /ReadWaitStates
+interface /ReadOnly
+interface /DisableMonitor
+interface /DoTrace
+interface /SlaveID
+interface /hresetn
+interface /ReadOnly
+interface /SlaveID
+interface /WriteWaitStates
+interface /ReadWaitStates
+interface /DoTrace
+interface /SlaveID
+interface /DisableMonitor
+interface /DoTrace
+interface /nRESET
+interface /DoTrace
+interface /SlaveID
+interface /WriteWaitStates
+interface /WriteWaitStates
+interface /nRESET
+interface /SlaveID
+interface /SlaveID
+interface /DoTrace
+interface /DoTrace
+interface /ReadWaitStates
+interface /hresetn
+interface /ReadOnly
+interface /ReadOnly
+interface /DoTrace
+interface /VINITHI
+interface /ReadOnly
+interface /SlaveID
+interface /DoTrace
+interface /SlaveID
+</STR_ARRAY>
+</headermmt_values>
+<sourcemmt_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_keys>
+<sourcemmt_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_values>
+<sf_name>
+
+</sf_name>
+<sf_type>
+
+</sf_type>
+<is_struct>
+0
+</is_struct>
+<section_hdr_0>
+\
+#ifndef __DW_IntrGen_h
+#define __DW_IntrGen_h
+
+#include <systemc.h>
+#include <ccss_systemc.h>
+
+#include "ahb_slave_if.h"
+
+
+\
+</section_hdr_0>
+<section_hdr_1>
+\
+: public sc_module, public SIF
+
+\
+</section_hdr_1>
+<section_hdr_2>
+\
+
+
+\
+</section_hdr_2>
+<section_hdr_3>
+\
+
+	SC_HAS_PROCESS(DW_IntrGen);
+
+	// constructor 1
+	DW_IntrGen(sc_module_name   name_,                 // name of the module
+	           ahb_addr_t start_address,               // start address of the memory in normal mode
+	           ahb_addr_t end_address,                 // end  address of the memory in normal mode
+	           const sc_string& file_name = "",        // file name to read initial values
+	           bool big_endian = false);               // memory encoding (little endian default)
+
+	// constructor 2
+	DW_IntrGen(sc_module_name name_,                   // name of the module
+	           const sc_string& file_name = "",        // file name to read initial values
+	           bool  big_endian = false,               // memory encoding (little endian default)
+	           ahb_addr_t normal_start_addr1 = 0,      // start address of the memory in normal mode, first region
+	           ahb_addr_t normal_end_addr1   = 0x3FF,  // end address of the memory in normal mode, first region
+	           ahb_addr_t boot_start_addr1   = 0,      // start address of the memory in boot mode, first region
+	           ahb_addr_t boot_end_addr1     = 0,      // end address of the memory in boot mode, first region
+	           ahb_addr_t normal_start_addr2 = 0,      // remapped start address of the memory in normal mode, second region
+	           ahb_addr_t normal_end_addr2   = 0,      // remapped end address of the memory in normal mode, second region
+	           ahb_addr_t boot_start_addr2   = 0,      // start address of the memory in boot mode, second region
+	           ahb_addr_t boot_end_addr2     = 0,      // end address of the memory in boot mode, second region
+	           ahb_addr_t normal_start_addr3 = 0,      // ...
+	           ahb_addr_t normal_end_addr3   = 0,
+	           ahb_addr_t boot_start_addr3   = 0,
+	           ahb_addr_t boot_end_addr3     = 0,
+	           ahb_addr_t normal_start_addr4 = 0,
+	           ahb_addr_t normal_end_addr4   = 0,
+	           ahb_addr_t boot_start_addr4   = 0,
+	           ahb_addr_t boot_end_addr4     = 0,
+	           ahb_addr_t normal_start_addr5 = 0,
+	           ahb_addr_t normal_end_addr5   = 0,
+	           ahb_addr_t boot_start_addr5   = 0,
+	           ahb_addr_t boot_end_addr5     = 0,
+	           ahb_addr_t normal_start_addr6 = 0,
+	           ahb_addr_t normal_end_addr6   = 0,
+	           ahb_addr_t boot_start_addr6   = 0,
+	           ahb_addr_t boot_end_addr6     = 0,
+	           ahb_addr_t normal_start_addr7 = 0,
+	           ahb_addr_t normal_end_addr7   = 0,
+	           ahb_addr_t boot_start_addr7   = 0,
+	           ahb_addr_t boot_end_addr7     = 0,
+	           ahb_addr_t normal_start_addr8 = 0,
+	           ahb_addr_t normal_end_addr8   = 0,
+	           ahb_addr_t boot_start_addr8   = 0,
+	           ahb_addr_t boot_end_addr8     = 0);
+
+
+	~DW_IntrGen();
+
+	// interface methods
+
+	// Register a port, make sure that only one port
+	// is connected to the interface.
+	virtual void
+	register_port(sc_port_base&,
+	              const char*);
+
+	// Register the bus connected to this slave interface.
+	virtual int
+	register_bus(int,          // bus handle
+	             int,          // priority
+	             int,          // address bus width in bits
+	             int);         // data bus width in bits
+
+	// Query the status response of the transaction.
+	virtual bool
+	response(int, ahb_status&);
+
+	// Initiate a read transaction from the slave.
+	virtual void
+	read(int,                  // bus handle, unused here
+	     ahb_addr_t,           // address
+	     ahb_hsize);           // transfer size
+
+	// Write data to the slave.
+	virtual void
+	write(int,                 // bus handle, unused here
+	      ahb_addr_t,          // address
+	      ahb_hsize);          // transfer size
+
+	// This method provides additional control information, e.g.
+	// the burst mode and the transfer type.
+	virtual void
+	control_info(int,                // id of the bus
+	             ahb_burstmode,      // mode of the active burst
+	             ahb_trans,          // the transfer type
+	             ahb_prot,           // access protection information
+	             int,                // master id
+	             bool);              // master locks the bus
+
+	// This method provides control information base on the ARM11 extensions
+	virtual void
+	set_ahb11ext_control(int,                 // bus id
+	                     const unsigned int*, // byte strobe line information
+	                     bool,                // unaligned access indication
+	                     int){}                // protection domain
+
+	// Set the data pointer where the data shoud be
+	// - written to for a read transaction
+	// - read from for a write transaction
+	virtual void
+	set_data(int,              // bus handle, unused here
+	         ahb_data_t);      // pointer to the data
+
+
+	// Direct read from the memory for debugging purposes
+	virtual bool
+	direct_read(int,           // bus handle, unused here
+	            ahb_addr_t,    // address
+	            ahb_data_t,    // data
+	            int = 4);      // number of bytes
+
+	// Direct write to the memory for debugging purposes
+	virtual bool
+	direct_write(int,          // bus handle, unused here
+	             ahb_addr_t,   // address
+	             ahb_data_t,   // data
+	             int = 4);     // number of bytes
+
+	// Return the memory map of the slave
+	virtual const ahb_address_map&
+	get_address_map(int) {
+		return _address_map;
+	}
+
+	// Query the name of the slave
+	virtual const char*
+	name() const
+		{return sc_module::name();}
+
+ 
+protected:
+   
+    // main process for interrupt sampling.
+	void 
+	main_action();
+
+	// Read the memory from a file
+	void
+	read_from_file(const sc_string&);
+
+	// Write the memory contents to a file
+	void
+	write_to_file(const sc_string&);
+
+	// parameter change handler
+	void 
+	do_trace_action();
+
+	void
+	create_memory();
+
+	// Clear the memory contrents to zero
+	void
+	clear_mem();
+
+	bool
+	get_physical_address(unsigned int &);
+
+	bool
+	get_mem(unsigned int,
+	        ahb_data_t,
+			const unsigned int*,
+            int);
+
+	bool
+	put_mem(unsigned int,
+	        ahb_data_t,
+			const unsigned int*,
+            int);
+
+
+	// Update the table monitor for the memory contents
+	// complete:
+	void
+	set_monitor();
+	// one word with relative address:
+	void
+	set_monitor(int);
+
+	// address information
+	unsigned int        _address;
+	int                 _address_width_word;
+
+	// control information
+	ahb_rw              _rwflag;
+	int                 _num_bytes;
+	unsigned int        _strobe_width_word;
+	const unsigned int* _byte_strobe;
+	bool                _unaligned;
+	int                 _prot_domain;
+	ahb_prot            _protection;
+	int                 _masterid;
+
+	// data location
+	ahb_data_t          _data;
+	int                 _data_width_word;
+
+	// internal states, storage, and configuration
+
+	ahb_address_map     _address_map;      // vector of up to 8 memory regions
+	unsigned int        _region_offset[8]; // start addresses of each memory region in
+	                                       // the real linear memory _mem
+	unsigned int*       _mem;
+	unsigned int        _mem_length;
+
+	sc_string           _file_name;
+
+	bool                _big_endian;
+
+	int                 _waitstates;
+	bool                _idlebusy;
+	bool                _ready;
+	bool                _okay;
+
+	unsigned int        _tmp_byte_strobe[4];
+
+	ahb_addr_t          _xfer_addr[AHB_NUM_MASTERS];
+	bool                _xfer_state[AHB_NUM_MASTERS];
+	int                 _xfer_domain[AHB_NUM_MASTERS];
+
+	ccss_monitor_table* _mem_monitor_table;
+
+	sc_port_base*       _slave_port;
+
+	int reset_cnt;
+	int irq_pulse;
+	int fiq_pulse;
+
+
+
+\
+</section_hdr_3>
+<section_hdr_4>
+\
+
+#endif
+
+\
+</section_hdr_4>
+27 </SCPRIMITIVE_MODEL>
+</impl>
+1 </MODEL>

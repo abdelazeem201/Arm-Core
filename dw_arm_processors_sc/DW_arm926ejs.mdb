@@ -1,0 +1,1628 @@
+Start Snps Version Data
+CSgfxDisplay
+2
+CSgfxInstShape
+2
+CSgfxSymbolShape
+6
+CSgfxSheet
+3
+CSheAddPrimCircleOp
+2
+CSheAddPrimRectOp
+2
+CSheAddPrimPolylineOp
+2
+CSheDesign
+6
+CSheSheet
+3
+CSheSheetGroup
+2
+CSheCell
+2
+CSheState
+2
+CSheNet
+2
+CSheTransArcRelText
+2
+CSheTextInstSpecData
+2
+CShePin
+2
+CSheSymbolEditPin
+2
+CSheSymbol
+4
+CSheIntf
+3
+CShePrimCircle
+2
+CShePrimRect
+2
+CShePrimPolyline
+2
+CSheSCPin
+2
+CSheSCPortPin
+2
+CSheSCSymbolEditPin
+2
+CSheSCIntfPin
+2
+CSgfxKDTreeLayer
+5
+EgDBCell
+2
+EgDBCsdf
+3
+EgDBHierSystemC
+2
+EgDBImpl
+6
+EgDBInstInfo
+4
+EgDBIntfPort
+5
+EgDBModel
+7
+EgDBPage
+2
+EgDBParameter
+2
+EgDBPlainSystemC
+2
+EgDBPort
+2
+EgDBPrimImpl
+2
+EgDBPrimModel
+2
+EgDBPrimSystemC
+3
+EgDBSds
+2
+EgDBSymbol
+2
+End Snps Version Data
+<MODEL>
+2147483655
+1
+<type>
+10
+</type>
+<ver>
+\
+This model of the ARM926EJ-S processor is based on an ARM Instruction Set
+Simulator (ISS).  This model is intended to be used as a transaction-level
+model of the ARM926EJ-S processor, not as a pin-level model.
+
+SIGNALS:
+========
+The model is connected to the interface of the AHB_bus models via its IBIU
+and DBIU master ports, and is connected to the interrupt outputs of the
+interrupt controller via the input signals nIRQ, nFIQ, VINITHI, and INITRAM.
+The model has a reset input signal, nRESET, which should be driven high
+througout simulation.
+
+
+CONSTRUCTOR PARAMETERS:
+=======================
+BigEndian  (boolean)
+  Purpose: To initialize the Arm debuggers to the proper byte order.
+  Values:  'False' implies that the byte order is Little Endian.
+           'True' implies that the byte order is Big Endian.
+           The default value is False.
+  Implications: The byte order of the processor model should match the
+                byte order set for the memories.
+
+Debugger   (string)
+  Purpose: To specify which ARM debugger will be invoked.
+  Values:  'adu', 'armsd', or an executable shell script.
+  Implications: Any string will be passed to the processor model.  The
+                model locates that string via the $PATH environment variable.
+                If the model cannot resolve the string, a warning will be
+                issued and simulation will terminate.  If the string specifies
+                a script file, then the script is responsible for invoking the
+                debugger and consuming any parameters passed to it from the
+                processor model.
+
+ProgName    (string)
+   Purpose: To automatically load an ARM target program into the debugger.
+   Values:  the path to the .axf file.
+   Implications: If the Debugger cannot find the file, the Debugger
+                 will issue an error.
+
+USAGE:
+======
+When the processor model is elaborated, the ARM debugger will invoke.  The
+Arm debugger is the mechanism by which the software executable (.axf file)
+is loaded into program memory.
+
+   For ARM's ADU debugger, the command sequence is:
+      File-&gt;LoadImage-&gt;
+         A file navigation dialog will be presented whereby the user can
+         navigate to, and load, the desired target program.
+   For ARM's armsd debugger, the command is simply:
+      armsd&gt; load "path to filename"
+
+Once the target program is loaded, a breakpoint is automatically set
+at 'main' (if that symbol exists in the target program's symbol table).
+The user may specify additional breakpoints at this time, or interact
+with the ARM debugger in any way.
+
+Pressing the ARM debugger's "go" button, or "step" button (or by typing the
+analagous commands in the ARM debugger's command window) will commence
+simulation.
+\
+</ver>
+<ts>
+1044322658
+1044322524
+1059087030
+</ts>
+<desc>
+\
+This model of the ARM926EJ-S processor is based on an ARM Instruction Set
+Simulator (ISS).  This model is intended to be used as a transaction-level
+model of the ARM926EJ-S processor, not as a pin-level model.
+
+SIGNALS:
+========
+The model is connected to the interface of the AHB_bus models via its IBIU
+and DBIU master ports, and is connected to the interrupt outputs of the
+interrupt controller via the input signals nIRQ, nFIQ, VINITHI, and INITRAM.
+The model has a reset input signal, nRESET, which should be driven high
+througout simulation.
+
+
+CONSTRUCTOR PARAMETERS:
+=======================
+BigEndian  (boolean)
+  Purpose: To initialize the Arm debuggers to the proper byte order.
+  Values:  'False' implies that the byte order is Little Endian.
+           'True' implies that the byte order is Big Endian.
+           The default value is False.
+  Implications: The byte order of the processor model should match the
+                byte order set for the memories.
+
+Debugger   (string)
+  Purpose: To specify which ARM debugger will be invoked.
+  Values:  'adu', 'armsd', or an executable shell script.
+  Implications: Any string will be passed to the processor model.  The
+                model locates that string via the $PATH environment variable.
+                If the model cannot resolve the string, a warning will be
+                issued and simulation will terminate.  If the string specifies
+                a script file, then the script is responsible for invoking the
+                debugger and consuming any parameters passed to it from the
+                processor model.
+
+ProgName    (string)
+   Purpose: To automatically load an ARM target program into the debugger.
+   Values:  the path to the .axf file.
+   Implications: If the Debugger cannot find the file, the Debugger
+                 will issue an error.
+
+USAGE:
+======
+When the processor model is elaborated, the ARM debugger will invoke.  The
+Arm debugger is the mechanism by which the software executable (.axf file)
+is loaded into program memory.
+
+   For ARM's ADU debugger, the command sequence is:
+      File-&gt;LoadImage-&gt;
+         A file navigation dialog will be presented whereby the user can
+         navigate to, and load, the desired target program.
+   For ARM's armsd debugger, the command is simply:
+      armsd&gt; load "path to filename"
+
+Once the target program is loaded, a breakpoint is automatically set
+at 'main' (if that symbol exists in the target program's symbol table).
+The user may specify additional breakpoints at this time, or interact
+with the ARM debugger in any way.
+
+Pressing the ARM debugger's "go" button, or "step" button (or by typing the
+analagous commands in the ARM debugger's command window) will commence
+simulation.
+\
+</desc>
+<s_desc>
+ARM926EJS Transaction Level Processor Model
+</s_desc>
+<header>
+
+</header>
+<source>
+
+</source>
+<class>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</class>
+<base>
+0
+
+
+</base>
+<params>
+2
+<PARAM>
+2147483650
+2
+<name>
+MasterIDibiu
+</name>
+<data_type>
+unsigned int
+</data_type>
+<desc>
+
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+1
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+2 </PARAM>
+<PARAM>
+2147483650
+3
+<name>
+MasterIDdbiu
+</name>
+<data_type>
+unsigned int
+</data_type>
+<desc>
+
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+0
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+3 </PARAM>
+<MAP_S2O>
+0
+2
+MasterIDibiu
+#2
+MasterIDdbiu
+#3
+</MAP_S2O>
+</params>
+<constructor>
+<STR_ARRAY>
+0
+1
+DW_arm926ejs(const sc_module_name& name_, int ibiu_priority = 1, bool ibiu_default_grant = true, int dbiu_priority = 1, bool dbiu_default_grant = true, bool BigEndian = false, const sc_string& program_name = , const sc_string& debugger = )
+</STR_ARRAY>
+</constructor>
+<protected_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</protected_constructor>
+<private_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</private_constructor>
+<intfgate>
+0
+</intfgate>
+<syms>
+<CSheDesign>
+2147483654
+4
+1
+0
+1
+1
+1
+1
+1
+1
+1
+1
+
+3
+1
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+
+0
+
+0
+
+0
+
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+<CSheIntf>
+2147483651
+5
+
+
+
+0
+0
+1
+0
+SHE INTERFACE TIMESTAMP 02/04/2003 01:37:38 GMT
+<OB_ARRAY>
+0
+12
+<INTF_PORT>
+2147483653
+6
+sc_in<bool>
+1
+nIRQ
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+Active low IRQ input signal
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+6 </INTF_PORT>
+<INTF_PORT>
+2147483653
+7
+sc_in<bool>
+1
+nFIQ
+1
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+Active low FIQ input signal
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+7 </INTF_PORT>
+<INTF_PORT>
+2147483653
+8
+sc_in<bool>
+1
+nRESET
+2
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+Active low RESET input signal
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+8 </INTF_PORT>
+<INTF_PORT>
+2147483653
+9
+sc_in_clk
+1
+clock
+5
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+System Clock
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+9 </INTF_PORT>
+<INTF_PORT>
+2147483653
+10
+ahb_master_port
+0
+ibiu
+6
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+The instruction bus interface is connected to this port.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+10 </INTF_PORT>
+<INTF_PORT>
+2147483653
+11
+ahb_master_port
+0
+dbiu
+7
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+The data bus interface is connected to this port.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+11 </INTF_PORT>
+<INTF_PORT>
+2147483653
+12
+sc_in<bool>
+1
+VINITHI
+8
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+High Vector Initialization input.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+12 </INTF_PORT>
+<INTF_PORT>
+2147483653
+13
+sc_in<bool>
+1
+INITRAM
+9
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+TCM enabling input.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+13 </INTF_PORT>
+<INTF_PORT>
+2147483653
+14
+sc_port<tcm_slave_if>
+0
+itcm
+10
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+Instruction TCM port.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+14 </INTF_PORT>
+<INTF_PORT>
+2147483653
+15
+sc_port<tcm_slave_if>
+0
+dtcm
+11
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+Data TCM port.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+15 </INTF_PORT>
+<INTF_PORT>
+2147483653
+16
+sc_in<bool>
+1
+DHClkEn
+4
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+H Clock enable input for running processor at different frequency than bus model.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Left
+</STR_ARRAY>
+</attrs>
+16 </INTF_PORT>
+<INTF_PORT>
+2147483653
+17
+sc_in<bool>
+1
+IHClkEn
+3
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#5
+1
+0
+0
+0
+<desc>
+H Clock Enable input for running IBus at different frequence than system.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Left
+</STR_ARRAY>
+</attrs>
+17 </INTF_PORT>
+</OB_ARRAY>
+#0
+#4
+<OB_LIST>
+0
+2
+<SYMBOL>
+2147483650
+18
+
+__df_sym__
+
+1
+SHE SYMBOL TIMESTAMP 02/04/2003 01:37:38 GMT
+
+0
+
+1
+700000000
+0
+1
+0
+0
+0
+0
+0
+0
+0
+-5120 -7168 5120 11264
+0
+0
+1
+0
+0
+0
+0
+1
+9
+-5120 -6144
+-4096 -7168
+4096 -7168
+5120 -6144
+5120 10240
+4096 11264
+-4096 11264
+-5120 10240
+-5120 -6144
+<OB_ARRAY>
+0
+12
+<CSheSymbolPin>
+1
+19
+1
+-5120 -5120
+nIRQ
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+19 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+20
+1
+-5120 -3072
+nFIQ
+1
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+20 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+21
+1
+-5120 -1024
+nRESET
+2
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+21 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+22
+1
+-5120 9216
+clock
+5
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+22 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+23
+2
+5120 3072
+ibiu
+6
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+23 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+24
+2
+5120 7168
+dbiu
+7
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+24 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+25
+1
+-5120 1024
+VINITHI
+8
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+25 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+26
+1
+-5120 3072
+INITRAM
+9
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+26 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+27
+2
+5120 -5120
+itcm
+10
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+27 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+28
+2
+5120 -1024
+dtcm
+11
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+28 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+29
+1
+-5120 5120
+IHClkEn
+3
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+29 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+30
+1
+-5120 7168
+DHClkEn
+4
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#18
+1
+0
+0
+30 </CSheSymbolPin>
+</OB_ARRAY>
+#0
+1
+0
+0
+#4
+<ts>
+1010710030
+</ts>
+0
+1
+18 </SYMBOL>
+<SYMBOL>
+2147483650
+31
+
+__fsm_sym__
+
+1
+
+
+0
+
+1
+100000000
+0
+1
+0
+0
+0
+1
+0 0 10240 10240
+0
+0
+0
+0 0 10240 10240
+0
+0
+1
+0
+0
+0
+0
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#0
+1
+0
+0
+#4
+<ts>
+1010710030
+</ts>
+1
+0
+31 </SYMBOL>
+</OB_LIST>
+5 </CSheIntf>
+#0
+#0
+#0
+#0
+4 </CSheDesign>
+__df_sym__
+__fsm_sym__
+</syms>
+<attrs>
+0
+</attrs>
+<impl>
+<SCPRIMITIVE_MODEL>
+2147483651
+32
+<desc>
+
+</desc>
+<model>
+#1
+</model>
+<lib_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r>
+<lib_r_d>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r_d>
+<src_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</src_r>
+<locals>
+<MAP_S2O>
+0
+0
+</MAP_S2O>
+</locals>
+<locals_idx>
+0
+</locals_idx>
+<attr>
+0
+</attr>
+<cflags_keys>
+<STR_ARRAY>
+0
+12
+gccsparcOS5|customized
+hp32|customized
+hp32|optimized
+gccsparcOS5|debug
+linux|customized
+sparcOS5|debug
+hp32|debug
+linux|optimized
+sparcOS5|optimized
+linux|debug
+gccsparcOS5|optimized
+sparcOS5|customized
+</STR_ARRAY>
+</cflags_keys>
+<cflags_values>
+<STR_ARRAY>
+0
+12
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-DNDEBUG
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-DNDEBUG
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-DNDEBUG
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-DNDEBUG
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+\
+-I${dw_amba_ahb_path}/
+-I${dw_arm_processors_aux_path}/
+\
+</STR_ARRAY>
+</cflags_values>
+<lflags_keys>
+<STR_ARRAY>
+0
+12
+gccsparcOS5|customized
+hp32|customized
+hp32|optimized
+gccsparcOS5|debug
+sparcOS5|debug
+linux|customized
+sparcOS5|optimized
+linux|optimized
+hp32|debug
+linux|debug
+gccsparcOS5|optimized
+sparcOS5|customized
+</STR_ARRAY>
+</lflags_keys>
+<lflags_values>
+<STR_ARRAY>
+0
+12
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-gccsparcOS5
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-hp32
+-Wl,-E
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-hp32
+-Wl,-E
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-gccsparcOS5
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-sparcOS5
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-linux
+-larm9
+-Wl,-E
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-sparcOS5
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-linux
+-larm9
+-Wl,-E
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-hp32
+-Wl,-E
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-linux
+-larm9
+-Wl,-E
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-gccsparcOS5
+-larm9
+\
+\
+-L${dw_arm_processors_path}/arm_ccm/lib-sparcOS5
+-larm9
+\
+</STR_ARRAY>
+</lflags_values>
+<cmode>
+0
+</cmode>
+<headermmt_keys>
+<STR_ARRAY>
+0
+131
+157
+146
+102
+135
+99
+88
+66
+55
+33
+22
+113
+124
+158
+147
+114
+136
+125
+103
+67
+78
+56
+23
+34
+89
+159
+126
+137
+115
+79
+57
+68
+35
+24
+104
+148
+105
+138
+58
+69
+36
+25
+116
+127
+149
+139
+117
+128
+106
+59
+26
+37
+38
+129
+118
+27
+16
+107
+39
+108
+119
+17
+28
+109
+29
+18
+90
+19
+160
+91
+70
+81
+92
+150
+140
+82
+60
+71
+151
+152
+141
+94
+83
+72
+130
+153
+142
+131
+73
+95
+84
+62
+40
+120
+41
+154
+132
+96
+63
+74
+30
+85
+110
+121
+143
+42
+155
+144
+111
+122
+100
+97
+64
+75
+20
+31
+86
+133
+156
+145
+134
+123
+112
+76
+87
+54
+65
+43
+32
+21
+98
+101
+</STR_ARRAY>
+</headermmt_keys>
+<headermmt_values>
+<STR_ARRAY>
+0
+131
+interface /MasterIDibiu
+interface /itcm
+interface /MasterIDibiu
+interface /clock
+interface /MasterIDdbiu
+interface /nIRQ
+interface /nFIQ
+interface /MasterIDdbiu
+interface /DHClkEn
+interface /nIRQ
+interface /nIRQ
+interface /DHClkEn
+interface /MasterIDibiu
+interface /INITRAM
+interface /MasterIDibiu
+interface /VINITHI
+interface /IHClkEn
+interface /MasterIDibiu
+interface /nFIQ
+interface /dbiu
+interface /nIRQ
+interface /nIRQ
+interface /clock
+interface /nIRQ
+interface /MasterIDdbiu
+interface /nRESET
+interface /dbiu
+interface /MasterIDdbiu
+interface /dbiu
+interface /MasterIDibiu
+interface /ibiu
+interface /VINITHI
+interface /nIRQ
+interface /MasterIDibiu
+interface /dtcm
+interface /MasterIDibiu
+interface /ibiu
+interface /MasterIDdbiu
+interface /nRESET
+interface /INITRAM
+interface /nIRQ
+interface /nIRQ
+interface /clock
+interface /dtcm
+interface /INITRAM
+interface /nRESET
+interface /DHClkEn
+interface /MasterIDibiu
+interface /MasterIDdbiu
+interface /nFIQ
+interface /itcm
+interface /dtcm
+interface /IHClkEn
+interface /nRESET
+interface /nRESET
+interface /nIRQ
+interface /MasterIDdbiu
+interface /VINITHI
+interface /MasterIDdbiu
+interface /nFIQ
+interface /nFIQ
+interface /IHClkEn
+interface /MasterIDibiu
+interface /nIRQ
+interface /nIRQ
+interface /dtcm
+interface /clock
+interface /MasterIDdbiu
+interface /nFIQ
+interface /nRESET
+interface /VINITHI
+interface /nFIQ
+interface /itcm
+interface /VINITHI
+interface /MasterIDibiu
+interface /nIRQ
+interface /dbiu
+interface /MasterIDdbiu
+interface /MasterIDdbiu
+interface /dbiu
+interface /nRESET
+interface /MasterIDdbiu
+interface /clock
+interface /ibiu
+interface /MasterIDibiu
+interface /itcm
+interface /clock
+interface /clock
+interface /nRESET
+interface /MasterIDdbiu
+interface /nRESET
+interface /INITRAM
+interface /nIRQ
+interface /itcm
+interface /MasterIDibiu
+interface /DHClkEn
+interface /MasterIDdbiu
+interface /nIRQ
+interface /VINITHI
+interface /nFIQ
+interface /MasterIDibiu
+interface /MasterIDibiu
+interface /IHClkEn
+interface /INITRAM
+interface /dtcm
+interface /MasterIDdbiu
+interface /VINITHI
+interface /MasterIDdbiu
+interface /nRESET
+interface /ibiu
+interface /clock
+interface /nIRQ
+interface /ibiu
+interface /nIRQ
+interface /nRESET
+interface /MasterIDdbiu
+interface /dbiu
+interface /MasterIDdbiu
+interface /dtcm
+interface /ibiu
+interface /nFIQ
+interface /nIRQ
+interface /ibiu
+interface /itcm
+interface /MasterIDibiu
+interface /clock
+interface /INITRAM
+interface /IHClkEn
+interface /nIRQ
+interface /MasterIDibiu
+interface /ibiu
+</STR_ARRAY>
+</headermmt_values>
+<sourcemmt_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_keys>
+<sourcemmt_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_values>
+<sf_name>
+
+</sf_name>
+<sf_type>
+
+</sf_type>
+<is_struct>
+0
+</is_struct>
+<section_hdr_0>
+\
+// DW_arm926ejs.h: header file
+
+#ifndef __DW_arm926ejs_h
+#define __DW_arm926ejs_h
+
+#include "ahb_types.h"
+
+using namespace ahb_namespace;
+
+#include <systemc.h>
+#include <ccss_systemc.h>
+#include "ahb_master_port.h"
+#include "tcm_slave_if.h"
+
+#ifndef SYNTHESIS
+#include <ccss_systemc.h>
+#endif
+
+
+
+\
+</section_hdr_0>
+<section_hdr_1>
+\
+: public sc_module
+
+\
+</section_hdr_1>
+<section_hdr_2>
+\
+
+
+\
+</section_hdr_2>
+<section_hdr_3>
+\
+
+    // processes
+	void main_action();
+	SC_HAS_PROCESS(DW_arm926ejs);
+
+	// constructor
+	DW_arm926ejs(const sc_module_name& name_, 
+	          int ibiu_priority = 1,  
+			  bool ibiu_default_grant = true,
+			  int dbiu_priority = 1,
+			  bool dbiu_default_grant = true,
+			  bool BigEndian = false,
+			  const sc_string& program_name = "",
+			  const sc_string& debugger = "axd");
+
+	// destructor
+	~DW_arm926ejs();
+
+    void end_of_elaboration();
+	// public data members.
+	void *iss_ifc;
+
+
+
+\
+</section_hdr_3>
+<section_hdr_4>
+\
+
+#endif
+
+\
+</section_hdr_4>
+32 </SCPRIMITIVE_MODEL>
+</impl>
+1 </MODEL>

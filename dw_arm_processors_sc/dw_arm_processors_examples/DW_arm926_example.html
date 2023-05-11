@@ -1,0 +1,1433 @@
+<!DOCTYPE HTML PUBLIC "-//SYNOPSYS//CCSS MODEL//EN">
+
+<HTML>
+<HEAD>
+<TITLE>Model Documentation - dw_arm_processors_examples/DW_arm926_example</TITLE>
+</HEAD>
+
+<BODY TEXT=#000000 BGCOLOR=#FFFFFF LINK=#0000FF VLINK=#800080 ALINK=#FF0000>
+<CENTER>
+<H1>Model: DW_arm926_example</H1>
+<B>Library: dw_arm_processors_examples</B>
+<P><I>Documentation generated:<BR>Mon May 17 09:27:21 2004
+</I>
+<H3>Type: Hierarchical SystemC Model</H3>
+<P><B>Arm926 Basic Test Design</B><BR>
+</CENTER>
+<P><A HREF="#Interface">Interface</A>
+<BLOCKQUOTE>
+<A HREF="#Class">Category</A><BR>
+<A HREF="#Ports">Ports</A><BR>
+<A HREF="#Parameters">Parameters</A><BR>
+</BLOCKQUOTE>
+<A HREF="#Implementation">Implementation</A><BR>
+<BLOCKQUOTE>
+<A HREF="#Header">Header</A><BR>
+<A HREF="#Schematic">Schematic</A><BR>
+<BLOCKQUOTE>
+<A HREF="#Instances">Instances</A><BR>
+<A HREF="#Channels">Channels</A><BR>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<DIV CLASS="description">
+<H4>Description</H4>
+<PRE>
+This is the example test design for the ARM926 DesignWare Processor Model.
+
+This example design supports 8, 16, and 32 bit reads and writes, and nIRQ, 
+nFIQ, and nRESET interrupts. It contains the following modules:
+ 
+     Instance Name       Purpose
+	 =============       =======
+	 arm926       -      Processor Model.
+     ibus         -      Instruction Bus - bus for the processor instruction bus.
+	 dbus         -      Data Bus - bus for procssor data bus.
+	 ICM1         -      Interconnect Matrix - arbitration block for allowing the
+	                     data and instruction bus of the processor to share the
+						 same range in memory, in this case program memory.
+	 ProgMem      -      Program Memory - memory that holds the ARM target code. 
+	                     Target code is copied to and read from this location via 
+						 the ARM debugger and CCM. Address range 0x0 - 0x1ffff.
+     StackMem     -      Stack Memory - memory the arm926 processor needs for stack 
+	                     accesses. Address range 0x10000000 - 0x1000ffff.
+     DataMem      -      Data Memory - Memory location for testing basic reads and 
+	                     writes.  Address range 0x90000000 - 0x900003ff.
+     IntrGen      -      Interrupt Generator - Target code writes to this module 
+	                     when testing interrupts. Address range 0xb0000000 - 0xb00003ff. See module description
+						 for bit assignments.
+     Itcm         -      Instruction Tightly Coupled Memory - Memory for Instruction 
+	                     TCM. Address range is 4K starting at address 0xff000.
+     Dtcm         -      Data Tightly Coupled Memory - Memory for Data TCM. Address 
+	                     range is 4K starting at address 0x20000.
+							 
+
+A configuration control file (examples.scf) is located at 
+dw_arm_processors_sc/dw_arm_processors_examples. It can
+be used to modify all design parameters from their default
+design values.  These include changing which of several ARM debuggers to
+use, the endianism of the design (big or little),
+to preload a target program file into program memory, to 
+set wait states on memory modules, and to turn on and off 
+System Studio monitor tracing.
+
+
+Example pre-compiled ARM target code, named "examples.axf",  
+is located at:
+
+    dw_arm_processors_sc/dw_arm_processors_examples/arm926_target
+
+This target code performs basic read/writes and asserts the
+nIRQ, nFIQ, and nRESET interrupts.
+
+To load and run the software:
+
+1) Start the simulation from the simulation control panel, in
+   either -pause mode or non-pause mode. If -pause mode is used
+   you will have to continue simulation with the pause/continue
+   simulation button at the appropriate time.
+   
+2) When the simulation is correctly launched, ARM's debugger 
+   will appear. When ARM's debugger is fully launched (the ARM
+   debugger's "Execution Window" shows memory locations starting from 0x0), 
+   load the arm926_target/examples.axf image via the following 
+   pull down window of the ARM debugger:
+
+        File-&gt;Load Image
+
+   You will have to navigate to the target binary location to load it.
+
+3) Once the target code is loaded into the ARM debugger, breakpoints can be set at 
+   different locations in this target code. To run or continue the
+   the target program simply type "go" at the "Debug:" prompt in the 
+   "Command Window" of the ARM debugger, or by using the "Go" button on the ARM
+   debugger's toolbar.
+   
+   Below is a list of function names where break points can be set:
+      main       - main function of program
+      ram8test   - test for 8 bit memory accesses
+      ram16test  - test for 16 bit memory accesses.
+      ram32test  - test for 32 bit memory accesses.
+      irqtest    - nIRQ interrupt test. Program will jump to the 
+	               irq_hndlr when an IRQ interrupt occurs.
+      fiqtest    - nFIQ interrupt test. Program will jump to the 
+	               fiq_hndlr when an FIQ interrupt occurs.
+      irq_hndlr  - nIRQ interrupt handler. Program execution will 
+	               jump to this handler when an IRQ interrupt occurs 
+				   (part of irqtest).
+      fiq_hndlr  - nFIQ interrupt handler. Program execution will jump 
+	               to this handler when an FIQ interrupt occurs 
+				   (part of fiqtest).
+      dataaborttest - test for data abort handling (program will jump 
+	                  to the DABORTHandler() when a data abort occurs).
+      DABORTHandler - Data Abort interrupt handler (program execution 
+	                  will jump to this handler when a data abort occurs 
+					  (part of the dataaborttest). NOTE: The debugger will
+					  issue a data abort error message in the Command Window
+					  when a Data Abort occurs.  Just continue of step through
+					  the program to get through the data abort interrupt handler.
+      resettest     - test for reset. The target program will jump to 
+	                  the RESETHandler when a reset is detected.
+      RESETHandler  - nRESET interrupt handler. Program execution jumps 
+	                  to this handler when a reset is detected.Continuing to 
+					  step through the code will show that the RESETHandler was hit.
+
+
+4) Once a breakpoint is hit, you can step through the code by either typing
+   "step" at the "Debug:" prompt in the Command Window, or using the 
+    ARM debugger's GUI step buttons.
+
+For more information about running the ARM debugger and running the simulation, 
+please see the supplied documentation at dw_arm_processors_sc/doc
+</PRE><BR>
+</DIV>
+<DIV CLASS="history">
+</DIV>
+
+<A NAME="Interface"></A><H1>Interface</H1>
+<A NAME="Class"></A><H3>Category</H3>
+No classes for model specified.<BR>
+
+<A NAME="Ports"></A><H3>Ports</H3>
+No ports for model specified.<BR>
+
+<A NAME="Parameters"></A><H3>Parameters</H3>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;ProgMemStartAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0x0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Low address of memory address range.
+</PRE>
+
+<TR>
+<TD>&nbsp;ProgMemEndAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0x1ffff&nbsp;<TR> <TD COLSPAN="4"><PRE>
+High address of memory adddress range
+</PRE>
+
+<TR>
+<TD>&nbsp;ProgMemImageFile&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_string&nbsp;<TD>&nbsp;""&nbsp;<TR> <TD COLSPAN="4"><PRE>
+File name for initialization of memory
+</PRE>
+
+<TR>
+<TD>&nbsp;ProgName&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_string&nbsp;<TD>&nbsp;""&nbsp;<TR> <TD COLSPAN="4"><PRE>
+ProgName is the name of the Arm-compiled target application
+</PRE>
+
+<TR>
+<TD>&nbsp;BigEndian&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TR> <TD COLSPAN="4"><PRE>
+BigEndian==true will invoke armsd in big endian byte order.
+</PRE>
+
+<TR>
+<TD>&nbsp;Debugger&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_string&nbsp;<TD>&nbsp;"axd"&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Select armsd, axd, or a user-created script to launch an Arm debugger
+</PRE>
+
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TR> <TD COLSPAN="4"><PRE>
+
+</PRE>
+
+<TR>
+<TD>&nbsp;ICM_Configuration&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_string&nbsp;<TD>&nbsp;"${DW_ARM_SC&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Path to the interconnect matrix configuration file.
+</PRE>
+
+<TR>
+<TD>&nbsp;ProgMemReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+This parameter specifies the number of data cycle wait
+states to complete a data transfer
+</PRE>
+
+<TR>
+<TD>&nbsp;ProgMemWriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+This parameter specifies the number of data cycle wait
+states to complete a data transfer                   
+</PRE>
+
+<TR>
+<TD>&nbsp;StackMemReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+This parameter specifies the number of data cycle wait
+states to complete a data transfer
+</PRE>
+
+<TR>
+<TD>&nbsp;StackMemWriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+This parameter specifies the number of data cycle wait
+states to complete a data transfer.
+</PRE>
+
+<TR>
+<TD>&nbsp;StackMemStartAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0x10000000&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Stack memory low address
+</PRE>
+
+<TR>
+<TD>&nbsp;StackMemEndAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0x1000ffff&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Stack memory High address
+</PRE>
+
+<TR>
+<TD>&nbsp;DataMemReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+This parameter specifies the number of data cycle wait
+states to complete a data transfer.
+</PRE>
+
+<TR>
+<TD>&nbsp;DataMemWriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+This parameter specifies the number of data cycle wait
+states to complete a data transfer.
+</PRE>
+
+<TR>
+<TD>&nbsp;DataMemStartAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0x90000000&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Data memory low address
+</PRE>
+
+<TR>
+<TD>&nbsp;DataMemEndAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0x900003ff&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Data memory high address
+</PRE>
+
+<TR>
+<TD>&nbsp;IntrGenStartAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0xb0000000&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Interrupt Generator low address
+</PRE>
+
+<TR>
+<TD>&nbsp;IntrGenEndAddr&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0xb00003ff&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Interrupt Generator high address
+</PRE>
+
+<TR>
+<TD>&nbsp;TraceStartTime&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;double&nbsp;<TD>&nbsp;0.0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+Start time of the file trace.
+</PRE>
+
+<TR>
+<TD>&nbsp;TraceEndTime&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;double&nbsp;<TD>&nbsp;0.0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+End time of the file trace. To disable the trace end time enter
+a value less than zero.
+</PRE>
+
+<TR>
+<TD>&nbsp;ibus_ratio&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;1&nbsp;<TR> <TD COLSPAN="4"><PRE>
+clock ratio for ibus hclk.
+</PRE>
+
+<TR>
+<TD>&nbsp;dbus_ratio&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;1&nbsp;<TR> <TD COLSPAN="4"><PRE>
+clock ratio for dbus hclk.
+</PRE>
+
+</TABLE>
+</BLOCKQUOTE>
+
+<A NAME="Implementation"></A><H1>Implementation</H1>
+
+<H3>Hierarchical SystemC Model</H3>
+
+<A NAME="Header"></A><H2>Header</H2>
+<PRE>
+#ifndef __DW_arm926_example_h
+#define __DW_arm926_example_h
+
+#include &lt;systemc.h&gt;
+
+#ifndef SYNTHESIS
+#include &lt;ccss_systemc.h&gt;
+#endif
+
+#include "ahb_types.h"
+
+using namespace ahb_namespace;
+
+#include "DW_ahb_tlm.h"
+
+#define CCSS_USE_SC_CTOR
+#include "ahb_slave_if.h"
+#include "ahb_bus_if.h"
+
+// forward declarations
+class HClkGen;
+class DW_AHB_Monitor;
+class DW_AHB_Arbiter;
+class DW_AHB_Decoder;
+template&lt;class SIF &gt; class DW_AHB_Memory;
+class DW_TCMemory;
+template&lt;class SIF &gt; class DW_ahb_icm_tlm;
+template&lt;class T &gt; class ConstGen;
+class DW_arm926ejs;
+template&lt;class MIF, class SIF &gt; class DW_ahb_tlm;
+template&lt;class SIF &gt; class DW_IntrGen;
+
+#ifdef CCSS_USE_SC_CTOR
+#define CCSS_INIT_CHANNELS_PREFIX : 
+#undef CCSS_USE_SC_CTOR
+#else
+#define CCSS_INIT_CHANNELS_PREFIX , 
+#endif
+
+#ifndef SYNTHESIS
+#define CCSS_INIT_CHANNELS  CCSS_INIT_CHANNELS_PREFIX \
+    C148("C148") \
+    , C149("C149") \
+    , C150("C150") \
+    , C151("C151") \
+    , C152("C152") \
+    , C153("C153") \
+    , C154("C154") \
+    , C155("C155") \
+    , C156("C156") \
+    , C176("C176") \
+    , C177("C177") \
+    , C178("C178") \
+    , C179("C179") \
+    , High1("High1") \
+    , INITRAM("INITRAM") \
+    , Low1("Low1") \
+    , Low2("Low2") \
+    , VINITHI("VINITHI") \
+    , clock("clock") \
+    , nFIQ("nFIQ") \
+    , nIRQ("nIRQ") \
+    , nRESET("nRESET")
+#else
+#define CCSS_INIT_CHANNELS 
+#endif
+
+// This is the example test design for the ARM926 DesignWare Processor Model.
+// 
+// This example design supports 8, 16, and 32 bit reads and writes, and nIRQ, 
+// nFIQ, and nRESET interrupts. It contains the following modules:
+//  
+//      Instance Name       Purpose
+// 	 =============       =======
+// 	 arm926       -      Processor Model.
+//      ibus         -      Instruction Bus - bus for the processor instruction bus.
+// 	 dbus         -      Data Bus - bus for procssor data bus.
+// 	 ICM1         -      Interconnect Matrix - arbitration block for allowing the
+// 	                     data and instruction bus of the processor to share the
+// 						 same range in memory, in this case program memory.
+// 	 ProgMem      -      Program Memory - memory that holds the ARM target code. 
+// 	                     Target code is copied to and read from this location via 
+// 						 the ARM debugger and CCM. Address range 0x0 - 0x1ffff.
+//      StackMem     -      Stack Memory - memory the arm926 processor needs for stack 
+// 	                     accesses. Address range 0x10000000 - 0x1000ffff.
+//      DataMem      -      Data Memory - Memory location for testing basic reads and 
+// 	                     writes.  Address range 0x90000000 - 0x900003ff.
+//      IntrGen      -      Interrupt Generator - Target code writes to this module 
+// 	                     when testing interrupts. Address range 0xb0000000 - 0xb00003ff. See module description
+// 						 for bit assignments.
+//      Itcm         -      Instruction Tightly Coupled Memory - Memory for Instruction 
+// 	                     TCM. Address range is 4K starting at address 0xff000.
+//      Dtcm         -      Data Tightly Coupled Memory - Memory for Data TCM. Address 
+// 	                     range is 4K starting at address 0x20000.
+// 							 
+// 
+// A configuration control file (examples.scf) is located at 
+// dw_arm_processors_sc/dw_arm_processors_examples. It can
+// be used to modify all design parameters from their default
+// design values.  These include changing which of several ARM debuggers to
+// use, the endianism of the design (big or little),
+// to preload a target program file into program memory, to 
+// set wait states on memory modules, and to turn on and off 
+// System Studio monitor tracing.
+// 
+// 
+// Example pre-compiled ARM target code, named "examples.axf",  
+// is located at:
+// 
+//     dw_arm_processors_sc/dw_arm_processors_examples/arm926_target
+// 
+// This target code performs basic read/writes and asserts the
+// nIRQ, nFIQ, and nRESET interrupts.
+// 
+// To load and run the software:
+// 
+// 1) Start the simulation from the simulation control panel, in
+//    either -pause mode or non-pause mode. If -pause mode is used
+//    you will have to continue simulation with the pause/continue
+//    simulation button at the appropriate time.
+//    
+// 2) When the simulation is correctly launched, ARM's debugger 
+//    will appear. When ARM's debugger is fully launched (the ARM
+//    debugger's "Execution Window" shows memory locations starting from 0x0), 
+//    load the arm926_target/examples.axf image via the following 
+//    pull down window of the ARM debugger:
+// 
+//         File-&gt;Load Image
+// 
+//    You will have to navigate to the target binary location to load it.
+// 
+// 3) Once the target code is loaded into the ARM debugger, breakpoints can be set at 
+//    different locations in this target code. To run or continue the
+//    the target program simply type "go" at the "Debug:" prompt in the 
+//    "Command Window" of the ARM debugger, or by using the "Go" button on the ARM
+//    debugger's toolbar.
+//    
+//    Below is a list of function names where break points can be set:
+//       main       - main function of program
+//       ram8test   - test for 8 bit memory accesses
+//       ram16test  - test for 16 bit memory accesses.
+//       ram32test  - test for 32 bit memory accesses.
+//       irqtest    - nIRQ interrupt test. Program will jump to the 
+// 	               irq_hndlr when an IRQ interrupt occurs.
+//       fiqtest    - nFIQ interrupt test. Program will jump to the 
+// 	               fiq_hndlr when an FIQ interrupt occurs.
+//       irq_hndlr  - nIRQ interrupt handler. Program execution will 
+// 	               jump to this handler when an IRQ interrupt occurs 
+// 				   (part of irqtest).
+//       fiq_hndlr  - nFIQ interrupt handler. Program execution will jump 
+// 	               to this handler when an FIQ interrupt occurs 
+// 				   (part of fiqtest).
+//       dataaborttest - test for data abort handling (program will jump 
+// 	                  to the DABORTHandler() when a data abort occurs).
+//       DABORTHandler - Data Abort interrupt handler (program execution 
+// 	                  will jump to this handler when a data abort occurs 
+// 					  (part of the dataaborttest). NOTE: The debugger will
+// 					  issue a data abort error message in the Command Window
+// 					  when a Data Abort occurs.  Just continue of step through
+// 					  the program to get through the data abort interrupt handler.
+//       resettest     - test for reset. The target program will jump to 
+// 	                  the RESETHandler when a reset is detected.
+//       RESETHandler  - nRESET interrupt handler. Program execution jumps 
+// 	                  to this handler when a reset is detected.Continuing to 
+// 					  step through the code will show that the RESETHandler was hit.
+// 
+// 
+// 4) Once a breakpoint is hit, you can step through the code by either typing
+//    "step" at the "Debug:" prompt in the Command Window, or using the 
+//     ARM debugger's GUI step buttons.
+// 
+// For more information about running the ARM debugger and running the simulation, 
+// please see the supplied documentation at dw_arm_processors_sc/doc
+class DW_arm926_example// Arm926 Basic Test Design
+: public sc_module
+{
+
+public:
+    // parameters
+
+    // Low address of memory address range.
+    CCSS_PARAMETER(unsigned int, ProgMemStartAddr);
+
+    // High address of memory adddress range
+    CCSS_PARAMETER(unsigned int, ProgMemEndAddr);
+
+    // File name for initialization of memory
+    CCSS_PARAMETER(sc_string, ProgMemImageFile);
+
+    // ProgName is the name of the Arm-compiled target application
+    CCSS_PARAMETER(sc_string, ProgName);
+
+    // BigEndian==true will invoke armsd in big endian byte order.
+    CCSS_PARAMETER(bool, BigEndian);
+
+    // Select armsd, axd, or a user-created script to launch an Arm debugger
+    CCSS_PARAMETER(sc_string, Debugger);
+    CCSS_PARAMETER(bool, DoTrace);
+
+    // Path to the interconnect matrix configuration file.
+    CCSS_PARAMETER(sc_string, ICM_Configuration);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer
+    CCSS_PARAMETER(int, ProgMemReadWaitStates);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer                   
+    CCSS_PARAMETER(int, ProgMemWriteWaitStates);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer
+    CCSS_PARAMETER(int, StackMemReadWaitStates);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer.
+    CCSS_PARAMETER(int, StackMemWriteWaitStates);
+
+    // Stack memory low address
+    CCSS_PARAMETER(unsigned int, StackMemStartAddr);
+
+    // Stack memory High address
+    CCSS_PARAMETER(unsigned int, StackMemEndAddr);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer.
+    CCSS_PARAMETER(int, DataMemReadWaitStates);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer.
+    CCSS_PARAMETER(int, DataMemWriteWaitStates);
+
+    // Data memory low address
+    CCSS_PARAMETER(unsigned int, DataMemStartAddr);
+
+    // Data memory high address
+    CCSS_PARAMETER(unsigned int, DataMemEndAddr);
+
+    // Interrupt Generator low address
+    CCSS_PARAMETER(unsigned int, IntrGenStartAddr);
+
+    // Interrupt Generator high address
+    CCSS_PARAMETER(unsigned int, IntrGenEndAddr);
+
+    // Start time of the file trace.
+    CCSS_PARAMETER(double, TraceStartTime);
+
+    // End time of the file trace. To disable the trace end time enter
+    // a value less than zero.
+    CCSS_PARAMETER(double, TraceEndTime);
+
+    // clock ratio for ibus hclk.
+    CCSS_PARAMETER(int, ibus_ratio);
+
+    // clock ratio for dbus hclk.
+    CCSS_PARAMETER(int, dbus_ratio);
+
+    // channels
+    sc_signal&lt;bool&gt; C148;
+    sc_signal&lt;sc_bv&lt;NUM_MASTERS&gt; &gt; C149;
+    sc_signal&lt;bool&gt; C150;
+    sc_signal&lt;bool&gt; C151;
+    sc_signal&lt;sc_bv&lt;NUM_MASTERS&gt; &gt; C152;
+    sc_signal&lt;bool&gt; C153;
+    sc_signal&lt;bool&gt; C154;
+    sc_signal&lt;sc_bv&lt;NUM_MASTERS&gt; &gt; C155;
+    sc_signal&lt;bool&gt; C156;
+    sc_signal&lt;bool&gt; C176;
+    sc_signal&lt;bool&gt; C177;
+    sc_signal&lt;bool&gt; C178;
+    sc_signal&lt;bool&gt; C179;
+    sc_signal&lt;bool&gt; High1;
+    sc_signal&lt;bool&gt; INITRAM;
+    sc_signal&lt;bool&gt; Low1;
+    sc_signal&lt;bool&gt; Low2;
+    sc_signal&lt;bool&gt; VINITHI;
+    sc_clock clock;
+    sc_signal&lt;bool&gt; nFIQ;
+    sc_signal&lt;bool&gt; nIRQ;
+    sc_signal&lt;bool&gt; nRESET;
+
+    // module instances
+    HClkGen *ClockGen;
+    DW_AHB_Monitor *DBUSMonitor;
+    DW_AHB_Arbiter *DBarbiter;
+    DW_AHB_Decoder *DBdecoder;
+    DW_AHB_Memory&lt;ahb_slave_if &gt; *DataMem;
+    DW_TCMemory *Dtcm;
+    DW_AHB_Monitor *IBUSMonitor;
+    DW_AHB_Arbiter *IBarbiter;
+    DW_AHB_Decoder *IBdecoder;
+    DW_ahb_icm_tlm&lt;ahb_slave_if &gt; *ICM1;
+    DW_TCMemory *Itcm;
+    ConstGen&lt;bool &gt; *LowGen1;
+    ConstGen&lt;bool &gt; *LowGen2;
+    DW_AHB_Memory&lt;ahb_slave_if &gt; *ProgMem;
+    ConstGen&lt;bool &gt; *ResetTrue;
+    DW_AHB_Memory&lt;ahb_slave_if &gt; *StackMem;
+    DW_arm926ejs *arm926;
+    DW_ahb_tlm&lt;ahb_bus_if, ahb_slave_if &gt; *dbus;
+    DW_ahb_tlm&lt;ahb_bus_if, ahb_slave_if &gt; *ibus;
+    DW_AHB_Arbiter *icm_arbiter;
+    DW_AHB_Decoder *icm_decoder;
+    DW_IntrGen&lt;ahb_slave_if &gt; *intr_gen1;
+
+    // initialize parameters
+    virtual void InitParameters() {
+        unsigned int _tmp_ProgMemStartAddr = 0x0;
+        ProgMemStartAddr.conditional_init(_tmp_ProgMemStartAddr);
+        unsigned int _tmp_ProgMemEndAddr = 0x1ffff;
+        ProgMemEndAddr.conditional_init(_tmp_ProgMemEndAddr);
+        sc_string _tmp_ProgMemImageFile = "";
+        ProgMemImageFile.conditional_init(_tmp_ProgMemImageFile);
+        sc_string _tmp_ProgName = "";
+        ProgName.conditional_init(_tmp_ProgName);
+        bool _tmp_BigEndian = false;
+        BigEndian.conditional_init(_tmp_BigEndian);
+        sc_string _tmp_Debugger = "axd";
+        Debugger.conditional_init(_tmp_Debugger);
+        bool _tmp_DoTrace = false;
+        DoTrace.conditional_init(_tmp_DoTrace);
+        sc_string _tmp_ICM_Configuration = "${DW_ARM_SC}/dw_arm_processors_examples/arm926ejs_icm.am";
+        ICM_Configuration.conditional_init(_tmp_ICM_Configuration);
+        int _tmp_ProgMemReadWaitStates = 0;
+        ProgMemReadWaitStates.conditional_init(_tmp_ProgMemReadWaitStates);
+        int _tmp_ProgMemWriteWaitStates = 0;
+        ProgMemWriteWaitStates.conditional_init(_tmp_ProgMemWriteWaitStates);
+        int _tmp_StackMemReadWaitStates = 0;
+        StackMemReadWaitStates.conditional_init(_tmp_StackMemReadWaitStates);
+        int _tmp_StackMemWriteWaitStates = 0;
+        StackMemWriteWaitStates.conditional_init(_tmp_StackMemWriteWaitStates);
+        unsigned int _tmp_StackMemStartAddr = 0x10000000;
+        StackMemStartAddr.conditional_init(_tmp_StackMemStartAddr);
+        unsigned int _tmp_StackMemEndAddr = 0x1000ffff;
+        StackMemEndAddr.conditional_init(_tmp_StackMemEndAddr);
+        int _tmp_DataMemReadWaitStates = 0;
+        DataMemReadWaitStates.conditional_init(_tmp_DataMemReadWaitStates);
+        int _tmp_DataMemWriteWaitStates = 0;
+        DataMemWriteWaitStates.conditional_init(_tmp_DataMemWriteWaitStates);
+        unsigned int _tmp_DataMemStartAddr = 0x90000000;
+        DataMemStartAddr.conditional_init(_tmp_DataMemStartAddr);
+        unsigned int _tmp_DataMemEndAddr = 0x900003ff;
+        DataMemEndAddr.conditional_init(_tmp_DataMemEndAddr);
+        unsigned int _tmp_IntrGenStartAddr = 0xb0000000;
+        IntrGenStartAddr.conditional_init(_tmp_IntrGenStartAddr);
+        unsigned int _tmp_IntrGenEndAddr = 0xb00003ff;
+        IntrGenEndAddr.conditional_init(_tmp_IntrGenEndAddr);
+        double _tmp_TraceStartTime = 0.0;
+        TraceStartTime.conditional_init(_tmp_TraceStartTime);
+        double _tmp_TraceEndTime = 0.0;
+        TraceEndTime.conditional_init(_tmp_TraceEndTime);
+        int _tmp_ibus_ratio = 1;
+        ibus_ratio.conditional_init(_tmp_ibus_ratio);
+        int _tmp_dbus_ratio = 1;
+        dbus_ratio.conditional_init(_tmp_dbus_ratio);
+    }
+    // create the schematic
+    virtual void InitInstances();
+
+    // delete the schematic
+    virtual void DeleteInstances();
+
+#ifndef SYNTHESIS
+	SC_HAS_PROCESS(DW_arm926_example);
+#endif
+
+	// default constructor
+	DW_arm926_example(sc_module_name name_)
+	  CCSS_INIT_CHANNELS
+	{
+		InitParameters();
+
+		// process declarations
+
+		InitInstances();
+
+	}
+
+#ifndef SYNTHESIS
+	// destructor
+	~DW_arm926_example()
+	{
+		DeleteInstances();
+	}
+#endif
+
+}; // end module DW_arm926_example
+#undef CCSS_INIT_CHANNELS_PREFIX
+#undef CCSS_INIT_CHANNELS
+
+#endif
+</PRE><BR>
+
+<A NAME="Schematic"></A><H2>Schematic</H2>
+
+<A NAME="Instances"></A><H4>Instances</H4>
+<P><B>icm_arbiter</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Arbiter.html">dw_amba_ahb/DW_AHB_Arbiter</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;AHB_FULL_INCR&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;EBTEN&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;AHB_WTEN&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;CombinatoricMode&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;true&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>IBarbiter</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Arbiter.html">dw_amba_ahb/DW_AHB_Arbiter</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;AHB_FULL_INCR&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;EBTEN&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;AHB_WTEN&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;true&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;CombinatoricMode&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>DBarbiter</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Arbiter.html">dw_amba_ahb/DW_AHB_Arbiter</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;AHB_FULL_INCR&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;EBTEN&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;AHB_WTEN&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;CombinatoricMode&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>LowGen2</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/source_sc/ConstGen.html">source_sc/ConstGen</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;T&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;bool&nbsp;
+<TR>
+<TD>&nbsp;ConstValue&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;T&nbsp;<TD>&nbsp;&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>ResetTrue</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/source_sc/ConstGen.html">source_sc/ConstGen</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;T&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;bool&nbsp;
+<TR>
+<TD>&nbsp;ConstValue&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;T&nbsp;<TD>&nbsp;&nbsp;<TD>&nbsp;true&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>Itcm</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="../dw_arm_processors_aux/DW_TCMemory.html">dw_arm_processors_aux/DW_TCMemory</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;ReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;WriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;ReadOnly&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;WarningEnable&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>StackMem</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Memory.html">dw_amba_ahb/DW_AHB_Memory</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_slave_if&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;1 &nbsp;<TD>&nbsp;2&nbsp;
+<TR>
+<TD>&nbsp;ReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;StackMemReadWaitStates&nbsp;
+<TR>
+<TD>&nbsp;WriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;StackMemWriteWaitStates&nbsp;
+<TR>
+<TD>&nbsp;ReadOnly&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DisableMonitor&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>ProgMem</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Memory.html">dw_amba_ahb/DW_AHB_Memory</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_slave_if&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;1 &nbsp;<TD>&nbsp;1&nbsp;
+<TR>
+<TD>&nbsp;ReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;ProgMemReadWaitStates&nbsp;
+<TR>
+<TD>&nbsp;WriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;ProgMemWriteWaitStates&nbsp;
+<TR>
+<TD>&nbsp;ReadOnly&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DisableMonitor&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>LowGen1</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/source_sc/ConstGen.html">source_sc/ConstGen</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;T&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;bool&nbsp;
+<TR>
+<TD>&nbsp;ConstValue&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;T&nbsp;<TD>&nbsp;&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>DBdecoder</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Decoder.html">dw_amba_ahb/DW_AHB_Decoder</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>icm_decoder</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Decoder.html">dw_amba_ahb/DW_AHB_Decoder</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>Dtcm</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="../dw_arm_processors_aux/DW_TCMemory.html">dw_arm_processors_aux/DW_TCMemory</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;ReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;WriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;ReadOnly&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;WarningEnable&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>IBdecoder</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Decoder.html">dw_amba_ahb/DW_AHB_Decoder</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>DataMem</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Memory.html">dw_amba_ahb/DW_AHB_Memory</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_slave_if&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;1 &nbsp;<TD>&nbsp;4&nbsp;
+<TR>
+<TD>&nbsp;ReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;DataMemReadWaitStates&nbsp;
+<TR>
+<TD>&nbsp;WriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;DataMemWriteWaitStates&nbsp;
+<TR>
+<TD>&nbsp;ReadOnly&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DisableMonitor&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>DBUSMonitor</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Monitor.html">dw_amba_ahb/DW_AHB_Monitor</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;MonitorTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;DoTrace&nbsp;
+<TR>
+<TD>&nbsp;SignalTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;DoTrace&nbsp;
+<TR>
+<TD>&nbsp;StatisticsTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;DoTrace&nbsp;
+<TR>
+<TD>&nbsp;StatisticsInterval&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;128&nbsp;<TD>&nbsp;128&nbsp;
+<TR>
+<TD>&nbsp;FileTraceStartTime&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;double&nbsp;<TD>&nbsp;0.0&nbsp;<TD>&nbsp;TraceStartTime&nbsp;
+<TR>
+<TD>&nbsp;FileTraceEndTime&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;double&nbsp;<TD>&nbsp;0.0&nbsp;<TD>&nbsp;TraceEndTime&nbsp;
+<TR>
+<TD>&nbsp;FileTraceTimeUnit&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_time_unit&nbsp;<TD>&nbsp;SC_NS&nbsp;<TD>&nbsp;SC_NS&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>IBUSMonitor</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_AHB_Monitor.html">dw_amba_ahb/DW_AHB_Monitor</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;MonitorTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;DoTrace&nbsp;
+<TR>
+<TD>&nbsp;SignalTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;DoTrace&nbsp;
+<TR>
+<TD>&nbsp;StatisticsTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;true&nbsp;<TD>&nbsp;DoTrace&nbsp;
+<TR>
+<TD>&nbsp;StatisticsInterval&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;128&nbsp;<TD>&nbsp;128&nbsp;
+<TR>
+<TD>&nbsp;FileTraceStartTime&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;double&nbsp;<TD>&nbsp;0.0&nbsp;<TD>&nbsp;TraceStartTime&nbsp;
+<TR>
+<TD>&nbsp;FileTraceEndTime&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;double&nbsp;<TD>&nbsp;0.0&nbsp;<TD>&nbsp;TraceEndTime&nbsp;
+<TR>
+<TD>&nbsp;FileTraceTimeUnit&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_time_unit&nbsp;<TD>&nbsp;SC_NS&nbsp;<TD>&nbsp;SC_NS&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>arm926</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="../DW_arm926ejs.html">dw_arm_processors/DW_arm926ejs</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;MasterIDibiu&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;1&nbsp;<TD>&nbsp;1&nbsp;
+<TR>
+<TD>&nbsp;MasterIDdbiu&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;2&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>ICM1</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_ahb_icm_tlm.html">dw_amba_ahb/DW_ahb_icm_tlm</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_slave_if&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;0&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>dbus</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_ahb_tlm.html">dw_amba_ahb/DW_ahb_tlm</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;MIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_bus_if&nbsp;<TD>&nbsp;ahb_bus_if&nbsp;
+<TR>
+<TD>&nbsp;SIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_slave_if&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;
+<TR>
+<TD>&nbsp;BusID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;2&nbsp;
+<TR>
+<TD>&nbsp;Priority&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;1&nbsp;
+<TR>
+<TD>&nbsp;MonitorDelay&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_time&nbsp;<TD>&nbsp;SC_ZERO_TIME&nbsp;<TD>&nbsp;SC_ZERO_TIME&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>ibus</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="/d/harrier1/ccss/CCSS_040516/ccss/models/architectural/dw_amba_ahb/DW_ahb_tlm.html">dw_amba_ahb/DW_ahb_tlm</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;MIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_bus_if&nbsp;<TD>&nbsp;ahb_bus_if&nbsp;
+<TR>
+<TD>&nbsp;SIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_namespace::ahb_slave_if&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;
+<TR>
+<TD>&nbsp;BusID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;1&nbsp;
+<TR>
+<TD>&nbsp;Priority&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0&nbsp;<TD>&nbsp;2&nbsp;
+<TR>
+<TD>&nbsp;MonitorDelay&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;sc_time&nbsp;<TD>&nbsp;SC_ZERO_TIME&nbsp;<TD>&nbsp;SC_ZERO_TIME&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>intr_gen1</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="../dw_arm_processors_aux/DW_IntrGen.html">dw_arm_processors_aux/DW_IntrGen</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;SIF&nbsp;<TD>&nbsp;template&nbsp;<TD>&nbsp;class&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;<TD>&nbsp;ahb_slave_if&nbsp;
+<TR>
+<TD>&nbsp;SlaveID&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;1 &nbsp;<TD>&nbsp;3&nbsp;
+<TR>
+<TD>&nbsp;ReadWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;WriteWaitStates&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;int&nbsp;<TD>&nbsp;0 &nbsp;<TD>&nbsp;0&nbsp;
+<TR>
+<TD>&nbsp;ReadOnly&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DisableMonitor&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+<TR>
+<TD>&nbsp;DoTrace&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;bool&nbsp;<TD>&nbsp;false&nbsp;<TD>&nbsp;false&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+<P><B>ClockGen</B>
+<BLOCKQUOTE>
+<BR><I>Model:</I> <A HREF="../dw_arm_processors_aux/HClkGen.html">dw_arm_processors_aux/HClkGen</A>
+<BR><I>Parameters:</I>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;<TH>&nbsp;Value&nbsp;
+<TR>
+</TABLE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<A NAME="Channels"></A><H4>Channels</H4>
+<P><B>C2</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> ibus
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin ibiu&nbsp;
+<TR><TD>&nbsp;Cell IBUSMonitor&nbsp;<TD>&nbsp;Pin p&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C92</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> StackMem
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin slave_port_15&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C99</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> Itcm
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin itcm&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C61</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> icm_decoder
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell ICM1&nbsp;<TD>&nbsp;Pin decoder_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>nIRQ</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin nIRQ&nbsp;
+<TR><TD>&nbsp;Cell intr_gen1&nbsp;<TD>&nbsp;Pin nIRQ&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C26</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> intr_gen1
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin slave_port_17&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C74</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> DBdecoder
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin decoder_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C155</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<sc_bv<NUM_MASTERS> >
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell icm_arbiter&nbsp;<TD>&nbsp;Pin ahb_wt_mask&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>Low2</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell icm_arbiter&nbsp;<TD>&nbsp;Pin pause&nbsp;
+<TR><TD>&nbsp;Cell IBarbiter&nbsp;<TD>&nbsp;Pin pause&nbsp;
+<TR><TD>&nbsp;Cell LowGen2&nbsp;<TD>&nbsp;Pin Out&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C101</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> Dtcm
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin dtcm&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C148</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell DBarbiter&nbsp;<TD>&nbsp;Pin ahb_wt_aps&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C149</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<sc_bv<NUM_MASTERS> >
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell DBarbiter&nbsp;<TD>&nbsp;Pin ahb_wt_mask&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C152</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<sc_bv<NUM_MASTERS> >
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell IBarbiter&nbsp;<TD>&nbsp;Pin ahb_wt_mask&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C153</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell IBarbiter&nbsp;<TD>&nbsp;Pin ahbarbint&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>clock</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_clock
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin clock&nbsp;
+<TR><TD>&nbsp;Cell ClockGen&nbsp;<TD>&nbsp;Pin Clk&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>High1</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell ProgMem&nbsp;<TD>&nbsp;Pin hresetn&nbsp;
+<TR><TD>&nbsp;Cell DataMem&nbsp;<TD>&nbsp;Pin hresetn&nbsp;
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin hresetn&nbsp;
+<TR><TD>&nbsp;Cell ibus&nbsp;<TD>&nbsp;Pin hresetn&nbsp;
+<TR><TD>&nbsp;Cell IBdecoder&nbsp;<TD>&nbsp;Pin remap_n&nbsp;
+<TR><TD>&nbsp;Cell StackMem&nbsp;<TD>&nbsp;Pin hresetn&nbsp;
+<TR><TD>&nbsp;Cell icm_decoder&nbsp;<TD>&nbsp;Pin remap_n&nbsp;
+<TR><TD>&nbsp;Cell ClockGen&nbsp;<TD>&nbsp;Pin n_reset&nbsp;
+<TR><TD>&nbsp;Cell DBdecoder&nbsp;<TD>&nbsp;Pin remap_n&nbsp;
+<TR><TD>&nbsp;Cell ResetTrue&nbsp;<TD>&nbsp;Pin Out&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C90</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> DataMem
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin slave_port_16&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C154</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell icm_arbiter&nbsp;<TD>&nbsp;Pin ahb_wt_aps&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C161</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> dbus
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell DBUSMonitor&nbsp;<TD>&nbsp;Pin p&nbsp;
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin dbiu&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C65</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> ProgMem
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell ICM1&nbsp;<TD>&nbsp;Pin slave_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C80</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> IBdecoder
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell ibus&nbsp;<TD>&nbsp;Pin decoder_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C156</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell icm_arbiter&nbsp;<TD>&nbsp;Pin ahbarbint&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>INITRAM</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin INITRAM&nbsp;
+<TR><TD>&nbsp;Cell intr_gen1&nbsp;<TD>&nbsp;Pin INITRAM&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C57</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> ICM1
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin slave_port&nbsp;
+<TR><TD>&nbsp;Cell ibus&nbsp;<TD>&nbsp;Pin slave_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>nFIQ</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell intr_gen1&nbsp;<TD>&nbsp;Pin nFIQ&nbsp;
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin nFIQ&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>Low1</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell DBarbiter&nbsp;<TD>&nbsp;Pin pause&nbsp;
+<TR><TD>&nbsp;Cell LowGen1&nbsp;<TD>&nbsp;Pin Out&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C94</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> icm_arbiter
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell ICM1&nbsp;<TD>&nbsp;Pin arbiter_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>VINITHI</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin VINITHI&nbsp;
+<TR><TD>&nbsp;Cell intr_gen1&nbsp;<TD>&nbsp;Pin VINITHI&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C151</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell IBarbiter&nbsp;<TD>&nbsp;Pin ahb_wt_aps&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>nRESET</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin nRESET&nbsp;
+<TR><TD>&nbsp;Cell intr_gen1&nbsp;<TD>&nbsp;Pin nRESET&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C78</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> IBarbiter
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell ibus&nbsp;<TD>&nbsp;Pin arbiter_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C150</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell DBarbiter&nbsp;<TD>&nbsp;Pin ahbarbint&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C76</B>
+<BLOCKQUOTE>
+<P><I>Hierarchical Channel:</I> DBarbiter
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin arbiter_port&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C176</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin IHClkEn&nbsp;
+<TR><TD>&nbsp;Cell ClockGen&nbsp;<TD>&nbsp;Pin IBusHClkEn&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C177</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell arm926&nbsp;<TD>&nbsp;Pin DHClkEn&nbsp;
+<TR><TD>&nbsp;Cell ClockGen&nbsp;<TD>&nbsp;Pin DBusHClkEn&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C178</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell ibus&nbsp;<TD>&nbsp;Pin hclk&nbsp;
+<TR><TD>&nbsp;Cell ClockGen&nbsp;<TD>&nbsp;Pin IBusHClk&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+<P><B>C179</B>
+<BLOCKQUOTE>
+<P><I>Type:</I> sc_signal<bool>
+<BR><I>Connections:</I><TABLE BORDER CELLSPACING=0>
+<TR><TD>&nbsp;Cell intr_gen1&nbsp;<TD>&nbsp;Pin clk&nbsp;
+<TR><TD>&nbsp;Cell dbus&nbsp;<TD>&nbsp;Pin hclk&nbsp;
+<TR><TD>&nbsp;Cell ClockGen&nbsp;<TD>&nbsp;Pin DBusHClk&nbsp;
+</TABLE>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

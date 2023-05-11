@@ -1,0 +1,15 @@
+# Library setup file
+# created: Mon Jul 14 16:35:57 2003
+
+# Library description
+set_description {
+}
+
+# Library history
+set_history  {
+}
+
+# Included libraries
+add_library {dw_arm_processors_examples/dw_arm_processors_examples.ssl}
+add_library {dw_arm_processors_aux/dw_arm_processors_aux.ssl}
+

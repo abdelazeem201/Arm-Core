@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//SYNOPSYS//CCSS MODEL//EN">
+
+<HTML>
+<HEAD>
+<TITLE>Model Documentation - dw_arm_processors_aux/HClkGen</TITLE>
+</HEAD>
+
+<BODY TEXT=#000000 BGCOLOR=#FFFFFF LINK=#0000FF VLINK=#800080 ALINK=#FF0000>
+<CENTER>
+<H1>Model: HClkGen</H1>
+<B>Library: dw_arm_processors_aux</B>
+<P><I>Documentation generated:<BR>Mon May 17 09:27:19 2004
+</I>
+<H3>Type: Primitive SystemC Model</H3>
+<P><B></B><BR>
+</CENTER>
+<P><A HREF="#Interface">Interface</A>
+<BLOCKQUOTE>
+<A HREF="#Class">Category</A><BR>
+<A HREF="#Ports">Ports</A><BR>
+<A HREF="#Parameters">Parameters</A><BR>
+</BLOCKQUOTE>
+<A HREF="#Implementation">Implementation</A><BR>
+<BLOCKQUOTE>
+<A HREF="#Header">Header</A><BR>
+</BLOCKQUOTE>
+<DIV CLASS="description">
+</DIV>
+<DIV CLASS="history">
+</DIV>
+
+<A NAME="Interface"></A><H1>Interface</H1>
+<A NAME="Class"></A><H3>Category</H3>
+No classes for model specified.<BR>
+
+<A NAME="Ports"></A><H3>Ports</H3>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Port Type&nbsp;<TR>
+<TR>
+<TD>&nbsp;Clk&nbsp;<TD>&nbsp;sc_in_clk&nbsp;<TR> <TD COLSPAN="2"><PRE>
+System Clock to be divided
+</PRE>
+
+<TR>
+<TD>&nbsp;n_reset&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Rest line.
+</PRE>
+
+<TR>
+<TD>&nbsp;IBusHClk&nbsp;<TD>&nbsp;sc_out&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Instruction Bus Hclk
+</PRE>
+
+<TR>
+<TD>&nbsp;IBusHClkEn&nbsp;<TD>&nbsp;sc_out&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Instruction Bus Hclk En
+</PRE>
+
+<TR>
+<TD>&nbsp;DBusHClk&nbsp;<TD>&nbsp;sc_out&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Data Bus Hclk
+</PRE>
+
+<TR>
+<TD>&nbsp;DBusHClkEn&nbsp;<TD>&nbsp;sc_out&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Data Bus HClk Enable
+</PRE>
+
+</TABLE><BR>
+</BLOCKQUOTE>
+
+<A NAME="Parameters"></A><H3>Parameters</H3>
+No parameters for model specified.<BR>
+
+<A NAME="Implementation"></A><H1>Implementation</H1>
+
+<H3>Primitive SystemC Model</H3>
+
+<A NAME="Header"></A><H2>Header</H2>
+<PRE>
+// HClkGen.h: header file
+
+#ifndef __HClkGen_h
+#define __HClkGen_h
+
+#include &lt;systemc.h&gt;
+
+#ifndef SYNTHESIS
+#include &lt;ccss_systemc.h&gt;
+#endif
+
+#ifdef CCSS_USE_SC_CTOR
+#define CCSS_INIT_MEMBERS_PREFIX : 
+#undef CCSS_USE_SC_CTOR
+#else
+#define CCSS_INIT_MEMBERS_PREFIX , 
+#endif
+
+#ifndef SYNTHESIS
+#define CCSS_INIT_MEMBERS  CCSS_INIT_MEMBERS_PREFIX \
+    Clk("Clk") \
+    , n_reset("n_reset") \
+    , IBusHClk("IBusHClk") \
+    , IBusHClkEn("IBusHClkEn") \
+    , DBusHClk("DBusHClk") \
+    , DBusHClkEn("DBusHClkEn")
+#else
+#define CCSS_INIT_MEMBERS 
+#endif
+
+class HClkGen
+: public sc_module
+{
+
+public:
+    // ports
+
+    // System Clock to be divided
+    sc_in_clk Clk;
+
+    // Rest line.
+    sc_in&lt;bool&gt; n_reset;
+
+    // Instruction Bus Hclk
+    sc_out&lt;bool&gt; IBusHClk;
+
+    // Instruction Bus Hclk En
+    sc_out&lt;bool&gt; IBusHClkEn;
+
+    // Data Bus Hclk
+    sc_out&lt;bool&gt; DBusHClk;
+
+    // Data Bus HClk Enable
+    sc_out&lt;bool&gt; DBusHClkEn;
+
+    // initialize parameters
+    virtual void InitParameters() {
+    }
+
+	SC_HAS_PROCESS(HClkGen);
+
+	// default constructor
+	HClkGen(sc_module_name name_,
+			int DBusClkDivRatio = 1, 
+			int IBusClkDivRatio = 1);
+
+	void main_action();
+	void reset();
+
+
+private:	
+    int _DBusClkDivRatio, _IBusClkDivRatio;
+	int IBusHClkEnCnt;
+	int DBusHClkEnCnt;
+	bool dbus_divratio, ibus_divratio;
+	bool ODD, EVEN;
+
+
+
+}; // end module HClkGen
+#undef CCSS_INIT_MEMBERS_PREFIX
+#undef CCSS_INIT_MEMBERS
+
+#endif
+</PRE><BR>
+</BODY>
+</HTML>

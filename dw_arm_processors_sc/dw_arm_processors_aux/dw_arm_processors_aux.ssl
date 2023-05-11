@@ -1,0 +1,15 @@
+# Library setup file
+# created: Thu Jan 30 10:52:49 2003
+
+# Library description
+set_description {
+}
+
+# Library history
+set_history  {
+}
+
+# Stand-alone files in the library
+catch {add_file -name tcm_slave_if.h}
+catch {add_file -name tcm_types.h}
+

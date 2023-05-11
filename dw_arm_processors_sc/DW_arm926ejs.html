@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//SYNOPSYS//CCSS MODEL//EN">
+
+<HTML>
+<HEAD>
+<TITLE>Model Documentation - dw_arm_processors/DW_arm926ejs</TITLE>
+</HEAD>
+
+<BODY TEXT=#000000 BGCOLOR=#FFFFFF LINK=#0000FF VLINK=#800080 ALINK=#FF0000>
+<CENTER>
+<H1>Model: DW_arm926ejs</H1>
+<B>Library: dw_arm_processors</B>
+<P><I>Documentation generated:<BR>Mon May 17 09:27:06 2004
+</I>
+<H3>Type: Primitive SystemC Model</H3>
+<P><B>ARM926EJS Transaction Level Processor Model</B><BR>
+</CENTER>
+<P><A HREF="#Interface">Interface</A>
+<BLOCKQUOTE>
+<A HREF="#Class">Category</A><BR>
+<A HREF="#Ports">Ports</A><BR>
+<A HREF="#Parameters">Parameters</A><BR>
+</BLOCKQUOTE>
+<A HREF="#Implementation">Implementation</A><BR>
+<BLOCKQUOTE>
+<A HREF="#Header">Header</A><BR>
+</BLOCKQUOTE>
+<DIV CLASS="description">
+<H4>Description</H4>
+<PRE>
+This model of the ARM926EJ-S processor is based on an ARM Instruction Set
+Simulator (ISS).  This model is intended to be used as a transaction-level
+model of the ARM926EJ-S processor, not as a pin-level model.
+
+SIGNALS:
+========
+The model is connected to the interface of the AHB_bus models via its IBIU
+and DBIU master ports, and is connected to the interrupt outputs of the
+interrupt controller via the input signals nIRQ, nFIQ, VINITHI, and INITRAM.
+The model has a reset input signal, nRESET, which should be driven high
+througout simulation.
+
+
+CONSTRUCTOR PARAMETERS:
+=======================
+BigEndian  (boolean)
+  Purpose: To initialize the Arm debuggers to the proper byte order.
+  Values:  'False' implies that the byte order is Little Endian.
+           'True' implies that the byte order is Big Endian.
+           The default value is False.
+  Implications: The byte order of the processor model should match the
+                byte order set for the memories.
+
+Debugger   (string)
+  Purpose: To specify which ARM debugger will be invoked.
+  Values:  'adu', 'armsd', or an executable shell script.
+  Implications: Any string will be passed to the processor model.  The
+                model locates that string via the $PATH environment variable.
+                If the model cannot resolve the string, a warning will be
+                issued and simulation will terminate.  If the string specifies
+                a script file, then the script is responsible for invoking the
+                debugger and consuming any parameters passed to it from the
+                processor model.
+
+ProgName    (string)
+   Purpose: To automatically load an ARM target program into the debugger.
+   Values:  the path to the .axf file.
+   Implications: If the Debugger cannot find the file, the Debugger
+                 will issue an error.
+
+USAGE:
+======
+When the processor model is elaborated, the ARM debugger will invoke.  The
+Arm debugger is the mechanism by which the software executable (.axf file)
+is loaded into program memory.
+
+   For ARM's ADU debugger, the command sequence is:
+      File-&amp;gt;LoadImage-&amp;gt;
+         A file navigation dialog will be presented whereby the user can
+         navigate to, and load, the desired target program.
+   For ARM's armsd debugger, the command is simply:
+      armsd&amp;gt; load "path to filename"
+
+Once the target program is loaded, a breakpoint is automatically set
+at 'main' (if that symbol exists in the target program's symbol table).
+The user may specify additional breakpoints at this time, or interact
+with the ARM debugger in any way.
+
+Pressing the ARM debugger's "go" button, or "step" button (or by typing the
+analagous commands in the ARM debugger's command window) will commence
+simulation.
+</PRE><BR>
+</DIV>
+<DIV CLASS="history">
+<H4>History</H4>
+<PRE>
+This model of the ARM926EJ-S processor is based on an ARM Instruction Set
+Simulator (ISS).  This model is intended to be used as a transaction-level
+model of the ARM926EJ-S processor, not as a pin-level model.
+
+SIGNALS:
+========
+The model is connected to the interface of the AHB_bus models via its IBIU
+and DBIU master ports, and is connected to the interrupt outputs of the
+interrupt controller via the input signals nIRQ, nFIQ, VINITHI, and INITRAM.
+The model has a reset input signal, nRESET, which should be driven high
+througout simulation.
+
+
+CONSTRUCTOR PARAMETERS:
+=======================
+BigEndian  (boolean)
+  Purpose: To initialize the Arm debuggers to the proper byte order.
+  Values:  'False' implies that the byte order is Little Endian.
+           'True' implies that the byte order is Big Endian.
+           The default value is False.
+  Implications: The byte order of the processor model should match the
+                byte order set for the memories.
+
+Debugger   (string)
+  Purpose: To specify which ARM debugger will be invoked.
+  Values:  'adu', 'armsd', or an executable shell script.
+  Implications: Any string will be passed to the processor model.  The
+                model locates that string via the $PATH environment variable.
+                If the model cannot resolve the string, a warning will be
+                issued and simulation will terminate.  If the string specifies
+                a script file, then the script is responsible for invoking the
+                debugger and consuming any parameters passed to it from the
+                processor model.
+
+ProgName    (string)
+   Purpose: To automatically load an ARM target program into the debugger.
+   Values:  the path to the .axf file.
+   Implications: If the Debugger cannot find the file, the Debugger
+                 will issue an error.
+
+USAGE:
+======
+When the processor model is elaborated, the ARM debugger will invoke.  The
+Arm debugger is the mechanism by which the software executable (.axf file)
+is loaded into program memory.
+
+   For ARM's ADU debugger, the command sequence is:
+      File-&amp;gt;LoadImage-&amp;gt;
+         A file navigation dialog will be presented whereby the user can
+         navigate to, and load, the desired target program.
+   For ARM's armsd debugger, the command is simply:
+      armsd&amp;gt; load "path to filename"
+
+Once the target program is loaded, a breakpoint is automatically set
+at 'main' (if that symbol exists in the target program's symbol table).
+The user may specify additional breakpoints at this time, or interact
+with the ARM debugger in any way.
+
+Pressing the ARM debugger's "go" button, or "step" button (or by typing the
+analagous commands in the ARM debugger's command window) will commence
+simulation.
+</PRE><BR>
+</DIV>
+
+<A NAME="Interface"></A><H1>Interface</H1>
+<A NAME="Class"></A><H3>Category</H3>
+No classes for model specified.<BR>
+
+<A NAME="Ports"></A><H3>Ports</H3>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Port Type&nbsp;<TR>
+<TR>
+<TD>&nbsp;nIRQ&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Active low IRQ input signal
+</PRE>
+
+<TR>
+<TD>&nbsp;nFIQ&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Active low FIQ input signal
+</PRE>
+
+<TR>
+<TD>&nbsp;nRESET&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Active low RESET input signal
+</PRE>
+
+<TR>
+<TD>&nbsp;IHClkEn&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+H Clock Enable input for running IBus at different frequence than system.
+</PRE>
+
+<TR>
+<TD>&nbsp;DHClkEn&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+H Clock enable input for running processor at different frequency than bus model.
+</PRE>
+
+<TR>
+<TD>&nbsp;clock&nbsp;<TD>&nbsp;sc_in_clk&nbsp;<TR> <TD COLSPAN="2"><PRE>
+System Clock
+</PRE>
+
+<TR>
+<TD>&nbsp;ibiu&nbsp;<TD>&nbsp;ahb_master_port&nbsp;<TR> <TD COLSPAN="2"><PRE>
+The instruction bus interface is connected to this port.
+</PRE>
+
+<TR>
+<TD>&nbsp;dbiu&nbsp;<TD>&nbsp;ahb_master_port&nbsp;<TR> <TD COLSPAN="2"><PRE>
+The data bus interface is connected to this port.
+</PRE>
+
+<TR>
+<TD>&nbsp;VINITHI&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+High Vector Initialization input.
+</PRE>
+
+<TR>
+<TD>&nbsp;INITRAM&nbsp;<TD>&nbsp;sc_in&lt;bool&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+TCM enabling input.
+</PRE>
+
+<TR>
+<TD>&nbsp;itcm&nbsp;<TD>&nbsp;sc_port&lt;tcm_slave_if&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Instruction TCM port.
+</PRE>
+
+<TR>
+<TD>&nbsp;dtcm&nbsp;<TD>&nbsp;sc_port&lt;tcm_slave_if&gt;&nbsp;<TR> <TD COLSPAN="2"><PRE>
+Data TCM port.
+</PRE>
+
+</TABLE><BR>
+</BLOCKQUOTE>
+
+<A NAME="Parameters"></A><H3>Parameters</H3>
+<BLOCKQUOTE>
+<TABLE BORDER CELLSPACING=0>
+<TR ALIGN="left">
+<TH>&nbsp;Name&nbsp;<TH>&nbsp;Type&nbsp;<TH>&nbsp;Data Type&nbsp;<TH>&nbsp;Default Value&nbsp;
+<TR>
+<TR>
+<TD>&nbsp;MasterIDibiu&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;1&nbsp;<TR> <TD COLSPAN="4"><PRE>
+
+</PRE>
+
+<TR>
+<TD>&nbsp;MasterIDdbiu&nbsp;<TD>&nbsp;CCSS_PARAMETER&nbsp;<TD>&nbsp;unsigned int&nbsp;<TD>&nbsp;0&nbsp;<TR> <TD COLSPAN="4"><PRE>
+
+</PRE>
+
+</TABLE>
+</BLOCKQUOTE>
+
+<A NAME="Implementation"></A><H1>Implementation</H1>
+
+<H3>Primitive SystemC Model</H3>
+
+<A NAME="Header"></A><H2>Header</H2>
+<PRE>
+// DW_arm926ejs.h: header file
+
+#ifndef __DW_arm926ejs_h
+#define __DW_arm926ejs_h
+
+#include "ahb_types.h"
+
+using namespace ahb_namespace;
+
+#include &lt;systemc.h&gt;
+#include &lt;ccss_systemc.h&gt;
+#include "ahb_master_port.h"
+#include "tcm_slave_if.h"
+
+#ifndef SYNTHESIS
+#include &lt;ccss_systemc.h&gt;
+#endif
+
+
+#ifdef CCSS_USE_SC_CTOR
+#define CCSS_INIT_MEMBERS_PREFIX : 
+#undef CCSS_USE_SC_CTOR
+#else
+#define CCSS_INIT_MEMBERS_PREFIX , 
+#endif
+
+#ifndef SYNTHESIS
+#define CCSS_INIT_MEMBERS  CCSS_INIT_MEMBERS_PREFIX \
+    nIRQ("nIRQ") \
+    , nFIQ("nFIQ") \
+    , nRESET("nRESET") \
+    , IHClkEn("IHClkEn") \
+    , DHClkEn("DHClkEn") \
+    , clock("clock") \
+    , VINITHI("VINITHI") \
+    , INITRAM("INITRAM") \
+    , itcm("itcm") \
+    , dtcm("dtcm")
+#else
+#define CCSS_INIT_MEMBERS 
+#endif
+
+// This model of the ARM926EJ-S processor is based on an ARM Instruction Set
+// Simulator (ISS).  This model is intended to be used as a transaction-level
+// model of the ARM926EJ-S processor, not as a pin-level model.
+// 
+// SIGNALS:
+// ========
+// The model is connected to the interface of the AHB_bus models via its IBIU
+// and DBIU master ports, and is connected to the interrupt outputs of the
+// interrupt controller via the input signals nIRQ, nFIQ, VINITHI, and INITRAM.
+// The model has a reset input signal, nRESET, which should be driven high
+// througout simulation.
+// 
+// 
+// CONSTRUCTOR PARAMETERS:
+// =======================
+// BigEndian  (boolean)
+//   Purpose: To initialize the Arm debuggers to the proper byte order.
+//   Values:  'False' implies that the byte order is Little Endian.
+//            'True' implies that the byte order is Big Endian.
+//            The default value is False.
+//   Implications: The byte order of the processor model should match the
+//                 byte order set for the memories.
+// 
+// Debugger   (string)
+//   Purpose: To specify which ARM debugger will be invoked.
+//   Values:  'adu', 'armsd', or an executable shell script.
+//   Implications: Any string will be passed to the processor model.  The
+//                 model locates that string via the $PATH environment variable.
+//                 If the model cannot resolve the string, a warning will be
+//                 issued and simulation will terminate.  If the string specifies
+//                 a script file, then the script is responsible for invoking the
+//                 debugger and consuming any parameters passed to it from the
+//                 processor model.
+// 
+// ProgName    (string)
+//    Purpose: To automatically load an ARM target program into the debugger.
+//    Values:  the path to the .axf file.
+//    Implications: If the Debugger cannot find the file, the Debugger
+//                  will issue an error.
+// 
+// USAGE:
+// ======
+// When the processor model is elaborated, the ARM debugger will invoke.  The
+// Arm debugger is the mechanism by which the software executable (.axf file)
+// is loaded into program memory.
+// 
+//    For ARM's ADU debugger, the command sequence is:
+//       File-&amp;gt;LoadImage-&amp;gt;
+//          A file navigation dialog will be presented whereby the user can
+//          navigate to, and load, the desired target program.
+//    For ARM's armsd debugger, the command is simply:
+//       armsd&amp;gt; load "path to filename"
+// 
+// Once the target program is loaded, a breakpoint is automatically set
+// at 'main' (if that symbol exists in the target program's symbol table).
+// The user may specify additional breakpoints at this time, or interact
+// with the ARM debugger in any way.
+// 
+// Pressing the ARM debugger's "go" button, or "step" button (or by typing the
+// analagous commands in the ARM debugger's command window) will commence
+// simulation.
+class DW_arm926ejs// ARM926EJS Transaction Level Processor Model
+: public sc_module
+{
+
+public:
+    // parameters
+    CCSS_PARAMETER(unsigned int, MasterIDibiu);
+    CCSS_PARAMETER(unsigned int, MasterIDdbiu);
+
+    // ports
+
+    // Active low IRQ input signal
+    sc_in&lt;bool&gt; nIRQ;
+
+    // Active low FIQ input signal
+    sc_in&lt;bool&gt; nFIQ;
+
+    // Active low RESET input signal
+    sc_in&lt;bool&gt; nRESET;
+
+    // H Clock Enable input for running IBus at different frequence than system.
+    sc_in&lt;bool&gt; IHClkEn;
+
+    // H Clock enable input for running processor at different frequency than bus model.
+    sc_in&lt;bool&gt; DHClkEn;
+
+    // System Clock
+    sc_in_clk clock;
+
+    // The instruction bus interface is connected to this port.
+    ahb_master_port ibiu;
+
+    // The data bus interface is connected to this port.
+    ahb_master_port dbiu;
+
+    // High Vector Initialization input.
+    sc_in&lt;bool&gt; VINITHI;
+
+    // TCM enabling input.
+    sc_in&lt;bool&gt; INITRAM;
+
+    // Instruction TCM port.
+    sc_port&lt;tcm_slave_if&gt; itcm;
+
+    // Data TCM port.
+    sc_port&lt;tcm_slave_if&gt; dtcm;
+
+    // initialize parameters
+    virtual void InitParameters() {
+        unsigned int _tmp_MasterIDibiu = 1;
+        MasterIDibiu.conditional_init(_tmp_MasterIDibiu);
+        unsigned int _tmp_MasterIDdbiu = 0;
+        MasterIDdbiu.conditional_init(_tmp_MasterIDdbiu);
+    }
+
+    // processes
+	void main_action();
+	SC_HAS_PROCESS(DW_arm926ejs);
+
+	// constructor
+	DW_arm926ejs(const sc_module_name&amp; name_, 
+	          int ibiu_priority = 1,  
+			  bool ibiu_default_grant = true,
+			  int dbiu_priority = 1,
+			  bool dbiu_default_grant = true,
+			  bool BigEndian = false,
+			  const sc_string&amp; program_name = "",
+			  const sc_string&amp; debugger = "axd");
+
+	// destructor
+	~DW_arm926ejs();
+
+    void end_of_elaboration();
+	// public data members.
+	void *iss_ifc;
+
+
+}; // end module DW_arm926ejs
+#undef CCSS_INIT_MEMBERS_PREFIX
+#undef CCSS_INIT_MEMBERS
+
+#endif
+</PRE><BR>
+</BODY>
+</HTML>

@@ -1,0 +1,997 @@
+Start Snps Version Data
+CSgfxDisplay
+2
+CSgfxInstShape
+2
+CSgfxKDTreeLayer
+5
+CSgfxSheet
+3
+CSgfxSymbolShape
+6
+CSheAddPrimCircleOp
+2
+CSheAddPrimPolylineOp
+2
+CSheAddPrimRectOp
+2
+CSheCell
+2
+CSheDesign
+6
+CSheIntf
+3
+CSheNet
+2
+CShePin
+2
+CShePrimCircle
+2
+CShePrimPolyline
+2
+CShePrimRect
+2
+CSheSCIntfPin
+2
+CSheSCPin
+2
+CSheSCPortPin
+2
+CSheSCSymbolEditPin
+2
+CSheSheet
+3
+CSheSheetGroup
+2
+CSheState
+2
+CSheSymbol
+4
+CSheSymbolEditPin
+2
+CSheTextInstSpecData
+2
+CSheTransArcRelText
+2
+EgDBCell
+2
+EgDBCsdf
+3
+EgDBHierSystemC
+2
+EgDBImpl
+6
+EgDBInstInfo
+4
+EgDBIntfPort
+5
+EgDBModel
+7
+EgDBPage
+2
+EgDBParameter
+2
+EgDBPlainSystemC
+2
+EgDBPort
+2
+EgDBPrimImpl
+2
+EgDBPrimModel
+2
+EgDBPrimSystemC
+3
+EgDBSds
+2
+EgDBSymbol
+2
+End Snps Version Data
+<MODEL>
+2147483655
+1
+<type>
+10
+</type>
+<ver>
+
+</ver>
+<ts>
+997868117
+1029279202
+1015927042
+</ts>
+<desc>
+\
+The DW_TCMemory module is a memory that implements the transaction-level
+interface defined in tcm_slave_if.h. An instance should be connected to
+each of the TCM ports on the processor model.
+
+The constructor has the following arguments:
+
+  sc_module_name name_                  // name of the module
+  tcm_mem_size_t tcm_mem_size           // size of the memory
+  ahb_addr_t start_address              // start address of the memory
+  bool big_endian = false               // little endian memory addressing
+
+The memory size is configurable from 4KBytes to 1MBytes.  The tcm_mem_size_t
+type is defined in tcm_types.h. The start address must be aligned to the 
+specified memory size.
+
+The memory is initialized to zero values.
+
+If warnings are enabled via the WarningEnable parameter, the module will
+issue a warning if the processor attempts to access an address in the TCM 
+that is outside the specified range.  Note that the processor model 
+sometimes generates speculative fetches that are directed to the wrong 
+memory interface.  Although the TCM module will flag these accesses, they
+are harmless because the processor model internally discards the results.
+\
+</desc>
+<s_desc>
+Tightly-Coupled Memory Module
+</s_desc>
+<header>
+
+</header>
+<source>
+
+</source>
+<class>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</class>
+<base>
+0
+
+
+</base>
+<params>
+6
+<PARAM>
+2147483650
+2
+<name>
+SlaveID
+</name>
+<data_type>
+int
+</data_type>
+<desc>
+\
+This identifier for the slave is used by the Inter
+Connection Matrix (ICM) to identify the slave.
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+0
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+2 </PARAM>
+<PARAM>
+2147483650
+3
+<name>
+ReadWaitStates
+</name>
+<data_type>
+int
+</data_type>
+<desc>
+\
+This parameter specifies the number of data cycle wait
+states to complete a data transfer.
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+0
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+3 </PARAM>
+<PARAM>
+2147483650
+4
+<name>
+WriteWaitStates
+</name>
+<data_type>
+int
+</data_type>
+<desc>
+\
+This parameter specifies the number of data cycle wait
+states to complete a data transfer.
+\
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+0
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+4 </PARAM>
+<PARAM>
+2147483650
+5
+<name>
+ReadOnly
+</name>
+<data_type>
+bool
+</data_type>
+<desc>
+Parameter to enable the read only mode (Read Only Memory)
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+false
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+5 </PARAM>
+<PARAM>
+2147483650
+6
+<name>
+DoTrace
+</name>
+<data_type>
+bool
+</data_type>
+<desc>
+This flag enables monitoring features if compiled with debug option.
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+false
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+6 </PARAM>
+<PARAM>
+2147483650
+7
+<name>
+WarningEnable
+</name>
+<data_type>
+bool
+</data_type>
+<desc>
+
+</desc>
+<type>
+5
+</type>
+<inherited>
+0
+</inherited>
+<def_val>
+<STR_ARRAY>
+0
+1
+false
+</STR_ARRAY>
+</def_val>
+<attrs>
+0
+</attrs>
+7 </PARAM>
+<MAP_S2O>
+0
+6
+DoTrace
+#6
+ReadOnly
+#5
+ReadWaitStates
+#3
+SlaveID
+#2
+WarningEnable
+#7
+WriteWaitStates
+#4
+</MAP_S2O>
+</params>
+<constructor>
+<STR_ARRAY>
+0
+1
+DW_TCMemory(sc_module_name name_, tcm_mem_size_t tcm_mem_size, ahb_addr_t start_address, bool big_endian = false)
+</STR_ARRAY>
+</constructor>
+<protected_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</protected_constructor>
+<private_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</private_constructor>
+<intfgate>
+0
+</intfgate>
+<syms>
+<CSheDesign>
+2147483654
+8
+1
+0
+1
+1
+1
+1
+1
+1
+1
+1
+
+3
+1
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+
+0
+
+0
+
+0
+
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+<CSheIntf>
+2147483651
+9
+
+
+
+0
+0
+1
+0
+SHE INTERFACE TIMESTAMP 08/15/2001 09:35:17 GMT
+<OB_ARRAY>
+0
+1
+<INTF_PORT>
+2147483653
+10
+
+2
+__InterfaceGate
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#9
+1
+0
+0
+2
+<desc>
+
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+0
+</attrs>
+10 </INTF_PORT>
+</OB_ARRAY>
+#0
+#8
+<OB_LIST>
+0
+2
+<SYMBOL>
+2147483650
+11
+
+__df_sym__
+
+1
+SHE SYMBOL TIMESTAMP 08/15/2001 09:35:17 GMT
+
+0
+
+1
+700000000
+0
+1
+0
+0
+0
+0
+0
+0
+0
+-3072 -4096 3072 4096
+0
+0
+1
+0
+0
+0
+0
+1
+7
+-3072 -1536
+0 -4096
+3072 -1536
+3072 1536
+0 4096
+-3072 1536
+-3072 -1536
+<OB_ARRAY>
+0
+1
+<CSheSymbolPin>
+1
+12
+3
+0 -4096
+__InterfaceGate
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#11
+1
+0
+0
+12 </CSheSymbolPin>
+</OB_ARRAY>
+#0
+1
+0
+0
+#8
+<ts>
+989849486
+</ts>
+0
+1
+11 </SYMBOL>
+<SYMBOL>
+2147483650
+13
+
+__fsm_sym__
+
+1
+
+
+0
+
+1
+100000000
+0
+1
+0
+0
+0
+1
+0 0 10240 10240
+0
+0
+0
+0 0 10240 10240
+0
+0
+1
+0
+0
+0
+0
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#0
+1
+0
+0
+#8
+<ts>
+989849486
+</ts>
+1
+0
+13 </SYMBOL>
+</OB_LIST>
+9 </CSheIntf>
+#0
+#0
+#0
+#0
+8 </CSheDesign>
+__df_sym__
+__fsm_sym__
+</syms>
+<attrs>
+0
+</attrs>
+<impl>
+<SCPRIMITIVE_MODEL>
+2147483651
+14
+<desc>
+
+</desc>
+<model>
+#1
+</model>
+<lib_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r>
+<lib_r_d>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r_d>
+<src_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</src_r>
+<locals>
+<MAP_S2O>
+0
+0
+</MAP_S2O>
+</locals>
+<locals_idx>
+0
+</locals_idx>
+<attr>
+0
+</attr>
+<cflags_keys>
+<STR_ARRAY>
+0
+12
+gccsparcOS5|customized
+gccsparcOS5|debug
+gccsparcOS5|optimized
+hp32|customized
+hp32|debug
+hp32|optimized
+linux|customized
+linux|debug
+linux|optimized
+sparcOS5|customized
+sparcOS5|debug
+sparcOS5|optimized
+</STR_ARRAY>
+</cflags_keys>
+<cflags_values>
+<STR_ARRAY>
+0
+12
+\
+-DMONITOR
+-I${dw_amba_ahb_path}
+-Wall
+\
+\
+-Wall -DMONITOR
+-I${dw_amba_ahb_path}
+-Wall
+\
+\
+-Wall -DNDEBUG
+-I${dw_amba_ahb_path}
+-Wall
+\
+\
+-DMONITOR
+-I${dw_amba_ahb_path}
+\
+\
+-DMONITOR
+-I${dw_amba_ahb_path}
+\
+\
+-DNDEBUG
+-I${dw_amba_ahb_path}
+\
+\
+-DMONITOR
+-I${dw_amba_ahb_path}
+-Wall
+\
+\
+-DMONITOR
+-I${dw_amba_ahb_path}
+-Wall
+\
+\
+-DNDEBUG
+-I${dw_amba_ahb_path}
+-Wall
+\
+\
+-DMONITOR
+-I${dw_amba_ahb_path}
+\
+\
+-DMONITOR
+-I${dw_amba_ahb_path}
+\
+\
+-DNDEBUG
+-I${dw_amba_ahb_path}
+\
+</STR_ARRAY>
+</cflags_values>
+<lflags_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lflags_keys>
+<lflags_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lflags_values>
+<cmode>
+0
+</cmode>
+<headermmt_keys>
+<STR_ARRAY>
+0
+51
+16
+17
+18
+19
+20
+21
+22
+23
+25
+26
+29
+32
+38
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+</STR_ARRAY>
+</headermmt_keys>
+<headermmt_values>
+<STR_ARRAY>
+0
+51
+interface /WaitStates
+interface /ReadOnly
+interface /DoTrace
+interface /ReadWaitStates
+interface /DoTrace
+interface /DoTrace
+interface /ReadOnly
+interface /WriteWaitStates
+interface /DoTrace
+interface /ReadOnly
+interface /DoTrace
+interface /DoTrace
+interface /LittleEndian
+interface /SlaveID
+interface /SlaveID
+interface /SlaveID
+interface /SlaveID
+interface /ReadWaitStates
+interface /ReadWaitStates
+interface /ReadWaitStates
+interface /ReadWaitStates
+interface /WriteWaitStates
+interface /WriteWaitStates
+interface /WriteWaitStates
+interface /WriteWaitStates
+interface /ReadOnly
+interface /ReadOnly
+interface /ReadOnly
+interface /DoTrace
+interface /DoTrace
+interface /DoTrace
+interface /WarningEnable
+interface /DoTrace
+interface /WarningEnable
+interface /SlaveID
+interface /SlaveID
+interface /SlaveID
+interface /SlaveID
+interface /SlaveID
+interface /ReadWaitStates
+interface /ReadWaitStates
+interface /WriteWaitStates
+interface /WriteWaitStates
+interface /ReadOnly
+interface /ReadOnly
+interface /DoTrace
+interface /DoTrace
+interface /WarningEnable
+interface /WarningEnable
+interface /WarningEnable
+interface /WarningEnable
+</STR_ARRAY>
+</headermmt_values>
+<sourcemmt_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_keys>
+<sourcemmt_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_values>
+<sf_name>
+
+</sf_name>
+<sf_type>
+
+</sf_type>
+<is_struct>
+0
+</is_struct>
+<section_hdr_0>
+\
+#ifndef __DW_TCMemory_h
+#define __DW_TCMemory_h
+
+
+#include <systemc.h>
+#include <ccss_systemc.h>
+
+#include "tcm_slave_if.h"
+
+
+
+\
+</section_hdr_0>
+<section_hdr_1>
+\
+	: public sc_module
+	, public tcm_slave_if
+
+\
+</section_hdr_1>
+<section_hdr_2>
+\
+
+
+\
+</section_hdr_2>
+<section_hdr_3>
+\
+
+	SC_HAS_PROCESS(DW_TCMemory);
+
+	// constructor 1
+    DW_TCMemory(sc_module_name   name_,             // name of the module
+               tcm_mem_size_t tcm_mem_size,        // memory size (enumerated type)
+               ahb_addr_t start_address,           // start address of the memory in normal mode
+               bool big_endian = false);           // memory encoding (little endian default)
+
+	~DW_TCMemory();
+
+	// interface methods
+
+	// Register a port, make sure that only one port
+	// is connected to the interface.
+	void
+	register_port(sc_port_base&,
+	              const char*);
+
+	// Query the status response of the transaction.
+	bool
+	response(ahb_hresp&);
+
+	// Initiate a read transaction from the slave.
+	void
+	read(ahb_addr_t,           // address
+	     int);                 // number of bytes
+
+	// Write data to the slave.
+	void
+	write(ahb_addr_t,          // address
+	      int);                // number of bytes
+
+	// Set the data pointer where the data shoud be
+	// written from for a read transaction
+	void
+	set_read_data(unsigned int*);   // pointer to the data
+
+
+	// Set the data pointer where the data shoud be
+	// read from for a write transaction
+	void
+	set_write_data(unsigned int*);   // pointer to the data
+
+
+	// Read the memory from a file
+	//void
+	//read_from_file(const sc_string&);
+
+	// Write the memory contents to a file
+	//virtual void
+	//write_to_file(const sc_string&);
+
+	// Direct read from the memory for debugging purposes
+	bool
+	direct_read(ahb_addr_t,    // address
+	            ahb_data_t,    // data
+	            int = 4 );     // number of bytes
+
+	// Direct write to the memory for debugging purposes
+	bool
+	direct_write(ahb_addr_t,   // address
+	             ahb_data_t,   // data
+	             int = 4);     // number of bytes
+
+private:
+
+	// Clear the memory contrents to zero
+	void
+	_clear_mem();
+
+	unsigned int*       _mem;
+	unsigned int        _mem_length;
+	unsigned int        _size_mask;
+
+    ahb_addr_t          _start_address;
+
+	bool                _big_endian;
+
+	ahb_addr_t          _read_address_queue[2]; //queue of read addresses, pushed at read(), poped at set_read_data()
+	int                 _read_number_of_bytes_queue[2];
+	int                 _num_read_addresses;
+	ahb_addr_t          _write_address;
+	int                 _write_number_of_bytes;
+
+	ahb_addr_t          _last_address;
+	int                 _last_number_of_bytes;
+
+	unsigned int        _data;
+	unsigned int*       _bus_data;
+
+	int                 _waitstates;
+	bool                _ready;
+	bool                _pending_okay;
+
+	const unsigned int* mask_8b;
+	const unsigned int* mask_16b;
+
+	sc_port_base*       _slave_port;
+
+
+\
+</section_hdr_3>
+<section_hdr_4>
+\
+
+#endif
+
+\
+</section_hdr_4>
+14 </SCPRIMITIVE_MODEL>
+</impl>
+1 </MODEL>

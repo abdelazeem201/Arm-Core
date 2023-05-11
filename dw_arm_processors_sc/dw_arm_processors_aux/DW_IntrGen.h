@@ -1,0 +1,405 @@
+#ifndef __DW_IntrGen_h
+#define __DW_IntrGen_h
+
+#include <systemc.h>
+#include <ccss_systemc.h>
+
+#include "ahb_slave_if.h"
+
+#ifdef CCSS_USE_SC_CTOR
+#define CCSS_INIT_MEMBERS_PREFIX : 
+#undef CCSS_USE_SC_CTOR
+#else
+#define CCSS_INIT_MEMBERS_PREFIX , 
+#endif
+
+#ifndef SYNTHESIS
+#define CCSS_INIT_MEMBERS  CCSS_INIT_MEMBERS_PREFIX \
+    nFIQ("nFIQ") \
+    , nIRQ("nIRQ") \
+    , nRESET("nRESET") \
+    , VINITHI("VINITHI") \
+    , clk("clk") \
+    , INITRAM("INITRAM")
+#else
+#define CCSS_INIT_MEMBERS 
+#endif
+
+// The memory is a slave module that stores data values. This
+// model can be used as RAM or ROM. An arbitrary number of wait states
+// can be specified for read and write data transactions by the parameters
+// ReadWaitStates, and WriteWaitStates, with a default value of zero.
+// This module implements the slave interface and the debug interface.
+// The memory module can be accessed by bus modules with a data bus
+// bus width higher than 32.
+// 
+// The memory module has two constructors. The first constructor specifies
+// one memory region that is the same for the boot and the normal address modes.
+// The first constructor has the following arguments:
+// 
+// - sc_module_name, instance name of the module
+// 
+// - ahb_addr_t, start address of the memory
+// 
+// - ahb_addr_t, end address of the memory
+// 
+// - const sc_string& = "", file name to read initial values
+// 
+// - bool = true, memory encoding (little-endian default)
+// 
+// A second constructor can be used to specify multiple memory regions
+// for boot and normal mode. The address ranges are given by the start
+// and end addresses for the normal mode followed by the start and end
+// addresses for the boot mode. A memory region is disabled by specifying
+// zero values for the start and end addresses. The second constructor has
+// the following arguments:
+// 
+// - sc_module_name, instance name of the module
+// 
+// - const sc_string& = "", file name to read initial values
+// 
+// - bool = false, memory encoding (little-endian default)
+// 
+// - ahb_addr_t = 0, start address of the memory in normal mode, first region
+// 
+// - ahb_addr_t = 0x3FF, end address of the memory in normal mode, first region
+// 
+// - ahb_addr_t = 0, start address of the memory in boot mode, first region
+// 
+// - ahb_addr_t = 0x3FF, end address of the memory in boot mode, first region
+// 
+// - ahb_addr_t = 0, remapped start address of the memory in normal mode, second region
+// 
+// - ahb_addr_t = 0, remapped end address of the memory in normal mode, second region
+// 
+// - ahb_addr_t = 0, start address of the memory in boot mode, second region
+// 
+// - ahb_addr_t = 0, end address of the memory in boot mode, second region
+// 
+// etc.
+// 
+// The start and end addresses define a memory segment. The start_address, 
+// the end_address+1, and the memory size, have to be alligned to the
+// 1k address boundary. The start_address must also be less than the
+// end_address.
+// 
+// The memory is initialized with zero values at reset time. Optionally,
+// initialization values can be read from a file. If the constructor argument
+// file_name is not empty, values are read from this file until all the memory
+// space is written to, or the end of the file is reached.
+// 
+// The values given by the initialization file must be given in hexadecimal
+// byte format. The values must be sepatated by blank, tab, or newline characters.
+// For example, the following file data:
+// 
+// a1 1f d8
+// c7 27 3a
+// 
+// will initialize the memory with the byte values 0xa1, 0x1f, 0xd8, 0xc7,
+// 0x27, 0x3a starting at the base address of the memory.
+// 
+// The contents of the memory can be monitored. If monitor update is enabled
+// by the DoTrace parameter, the simulation performance decreases.
+// 
+template<class SIF = ahb_slave_if  >
+class DW_IntrGen// An External Memory Slave Module 
+: public sc_module, public SIF
+{
+
+public:
+    // parameters
+
+    // This identifier for the slave is used by the Inter
+    // Connection Matrix (ICM) to identify the slave. 
+    CCSS_PARAMETER(int, SlaveID);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer. 
+    CCSS_PARAMETER(int, ReadWaitStates);
+
+    // This parameter specifies the number of data cycle wait
+    // states to complete a data transfer. 
+    CCSS_PARAMETER(int, WriteWaitStates);
+
+    // Parameter to enable the read only mode (Read Only Memory) 
+    CCSS_PARAMETER(bool, ReadOnly);
+
+    // This flag allows the user to disable the creation of the memory
+    // table monitor object. 
+    CCSS_PARAMETER(bool, DisableMonitor);
+
+    // This flag enables monitoring features if the simulation was
+    // started with the DisableMonitor flag set to false. 
+    CCSS_PARAMETER(bool, DoTrace);
+
+    // ports
+
+    // Active low output pin for fast interrupt signal to processor
+    sc_out<bool> nFIQ;
+
+    // Active low output pin for interrupt request signal to processor
+    sc_out<bool> nIRQ;
+
+    // Active low output pin for reset signal to processor
+    sc_out<bool> nRESET;
+
+    // Active high output pin for initializing processor to high vectors.
+    sc_out<bool> VINITHI;
+
+    // Clock input
+    sc_in_clk clk;
+
+    // Active high output for turning TCM functionality on in processor.
+    sc_out<bool> INITRAM;
+
+    // initialize parameters
+    virtual void InitParameters() {
+        int _tmp_SlaveID = 1 ;
+        SlaveID.conditional_init(_tmp_SlaveID);
+        int _tmp_ReadWaitStates = 0 ;
+        ReadWaitStates.conditional_init(_tmp_ReadWaitStates);
+        int _tmp_WriteWaitStates = 0 ;
+        WriteWaitStates.conditional_init(_tmp_WriteWaitStates);
+        bool _tmp_ReadOnly = false;
+        ReadOnly.conditional_init(_tmp_ReadOnly);
+        bool _tmp_DisableMonitor = false;
+        DisableMonitor.conditional_init(_tmp_DisableMonitor);
+        bool _tmp_DoTrace = false;
+        DoTrace.conditional_init(_tmp_DoTrace);
+    }
+
+	SC_HAS_PROCESS(DW_IntrGen);
+
+	// constructor 1
+	DW_IntrGen(sc_module_name   name_,                 // name of the module
+	           ahb_addr_t start_address,               // start address of the memory in normal mode
+	           ahb_addr_t end_address,                 // end  address of the memory in normal mode
+	           const sc_string& file_name = "",        // file name to read initial values
+	           bool big_endian = false);               // memory encoding (little endian default)
+
+	// constructor 2
+	DW_IntrGen(sc_module_name name_,                   // name of the module
+	           const sc_string& file_name = "",        // file name to read initial values
+	           bool  big_endian = false,               // memory encoding (little endian default)
+	           ahb_addr_t normal_start_addr1 = 0,      // start address of the memory in normal mode, first region
+	           ahb_addr_t normal_end_addr1   = 0x3FF,  // end address of the memory in normal mode, first region
+	           ahb_addr_t boot_start_addr1   = 0,      // start address of the memory in boot mode, first region
+	           ahb_addr_t boot_end_addr1     = 0,      // end address of the memory in boot mode, first region
+	           ahb_addr_t normal_start_addr2 = 0,      // remapped start address of the memory in normal mode, second region
+	           ahb_addr_t normal_end_addr2   = 0,      // remapped end address of the memory in normal mode, second region
+	           ahb_addr_t boot_start_addr2   = 0,      // start address of the memory in boot mode, second region
+	           ahb_addr_t boot_end_addr2     = 0,      // end address of the memory in boot mode, second region
+	           ahb_addr_t normal_start_addr3 = 0,      // ...
+	           ahb_addr_t normal_end_addr3   = 0,
+	           ahb_addr_t boot_start_addr3   = 0,
+	           ahb_addr_t boot_end_addr3     = 0,
+	           ahb_addr_t normal_start_addr4 = 0,
+	           ahb_addr_t normal_end_addr4   = 0,
+	           ahb_addr_t boot_start_addr4   = 0,
+	           ahb_addr_t boot_end_addr4     = 0,
+	           ahb_addr_t normal_start_addr5 = 0,
+	           ahb_addr_t normal_end_addr5   = 0,
+	           ahb_addr_t boot_start_addr5   = 0,
+	           ahb_addr_t boot_end_addr5     = 0,
+	           ahb_addr_t normal_start_addr6 = 0,
+	           ahb_addr_t normal_end_addr6   = 0,
+	           ahb_addr_t boot_start_addr6   = 0,
+	           ahb_addr_t boot_end_addr6     = 0,
+	           ahb_addr_t normal_start_addr7 = 0,
+	           ahb_addr_t normal_end_addr7   = 0,
+	           ahb_addr_t boot_start_addr7   = 0,
+	           ahb_addr_t boot_end_addr7     = 0,
+	           ahb_addr_t normal_start_addr8 = 0,
+	           ahb_addr_t normal_end_addr8   = 0,
+	           ahb_addr_t boot_start_addr8   = 0,
+	           ahb_addr_t boot_end_addr8     = 0);
+
+
+	~DW_IntrGen();
+
+	// interface methods
+
+	// Register a port, make sure that only one port
+	// is connected to the interface.
+	virtual void
+	register_port(sc_port_base&,
+	              const char*);
+
+	// Register the bus connected to this slave interface.
+	virtual int
+	register_bus(int,          // bus handle
+	             int,          // priority
+	             int,          // address bus width in bits
+	             int);         // data bus width in bits
+
+	// Query the status response of the transaction.
+	virtual bool
+	response(int, ahb_hresp&);
+
+	// Initiate a read transaction from the slave.
+	virtual void
+	read(int,                  // bus handle, unused here
+	     ahb_addr_t,           // address
+	     ahb_hsize);           // transfer size
+
+	// Write data to the slave.
+	virtual void
+	write(int,                 // bus handle, unused here
+	      ahb_addr_t,          // address
+	      ahb_hsize);          // transfer size
+
+	// This method provides additional control information, e.g.
+	// the burst mode and the transfer type.
+	virtual void
+	control_info(int,                // id of the bus
+	             ahb_hburst,      // mode of the active burst
+	             ahb_htrans,          // the transfer type
+	             ahb_hprot,           // access protection information
+	             int,                // master id
+	             bool);              // master locks the bus
+
+	// This method provides control information base on the ARM11 extensions
+	virtual void
+	set_ahb11ext_control(int,                 // bus id
+	                     const unsigned int*, // byte strobe line information
+	                     bool,                // unaligned access indication
+	                     int){}                // protection domain
+
+	// Set the data pointer where the data shoud be
+	// - written to for a read transaction
+	// - read from for a write transaction
+	virtual void
+	set_data(int,              // bus handle, unused here
+	         ahb_data_t);      // pointer to the data
+
+
+	// Direct read from the memory for debugging purposes
+	virtual bool
+	direct_read(int,           // bus handle, unused here
+	            ahb_addr_t,    // address
+	            ahb_data_t,    // data
+	            int = 4);      // number of bytes
+
+	// Direct write to the memory for debugging purposes
+	virtual bool
+	direct_write(int,          // bus handle, unused here
+	             ahb_addr_t,   // address
+	             ahb_data_t,   // data
+	             int = 4);     // number of bytes
+
+	// Return the memory map of the slave
+	virtual const ahb_address_map&
+	get_address_map(int) {
+		return _address_map;
+	}
+
+	// Query the name of the slave
+	virtual const char*
+	name() const
+		{return sc_module::name();}
+
+ 
+protected:
+   
+    // main process for interrupt sampling.
+	void 
+	main_action();
+
+	// Read the memory from a file
+	void
+	read_from_file(const sc_string&);
+
+	// Write the memory contents to a file
+	void
+	write_to_file(const sc_string&);
+
+	// parameter change handler
+	void 
+	do_trace_action();
+
+	void
+	create_memory();
+
+	// Clear the memory contrents to zero
+	void
+	clear_mem();
+
+	bool
+	get_physical_address(unsigned int &);
+
+	bool
+	get_mem(unsigned int,
+	        ahb_data_t,
+			const unsigned int*,
+            int);
+
+	bool
+	put_mem(unsigned int,
+	        ahb_data_t,
+			const unsigned int*,
+            int);
+
+
+	// Update the table monitor for the memory contents
+	// complete:
+	void
+	set_monitor();
+	// one word with relative address:
+	void
+	set_monitor(int);
+
+	// address information
+	unsigned int        _address;
+	int                 _address_width_word;
+
+	// control information
+	ahb_hwrite              _rwflag;
+	int                 _num_bytes;
+	unsigned int        _strobe_width_word;
+	const unsigned int* _byte_strobe;
+	bool                _unaligned;
+	int                 _prot_domain;
+	ahb_hprot            _protection;
+	int                 _masterid;
+
+	// data location
+	ahb_data_t          _data;
+	int                 _data_width_word;
+
+	// internal states, storage, and configuration
+
+	ahb_address_map     _address_map;      // vector of up to 8 memory regions
+	unsigned int        _region_offset[8]; // start addresses of each memory region in
+	                                       // the real linear memory _mem
+	unsigned int*       _mem;
+	unsigned int        _mem_length;
+
+	sc_string           _file_name;
+
+	bool                _big_endian;
+
+	int                 _waitstates;
+	bool                _idlebusy;
+	bool                _ready;
+	bool                _okay;
+
+	unsigned int        _tmp_byte_strobe[4];
+
+	ahb_addr_t          _xfer_addr[NUM_MASTERS];
+	bool                _xfer_state[NUM_MASTERS];
+	int                 _xfer_domain[NUM_MASTERS];
+
+	ccss_monitor_table* _mem_monitor_table;
+
+	sc_port_base*       _slave_port;
+
+	int reset_cnt;
+	int irq_pulse;
+	int fiq_pulse;
+
+
+}; // end module DW_IntrGen
+#undef CCSS_INIT_MEMBERS_PREFIX
+#undef CCSS_INIT_MEMBERS
+
+#endif

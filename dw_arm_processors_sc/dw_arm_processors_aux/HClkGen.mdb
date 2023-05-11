@@ -1,0 +1,838 @@
+Start Snps Version Data
+CSgfxDisplay
+2
+CSgfxInstShape
+2
+CSgfxSymbolShape
+6
+CSgfxSheet
+3
+CSheAddPrimCircleOp
+2
+CSheAddPrimRectOp
+2
+CSheAddPrimPolylineOp
+2
+CSheDesign
+6
+CSheSheet
+3
+CSheSheetGroup
+2
+CSheCell
+2
+CSheState
+2
+CSheNet
+2
+CSheTransArcRelText
+2
+CSheTextInstSpecData
+2
+CShePin
+2
+CSheSymbolEditPin
+2
+CSheSymbol
+4
+CSheIntf
+3
+CShePrimCircle
+2
+CShePrimRect
+2
+CShePrimPolyline
+2
+CSheSCPin
+2
+CSheSCPortPin
+2
+CSheSCSymbolEditPin
+2
+CSheSCIntfPin
+2
+CSgfxKDTreeLayer
+5
+EgDBCell
+2
+EgDBCsdf
+3
+EgDBHierSystemC
+2
+EgDBImpl
+6
+EgDBInstInfo
+4
+EgDBIntfPort
+5
+EgDBModel
+7
+EgDBPage
+2
+EgDBParameter
+2
+EgDBPlainSystemC
+2
+EgDBPort
+2
+EgDBPrimImpl
+2
+EgDBPrimModel
+2
+EgDBPrimSystemC
+3
+EgDBSds
+2
+EgDBSymbol
+2
+End Snps Version Data
+<MODEL>
+2147483655
+1
+<type>
+10
+</type>
+<ver>
+
+</ver>
+<ts>
+1043980354
+1044040673
+1043974802
+</ts>
+<desc>
+
+</desc>
+<s_desc>
+
+</s_desc>
+<header>
+
+</header>
+<source>
+
+</source>
+<class>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</class>
+<base>
+0
+
+
+</base>
+<params>
+0
+<MAP_S2O>
+0
+0
+</MAP_S2O>
+</params>
+<constructor>
+<STR_ARRAY>
+0
+1
+HClkGen(sc_module_name name_, int DBusClkDivRatio = 1, int IBusClkDivRatio = 1)
+</STR_ARRAY>
+</constructor>
+<protected_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</protected_constructor>
+<private_constructor>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</private_constructor>
+<intfgate>
+0
+</intfgate>
+<syms>
+<CSheDesign>
+2147483654
+2
+1
+0
+1
+1
+1
+1
+1
+1
+1
+1
+
+3
+1
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+
+0
+
+0
+
+0
+
+0
+<OB_LIST>
+0
+0
+</OB_LIST>
+<CSheIntf>
+2147483651
+3
+
+
+
+0
+0
+1
+0
+
+<OB_ARRAY>
+0
+6
+<INTF_PORT>
+2147483653
+4
+sc_in_clk
+1
+Clk
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#3
+1
+0
+0
+0
+<desc>
+System Clock to be divided
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Left
+</STR_ARRAY>
+</attrs>
+4 </INTF_PORT>
+<INTF_PORT>
+2147483653
+5
+sc_out<bool>
+2
+IBusHClkEn
+3
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#3
+1
+0
+0
+0
+<desc>
+Instruction Bus Hclk En
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+5 </INTF_PORT>
+<INTF_PORT>
+2147483653
+6
+sc_out<bool>
+2
+DBusHClkEn
+5
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#3
+1
+0
+0
+0
+<desc>
+Data Bus HClk Enable
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+6 </INTF_PORT>
+<INTF_PORT>
+2147483653
+7
+sc_out<bool>
+2
+DBusHClk
+4
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#3
+1
+0
+0
+0
+<desc>
+Data Bus Hclk
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+7 </INTF_PORT>
+<INTF_PORT>
+2147483653
+8
+sc_out<bool>
+2
+IBusHClk
+2
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#3
+1
+0
+0
+0
+<desc>
+Instruction Bus Hclk
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Right
+</STR_ARRAY>
+</attrs>
+8 </INTF_PORT>
+<INTF_PORT>
+2147483653
+9
+sc_in<bool>
+1
+n_reset
+1
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#3
+1
+0
+0
+0
+<desc>
+Rest line.
+</desc>
+<inherited>
+0
+</inherited>
+<array_size>
+0
+</array_size>
+<attrs>
+1
+pin_orientation
+<STR_ARRAY>
+0
+1
+Left
+</STR_ARRAY>
+</attrs>
+9 </INTF_PORT>
+</OB_ARRAY>
+#0
+#2
+<OB_LIST>
+0
+2
+<SYMBOL>
+2147483650
+10
+
+__df_sym__
+
+1
+
+
+0
+
+1
+700000000
+0
+1
+0
+0
+0
+0
+0
+0
+0
+-5120 -6144 5120 6144
+0
+0
+1
+0
+0
+0
+0
+1
+9
+-5120 -5632
+-4608 -6144
+4608 -6144
+5120 -5632
+5120 5632
+4608 6144
+-4608 6144
+-5120 5632
+-5120 -5632
+<OB_ARRAY>
+0
+6
+<CSheSymbolPin>
+1
+11
+1
+-5120 -1024
+Clk
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+11 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+12
+1
+-5120 1024
+n_reset
+1
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+12 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+13
+2
+5120 -3072
+IBusHClk
+2
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+13 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+14
+2
+5120 -1024
+IBusHClkEn
+3
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+14 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+15
+2
+5120 1024
+DBusHClk
+4
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+15 </CSheSymbolPin>
+<CSheSymbolPin>
+1
+16
+2
+5120 3072
+DBusHClkEn
+5
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#10
+1
+0
+0
+16 </CSheSymbolPin>
+</OB_ARRAY>
+#0
+1
+0
+0
+#2
+<ts>
+1043974801
+</ts>
+0
+0
+10 </SYMBOL>
+<SYMBOL>
+2147483650
+17
+
+__fsm_sym__
+
+1
+
+
+0
+
+1
+100000000
+0
+1
+0
+0
+0
+1
+0 0 10240 10240
+0
+0
+0
+0 0 10240 10240
+0
+0
+1
+0
+0
+0
+0
+0
+<OB_ARRAY>
+0
+0
+</OB_ARRAY>
+#0
+1
+0
+0
+#2
+<ts>
+1043974801
+</ts>
+1
+0
+17 </SYMBOL>
+</OB_LIST>
+3 </CSheIntf>
+#0
+#0
+#0
+#0
+2 </CSheDesign>
+__df_sym__
+__fsm_sym__
+</syms>
+<attrs>
+0
+</attrs>
+<impl>
+<SCPRIMITIVE_MODEL>
+2147483651
+18
+<desc>
+
+</desc>
+<model>
+#1
+</model>
+<lib_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r>
+<lib_r_d>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lib_r_d>
+<src_r>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</src_r>
+<locals>
+<MAP_S2O>
+0
+0
+</MAP_S2O>
+</locals>
+<locals_idx>
+0
+</locals_idx>
+<attr>
+0
+</attr>
+<cflags_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</cflags_keys>
+<cflags_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</cflags_values>
+<lflags_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lflags_keys>
+<lflags_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</lflags_values>
+<cmode>
+0
+</cmode>
+<headermmt_keys>
+<STR_ARRAY>
+0
+22
+22
+66
+45
+23
+56
+67
+24
+68
+25
+47
+69
+48
+26
+59
+39
+50
+51
+62
+42
+53
+54
+21
+</STR_ARRAY>
+</headermmt_keys>
+<headermmt_values>
+<STR_ARRAY>
+0
+22
+interface /n_reset
+interface /DBusClkDivRatio
+interface /IBusHClk
+interface /IBusHClk
+interface /IBusHClkEn
+interface /DBusClkDivRatio
+interface /IBusHClkEn
+interface /IBusClkDivRatio
+interface /DBusHClk
+interface /Clk
+interface /IBusClkDivRatio
+interface /IBusHClkEn
+interface /DBusHClkEn
+interface /DBusHClk
+interface /Clk
+interface /n_reset
+interface /DBusHClk
+interface /DBusHClkEn
+interface /n_reset
+interface /IBusHClk
+interface /DBusHClkEn
+interface /Clk
+</STR_ARRAY>
+</headermmt_values>
+<sourcemmt_keys>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_keys>
+<sourcemmt_values>
+<STR_ARRAY>
+0
+0
+</STR_ARRAY>
+</sourcemmt_values>
+<sf_name>
+
+</sf_name>
+<sf_type>
+
+</sf_type>
+<is_struct>
+0
+</is_struct>
+<section_hdr_0>
+\
+// HClkGen.h: header file
+
+#ifndef __HClkGen_h
+#define __HClkGen_h
+
+#include <systemc.h>
+
+#ifndef SYNTHESIS
+#include <ccss_systemc.h>
+#endif
+
+
+\
+</section_hdr_0>
+<section_hdr_1>
+\
+: public sc_module
+
+\
+</section_hdr_1>
+<section_hdr_2>
+\
+
+
+\
+</section_hdr_2>
+<section_hdr_3>
+\
+
+	SC_HAS_PROCESS(HClkGen);
+
+	// default constructor
+	HClkGen(sc_module_name name_,
+			int DBusClkDivRatio = 1, 
+			int IBusClkDivRatio = 1);
+
+	void main_action();
+	void reset();
+
+
+private:	
+    int _DBusClkDivRatio, _IBusClkDivRatio;
+	int IBusHClkEnCnt;
+	int DBusHClkEnCnt;
+	bool dbus_divratio, ibus_divratio;
+	bool ODD, EVEN;
+
+
+
+
+\
+</section_hdr_3>
+<section_hdr_4>
+\
+
+#endif
+
+\
+</section_hdr_4>
+18 </SCPRIMITIVE_MODEL>
+</impl>
+1 </MODEL>

@@ -1,0 +1,47 @@
+# System Studio Simulation Control File
+# Copyright (c) 1998-1999 by Synopsys, Inc.  ALL RIGHTS RESERVED
+set SIM $env(SIM_NAME)
+
+#To enable automatic execution, one can script the ARM debugger
+#set env(EIARMDEBUGGERVAR) $env(NETWORK_DEMO_ROOT)/target_src/run_script
+
+#To enable the ARM-SystemStudio GUI communication
+set env(CCSS_SIGIO_HEART_BEAT) 1
+
+# You can set the following top-level parameters: 
+# Processor Parameters
+set_value $SIM/ProgName             ""
+set_value $SIM/BigEndian            "false"
+set_value $SIM/Debugger             "axd"
+
+# System Studio tracing
+set_value $SIM/DoTrace              "false"
+set_value $SIM/TraceStartTime        0.0
+set_value $SIM/TraceEndTime          0.0
+set_value $SIM/dbus_ratio          1
+set_value $SIM/ibus_ratio          1
+
+# Program Memory
+set_value $SIM/ProgMemStartAddr     [expr 0x0]
+set_value $SIM/ProgMemEndAddr       [expr 0x1ffff]
+set_value $SIM/ProgMemReadWaitStates       0
+set_value $SIM/ProgMemWriteWaitStates      0
+set_value $SIM/ProgMemImageFile           ""
+
+#Stack Memory
+set_value $SIM/StackMemStartAddr    [expr 0x10000000]
+set_value $SIM/StackMemEndAddr      [expr 0x1000ffff]
+set_value $SIM/StackMemReadWaitStates      0
+set_value $SIM/StackMemWriteWaitStates     0
+
+#Data Memory
+set_value $SIM/DataMemStartAddr     [expr 0x90000000]
+set_value $SIM/DataMemEndAddr       [expr 0x900003ff]
+set_value $SIM/DataMemReadWaitStates       0
+set_value $SIM/DataMemWriteWaitStates      0
+
+#Interrupt Generator
+set_value $SIM/IntrGenStartAddr     [expr 0xb0000000]
+set_value $SIM/IntrGenEndAddr       [expr 0xb00003ff]
+
+run_iteration
